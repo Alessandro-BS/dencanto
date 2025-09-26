@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+</html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofertas | Colchones</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/ofertas.css">
+</head>
+
+<body>
+  <header>
+    <!-- Barra Superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+      <div class="container">
+        <!-- Botón hamburguesa (móvil) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSup"
+          aria-controls="navbarSup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Contenido colapsable -->
+        <div class="collapse navbar-collapse" id="navbarSup">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link small" th:href="@{/FAQ}">Preguntas Frecuentes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link small" th:href="@{/ubicanos}">Ubícanos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link small text-primary" href="/login">
+                <i class="bi bi-person-circle"></i> Intranet</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Barra Principal -->
+    <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm">
+      <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold" th:href="@{/}">
+          <img
+            src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/110ef33b-0246-49d3-bdda-72b3e0ee8b42/LogoEncanto_QCBIJL.png"
+            height="40 px" />
+        </a>
+
+        <!-- Botón hamburguesa (móvil) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarInf"
+          aria-controls="navbarInf" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Opciones -->
+        <div class="collapse navbar-collapse" id="navbarInf">
+          <ul class="navbar-nav ms-end">
+            <li class="nav-item">
+              <a class="nav-link text-dark" th:href="@{/productos}">Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-primary" th:href="@{/ofertas}">Ofertas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" th:href="@{/nosotros}">Nosotros</a>
+            </li>
+          </ul>
+        </div>
+        <li class="nav-item">
+          <a class="btn btn-outline-warning ms-2" href="#">
+            <i class="bi bi-cart"></i>Carrito
+          </a>
+        </li>
+      </div>
+    </nav>
+  </header>
+
+
+
+  <!-- Frase destacada -->
+  <div class="slider-full-width slider-animated">
+      <div class="bg-warning text-center py-4">
+        <h2 class="fw-bold">Aprovecha nuestras ofertas exclusivas, ¡solo por tiempo limitado!</h2>
+      </div>  
+  </div>
+
+
+  <!-- Sección de Ofertas -->
+  <div class="container my-5">
+    <div class="row g-4">
+
+
+      <!-- Producto 1 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Colchón Premium Oferta">
+          <div class="card-body text-center">
+            <h5 class="card-title">Colchón Premium</h5>
+            <p><span class="text-muted text-decoration-line-through">S/ 1200.00</span></p>
+            <p class="text-danger fw-bold fs-5">S/ 950.00</p>
+            <a href="#" class="btn btn-outline-danger">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 2 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Colchón Ortopédico">
+          <div class="card-body text-center">
+            <h5 class="card-title">Colchón Ortopédico</h5>
+            <p><span class="text-muted text-decoration-line-through">S/ 950.00</span></p>
+            <p class="text-danger fw-bold fs-5">S/ 780.00</p>
+            <a href="#" class="btn btn-outline-danger">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 3 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Almohada Viscoelástica">
+          <div class="card-body text-center">
+            <h5 class="card-title">Almohada Viscoelástica</h5>
+            <p><span class="text-muted text-decoration-line-through">S/ 150.00</span></p>
+            <p class="text-danger fw-bold fs-5">S/ 110.00</p>
+            <a href="#" class="btn btn-outline-danger">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 4 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Colchón Clásico">
+          <div class="card-body text-center">
+            <h5 class="card-title">Colchón Clásico</h5>
+            <p><span class="text-muted text-decoration-line-through">S/ 700.00</span></p>
+            <p class="text-danger fw-bold fs-5">S/ 560.00</p>
+            <a href="#" class="btn btn-outline-danger">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 5 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Base King">
+          <div class="card-body text-center">
+            <h5 class="card-title">Base King</h5>
+            <p><span class="text-muted text-decoration-line-through">S/ 450.00</span></p>
+            <p class="text-danger fw-bold fs-5">S/ 350.00</p>
+            <a href="#" class="btn btn-outline-danger">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 6 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Base King">
+          <div class="card-body text-center">
+            <h5 class="card-title">Base King</h5>
+            <p><span class="text-muted text-decoration-line-through">S/ 450.00</span></p>
+            <p class="text-danger fw-bold fs-5">S/ 350.00</p>
+            <a href="#" class="btn btn-outline-danger">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 7 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Base King">
+          <div class="card-body text-center">
+            <h5 class="card-title">Base King</h5>
+            <p><span class="text-muted text-decoration-line-through">S/ 450.00</span></p>
+            <p class="text-danger fw-bold fs-5">S/ 350.00</p>
+            <a href="#" class="btn btn-outline-danger">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 8 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Base King">
+          <div class="card-body text-center">
+            <h5 class="card-title">Base King</h5>
+            <p><span class="text-muted text-decoration-line-through">S/ 450.00</span></p>
+            <p class="text-danger fw-bold fs-5">S/ 350.00</p>
+            <a href="#" class="btn btn-outline-danger">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 9 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Base King">
+          <div class="card-body text-center">
+            <h5 class="card-title">Base King</h5>
+            <p><span class="text-muted text-decoration-line-through">S/ 450.00</span></p>
+            <p class="text-danger fw-bold fs-5">S/ 350.00</p>
+            <a href="#" class="btn btn-outline-danger">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer (puedes reutilizar el del index) -->
+  <footer class="bg-dark text-white pt-5">
+    <div class="container">
+      <div class="row">
+        <!-- Columna 1 -->
+        <div class="col-md-6 mb-3">
+          <h5 class="fw-bold">Atención al Cliente</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white text-decoration-none">Preguntas Frecuentes</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Contáctanos</a></li>
+          </ul>
+        </div>
+        <!-- Columna 2 -->
+        <div class="col-md-6 mb-3">
+          <h5 class="fw-bold">Nuestra Empresa</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white text-decoration-none">Ubícanos</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Nosotros</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Libro de Reclamos</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Redes sociales -->
+      <div class="text-center my-3">
+        <a href="#" class="text-white fs-4 me-3"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="text-white fs-4 me-3"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="text-white fs-4 me-3"><i class="bi bi-whatsapp"></i></a>
+        <a href="#" class="text-white fs-4"><i class="bi bi-youtube"></i></a>
+      </div>
+
+      <!-- Derechos reservados -->
+      <div class="text-center border-top border-secondary pt-3">
+        <small>&copy; 2025 ColchonesFactory - Todos los derechos reservados</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

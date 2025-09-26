@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+</html>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Fábrica de Colchones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/productos.css">
+</head>
+
+<body>
+
+    <header>
+        <!-- Barra Superior -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+            <div class="container">
+                <!-- Botón hamburguesa (móvil) -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSup"
+                    aria-controls="navbarSup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Contenido colapsable -->
+                <div class="collapse navbar-collapse" id="navbarSup">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link small" th:href="@{/FAQ}">Preguntas Frecuentes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link small" th:href="@{/ubicanos}">Ubícanos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link small text-primary" href="/login">
+                                <i class="bi bi-person-circle"></i> Intranet</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Barra Principal -->
+        <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm">
+            <div class="container">
+                <!-- Logo -->
+                <a class="navbar-brand fw-bold" th:href="@{/}">
+                    <img src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/110ef33b-0246-49d3-bdda-72b3e0ee8b42/LogoEncanto_QCBIJL.png"
+                        height="40 px" />
+                </a>
+
+                <!-- Botón hamburguesa (móvil) -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarInf"
+                    aria-controls="navbarInf" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Opciones -->
+                <div class="collapse navbar-collapse" id="navbarInf">
+                    <ul class="navbar-nav ms-end">
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" th:href="@{/productos}">Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" th:href="@{/ofertas}">Ofertas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" th:href="@{/nosotros}">Nosotros</a>
+                        </li>
+                    </ul>
+                </div>
+                <li class="nav-item">
+                    <a class="btn btn-outline-warning ms-2" href="#">
+                        <i class="bi bi-cart"></i>Carrito
+                    </a>
+                </li>
+            </div>
+        </nav>
+    </header>
+    <!-- Encabezado -->
+    <section class="py-4 text-center bg-light">
+        <div class="container">
+            <h1 class="fw-bold">Nuestros Productos</h1>
+            <p class="lead">Elige el colchón ideal para tu descanso</p>
+        </div>
+    </section>
+
+    <!-- Contenido -->
+    <section class="container my-5">
+        <div class="row">
+            <!-- Sidebar filtros -->
+            <aside class="col-md-3 mb-4">
+                <h5 class="fw-bold mb-3">Filtrar por</h5>
+
+                <!-- Categoría -->
+                <div class="mb-3">
+                    <label class="form-label">Categoría</label>
+                    <select class="form-select">
+                        <option>Todos</option>
+                        <option>Colchones</option>
+                        <option>Almohadas</option>
+                        <option>Bases</option>
+                    </select>
+                </div>
+
+                <!-- Precio -->
+                <div class="mb-3">
+                    <label class="form-label">Precio máximo</label>
+                    <input type="range" class="form-range" min="100" max="5000" step="100">
+                </div>
+
+                <!-- Tamaño -->
+                <div class="mb-3">
+                    <label class="form-label">Tamaño</label>
+                    <select class="form-select">
+                        <option>Todos</option>
+                        <option>1 plaza</option>
+                        <option>1.5 plazas</option>
+                        <option>2 plazas</option>
+                        <option>Queen</option>
+                        <option>King</option>
+                    </select>
+                </div>
+
+                <!-- Modelo -->
+                <div class="mb-3">
+                    <label class="form-label">Modelo</label>
+                    <select class="form-select">
+                        <option>Todos</option>
+                        <option>Premium</option>
+                        <option>Ortopédico</option>
+                        <option>Viscoelástico</option>
+                        <option>Clásico</option>
+                    </select>
+                </div>
+            </aside>
+
+            <!-- Productos -->
+            <div class="col-md-9">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                    <!-- Producto 1 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/c5f22385-a3a6-4403-8de4-584a0203b424/cochon1_png_SXPHFH.jpg"
+                                class="card-img-top" alt="Colchón Premium" data-bs-toggle="modal"
+                                data-bs-target="#modalProducto1">
+                            <div class="card-body">
+                                <h5 class="card-title">Colchón Premium</h5>
+                                <p class="fw-bold text-success">S/ 1200.00</p>
+                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 2 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Colchón Ortopédico"
+                                data-bs-toggle="modal" data-bs-target="#modalProducto2">
+                            <div class="card-body">
+                                <h5 class="card-title">Colchón Ortopédico</h5>
+                                <p class="fw-bold text-success">S/ 950.00</p>
+                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 3 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://via.placeholder.com/300x200" class="card-img-top"
+                                alt="Almohada Viscoelástica" data-bs-toggle="modal" data-bs-target="#modalProducto3">
+                            <div class="card-body">
+                                <h5 class="card-title">Almohada Viscoelástica</h5>
+                                <p class="fw-bold text-success">S/ 150.00</p>
+                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 4 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Colchón Clásico"
+                                data-bs-toggle="modal" data-bs-target="#modalProducto4">
+                            <div class="card-body">
+                                <h5 class="card-title">Colchón Clásico</h5>
+                                <p class="fw-bold text-success">S/ 700.00</p>
+                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 5 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Base King"
+                                data-bs-toggle="modal" data-bs-target="#modalProducto5">
+                            <div class="card-body">
+                                <h5 class="card-title">Base King</h5>
+                                <p class="fw-bold text-success">S/ 450.00</p>
+                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 6 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Almohada Clásica"
+                                data-bs-toggle="modal" data-bs-target="#modalProducto6">
+                            <div class="card-body">
+                                <h5 class="card-title">Almohada Clásica</h5>
+                                <p class="fw-bold text-success">S/ 80.00</p>
+                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 7 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Almohada Clásica"
+                                data-bs-toggle="modal" data-bs-target="#modalProducto7">
+                            <div class="card-body">
+                                <h5 class="card-title">Almohada Clásica</h5>
+                                <p class="fw-bold text-success">S/ 80.00</p>
+                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 8 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Almohada Clásica"
+                                data-bs-toggle="modal" data-bs-target="#modalProducto8">
+                            <div class="card-body">
+                                <h5 class="card-title">Almohada Clásica</h5>
+                                <p class="fw-bold text-success">S/ 80.00</p>
+                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 9 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Almohada Clásica"
+                                data-bs-toggle="modal" data-bs-target="#modalProducto9">
+                            <div class="card-body">
+                                <h5 class="card-title">Almohada Clásica</h5>
+                                <p class="fw-bold text-success">S/ 80.00</p>
+                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Modal Producto 1 -->
+    <div class="modal fade" id="modalProducto1" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Colchón Premium</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Colchón Premium">
+                    </div>
+                    <div class="col-md-6">
+                        <p>Diseñado con espuma de alta densidad y resortes individuales para un descanso superior.</p>
+                        <ul>
+                            <li>Garantía de 10 años</li>
+                            <li>Tecnología antiácaros</li>
+                            <li>Disponible en todos los tamaños</li>
+                        </ul>
+                        <p class="fw-bold text-success fs-5">S/ 1200.00</p>
+                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Producto 2 -->
+    <div class="modal fade" id="modalProducto2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Colchón Ortopédico</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Colchón Ortopédico">
+                    </div>
+                    <div class="col-md-6">
+                        <p>Ideal para cuidar tu postura con un soporte firme y ergonómico.</p>
+                        <ul>
+                            <li>Diseño ortopédico para columna</li>
+                            <li>Forro hipoalergénico</li>
+                            <li>Garantía de 8 años</li>
+                        </ul>
+                        <p class="fw-bold text-success fs-5">S/ 950.00</p>
+                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Producto 3 -->
+    <div class="modal fade" id="modalProducto3" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Almohada Viscoelástica</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Almohada Viscoelástica">
+                    </div>
+                    <div class="col-md-6">
+                        <p>Perfecta para un descanso reparador gracias a su espuma de memoria.</p>
+                        <ul>
+                            <li>Soporte cervical</li>
+                            <li>Material transpirable</li>
+                            <li>Funda lavable</li>
+                        </ul>
+                        <p class="fw-bold text-success fs-5">S/ 150.00</p>
+                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Producto 4 -->
+    <div class="modal fade" id="modalProducto4" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Colchón Clásico</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Colchón Clásico">
+                    </div>
+                    <div class="col-md-6">
+                        <p>La opción económica y confiable para un descanso cómodo.</p>
+                        <ul>
+                            <li>Espuma estándar de alta resistencia</li>
+                            <li>Cobertura de tela jacquard</li>
+                            <li>Garantía de 5 años</li>
+                        </ul>
+                        <p class="fw-bold text-success fs-5">S/ 700.00</p>
+                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Producto 5 -->
+    <div class="modal fade" id="modalProducto5" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Base King</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Base King">
+                    </div>
+                    <div class="col-md-6">
+                        <p>Estructura sólida de madera reforzada para colchones King.</p>
+                        <ul>
+                            <li>Material 100% madera</li>
+                            <li>Acabado elegante</li>
+                            <li>Soporta hasta 250 kg</li>
+                        </ul>
+                        <p class="fw-bold text-success fs-5">S/ 450.00</p>
+                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Producto 6 -->
+    <div class="modal fade" id="modalProducto6" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Almohada Clásica</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Almohada Clásica">
+                    </div>
+                    <div class="col-md-6">
+                        <p>La almohada tradicional para un descanso ligero y cómodo.</p>
+                        <ul>
+                            <li>Relleno de fibra suave</li>
+                            <li>Tela hipoalergénica</li>
+                            <li>Fácil de lavar</li>
+                        </ul>
+                        <p class="fw-bold text-success fs-5">S/ 80.00</p>
+                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Producto 6 -->
+    <div class="modal fade" id="modalProducto7" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Almohada Clásica</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Almohada Clásica">
+                    </div>
+                    <div class="col-md-6">
+                        <p>La almohada tradicional para un descanso ligero y cómodo.</p>
+                        <ul>
+                            <li>Relleno de fibra suave</li>
+                            <li>Tela hipoalergénica</li>
+                            <li>Fácil de lavar</li>
+                        </ul>
+                        <p class="fw-bold text-success fs-5">S/ 80.00</p>
+                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Producto 6 -->
+    <div class="modal fade" id="modalProducto8" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Almohada Clásica</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Almohada Clásica">
+                    </div>
+                    <div class="col-md-6">
+                        <p>La almohada tradicional para un descanso ligero y cómodo.</p>
+                        <ul>
+                            <li>Relleno de fibra suave</li>
+                            <li>Tela hipoalergénica</li>
+                            <li>Fácil de lavar</li>
+                        </ul>
+                        <p class="fw-bold text-success fs-5">S/ 80.00</p>
+                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Producto 6 -->
+    <div class="modal fade" id="modalProducto9" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Almohada Clásica</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Almohada Clásica">
+                    </div>
+                    <div class="col-md-6">
+                        <p>La almohada tradicional para un descanso ligero y cómodo.</p>
+                        <ul>
+                            <li>Relleno de fibra suave</li>
+                            <li>Tela hipoalergénica</li>
+                            <li>Fácil de lavar</li>
+                        </ul>
+                        <p class="fw-bold text-success fs-5">S/ 80.00</p>
+                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aquí deberías duplicar y personalizar los modales para los productos 2, 3, 4, 5 y 6 -->
+
+    <footer class="bg-dark text-white pt-5">
+        <div class="container">
+            <div class="row">
+                <!-- Columna 1 -->
+                <div class="col-md-6 mb-3">
+                    <h5 class="fw-bold">Atención al Cliente</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Preguntas Frecuentes</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <!-- Columna 2 -->
+                <div class="col-md-6 mb-3">
+                    <h5 class="fw-bold">Nuestra Empresa</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Ubícanos</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Nosotros</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Libro de Reclamos</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Redes sociales -->
+            <div class="text-center my-3">
+                <a href="#" class="text-white fs-4 me-3"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="text-white fs-4 me-3"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="text-white fs-4 me-3"><i class="bi bi-whatsapp"></i></a>
+                <a href="#" class="text-white fs-4"><i class="bi bi-youtube"></i></a>
+            </div>
+
+            <!-- Derechos reservados -->
+            <div class="text-center border-top border-secondary pt-3">
+                <small>&copy; 2025 ColchonesFactory - Todos los derechos reservados</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Footer (igual que index) -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

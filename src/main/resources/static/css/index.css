@@ -1,0 +1,23 @@
+.shadow-sm{
+    transition: 0.3s;
+}
+
+.card.shadow-sm:hover{
+    transform: translateY(10px);
+}
+
+li.nav-item::marker{
+    background-color: white;
+}
+
+.bg-white{
+    color: white;
+}
+
+a.nav-link{
+    font-size: 18px;
+}
+
+footer a{
+    font-size: 18px;
+}
