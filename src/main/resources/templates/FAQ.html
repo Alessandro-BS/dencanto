@@ -1,410 +1,412 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preguntas Frecuentes - Colchones D'Encanto</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-    />
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="/css/FAQ.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preguntas Frecuentes - Colchones D'Encanto</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/css/FAQ.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
-      <!-- Barra Superior -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
-        <div class="container">
-          <!-- Botón hamburguesa (móvil) -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSup"
-            aria-controls="navbarSup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <!-- Contenido colapsable -->
-          <div class="collapse navbar-collapse" id="navbarSup">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link small text-white" th:href="@{/FAQ}">Preguntas Frecuentes</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link small" th:href="@{/ubicanos}">Ubícanos</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link small text-primary" th:href="@{/intranet/login}">
-                  <i class="bi bi-person-circle"></i> Intranet</a
-                >
-              </li>
-            </ul>
-          </div>
+  <header>
+    <!-- Barra Superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom py-1">
+      <div class="container d-flex justify-content-between">
+        <!-- Links lado derecho -->
+        <div class="collapse navbar-collapse" id="navbarSup">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link small text-light" th:href="@{/FAQ}">
+                <i class="bi bi-question-circle me-1"></i> Preguntas Frecuentes
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link small text-light" th:href="@{/ubicanos}">
+                <i class="bi bi-geo-alt me-1"></i> Ubícanos
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link small text-warning fw-bold" th:href="@{/intranet/login}">
+                <i class="bi bi-person-circle me-1"></i> Intranet
+              </a>
+            </li>
+          </ul>
         </div>
-      </nav>
+      </div>
+    </nav>
 
-      <!-- Barra Principal -->
-      <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm">
-        <div class="container">
-          <!-- Logo -->
-          <a class="navbar-brand fw-bold" th:href="@{/}">
-            <img
-              src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/110ef33b-0246-49d3-bdda-72b3e0ee8b42/LogoEncanto_QCBIJL.png"
-              height="40 px"
-            />
+    <!-- Barra Principal -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+      <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold text-dark" th:href="@{/}">
+          <img
+            src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/110ef33b-0246-49d3-bdda-72b3e0ee8b42/LogoEncanto_QCBIJL.png"
+            height="45" class="me-2" />
+        </a>
+
+        <!-- Botón hamburguesa -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarInf"
+          aria-controls="navbarInf" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú -->
+        <div class="collapse navbar-collapse" id="navbarInf">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link fw-semibold text-dark" th:href="@{/productos}">Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold text-dark" th:href="@{/ofertas}">Ofertas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold text-dark" th:href="@{/nosotros}">Nosotros</a>
+            </li>
+          </ul>
+
+          <!-- Carrito -->
+          <a class="btn btn-outline-warning rounded-pill ms-lg-3" href="#">
+            <i class="bi bi-cart me-1"></i> Carrito
           </a>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-          <!-- Botón hamburguesa (móvil) -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarInf"
-            aria-controls="navbarInf"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+  <!-- Preguntas Frecuentes -->
+  <section class="hero-section text-center">
+    <div class="container">
+      <h1 class="display-5 fw-bold mb-3">Preguntas Frecuentes</h1>
+      <p class="lead">Encuentra respuestas a las dudas más comunes sobre nuestros productos y servicios</p>
+    </div>
+  </section>
 
-          <!-- Opciones -->
-          <div class="collapse navbar-collapse" id="navbarInf">
-            <ul class="navbar-nav ms-end">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  th:href="@{/productos}"
-                  >Productos</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  th:href="@{/ofertas}"
-                  >Ofertas</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/nosotros}">Nosotros</a>
-              </li>
-            </ul>
+
+  <section class="py-4 bg-light">
+    <div class="container">
+      <div class="search-box">
+        <input type="text" id="faqSearch" placeholder="Buscar en preguntas frecuentes...">
+        <i class='bx bx-search search-icon'></i>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Contenido de Preguntas Frecuentes -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <!-- Categorías -->
+        <div class="col-lg-3">
+          <div class="category-nav">
+            <h5>Categorías</h5>
+            <nav class="nav flex-column">
+              <a class="nav-link active" href="#productos">Productos</a>
+              <a class="nav-link" href="#garantia">Garantía</a>
+              <a class="nav-link" href="#entrega">Entrega</a>
+              <a class="nav-link" href="#pagos">Pagos</a>
+              <a class="nav-link" href="#cuidado">Cuidado y Mantenimiento</a>
+            </nav>
           </div>
-          <li class="nav-item">
-            <a class="btn btn-outline-warning ms-2" href="#">
-              <i class="bi bi-cart"></i>Carrito
-            </a>
-          </li>
         </div>
-      </nav>
-    </header>
 
-    <!-- Preguntas Frecuentes -->
-    <section class="hero-section text-center">
-        <div class="container">
-            <h1 class="display-5 fw-bold mb-3">Preguntas Frecuentes</h1>
-            <p class="lead">Encuentra respuestas a las dudas más comunes sobre nuestros productos y servicios</p>
-        </div>
-    </section>
+        <!-- Item 1 -->
+        <div class="col-lg-9">
+          <!-- Categoria - Productos -->
+          <div class="faq-category" id="productos">
+            <h2 class="section-title">Productos</h2>
 
-
-    <section class="py-4 bg-light">
-        <div class="container">
-            <div class="search-box">
-                <input type="text" id="faqSearch" placeholder="Buscar en preguntas frecuentes...">
-                <i class='bx bx-search search-icon'></i>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Contenido de Preguntas Frecuentes -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
-                <!-- Categorías -->
-                <div class="col-lg-3">
-                    <div class="category-nav">
-                        <h5>Categorías</h5>
-                        <nav class="nav flex-column">
-                            <a class="nav-link active" href="#productos">Productos</a>
-                            <a class="nav-link" href="#garantia">Garantía</a>
-                            <a class="nav-link" href="#entrega">Entrega</a>
-                            <a class="nav-link" href="#pagos">Pagos</a>
-                            <a class="nav-link" href="#cuidado">Cuidado y Mantenimiento</a>
-                        </nav>
-                    </div>
+            <div class="faq-item">
+              <button class="faq-question">¿Qué tipos de colchones ofrecen?</button>
+              <div class="faq-answer">
+                <p>Ofrecemos una amplia variedad de colchones diseñados para satisfacer diferentes necesidades:
+                  colchones ortopédicos, de espuma viscoelástica, de resortes ensacados, híbridos, infantiles y
+                  especiales para personas con problemas de espalda. Cada tipo tiene características específicas para
+                  brindar el mejor confort y soporte.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
                 </div>
-                
-                <!-- Item 1 -->
-                <div class="col-lg-9">
-                    <!-- Categoria - Productos -->
-                    <div class="faq-category" id="productos">
-                        <h2 class="section-title">Productos</h2>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Qué tipos de colchones ofrecen?</button>
-                            <div class="faq-answer">
-                                <p>Ofrecemos una amplia variedad de colchones diseñados para satisfacer diferentes necesidades: colchones ortopédicos, de espuma viscoelástica, de resortes ensacados, híbridos, infantiles y especiales para personas con problemas de espalda. Cada tipo tiene características específicas para brindar el mejor confort y soporte.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Cómo elijo el colchón adecuado para mí?</button>
-                            <div class="faq-answer">
-                                <p>La elección del colchón depende de varios factores: tu peso, posición preferida para dormir, problemas de salud específicos y preferencias personales de firmeza. Nuestros asesores están capacitados para recomendarte el colchón ideal según tus necesidades. También ofrecemos periodos de prueba para que puedas comprobar la comodidad.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Los colchones son hipoalergénicos?</button>
-                            <div class="faq-answer">
-                                <p>Sí, la mayoría de nuestros colchones están fabricados con materiales hipoalergénicos y tratamientos antiácaros. Especialmente nuestros modelos premium incluyen cubiertas con tecnología anti-alergias que previenen la acumulación de ácaros, bacterias y hongos.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Qué diferencia hay entre un colchón de espuma y uno de resortes?</button>
-                            <div class="faq-answer">
-                                <p>Los colchones de espuma (especialmente viscoelástica) se adaptan perfectamente al cuerpo, distribuyen uniformemente la presión y reducen puntos de presión. Los colchones de resortes ofrecen mayor ventilación y firmeza, ideales para personas que prefieren un soporte más firme o duermen calurosas. Los colchones híbridos combinan ambas tecnologías.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Categoría - Garantía -->
-                    <div class="faq-category" id="garantia">
-                        <h2 class="section-title">Garantía</h2>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Qué cubre la garantía de los colchones?</button>
-                            <div class="faq-answer">
-                                <p>Nuestra garantía cubre defectos de fabricación como hundimientos anormales (superiores a 3 cm), roturas de resortes o fallos en los materiales. La garantía no cubre manchas, desgaste normal por uso, daños por mal uso o falta de mantenimiento adecuado. La duración de la garantía varía según el modelo (entre 5 y 15 años).</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Cómo activo la garantía de mi colchón?</button>
-                            <div class="faq-answer">
-                                <p>Para activar la garantía, necesitas contactarnos con tu ticket de compra y fotos que evidencien el defecto. Nuestro equipo técnico evaluará el caso y, si corresponde a un defecto cubierto por la garantía, coordinaremos la reparación o reemplazo según sea necesario.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿La garantía es transferible si vendo mi colchón?</button>
-                            <div class="faq-answer">
-                                <p>No, la garantía aplica únicamente para el comprador original y no es transferible a terceros. Esto nos permite mantener un registro adecuado y ofrecer un servicio personalizado a nuestros clientes directos.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Categoría Entrega -->
-                    <div class="faq-category" id="entrega">
-                        <h2 class="section-title">Entrega</h2>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Realizan entregas a domicilio?</button>
-                            <div class="faq-answer">
-                                <p>Sí, ofrecemos entrega a domicilio gratuita en la mayoría de distritos de Lima metropolitana. Para envíos a provincias o distritos fuera de nuestra zona de cobertura, aplican cargos adicionales que varían según la ubicación. Contamos con servicio de instalación y retiro de colchón antiguo sin costo adicional.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Cuánto tiempo tarda la entrega?</button>
-                            <div class="faq-answer">
-                                <p>El tiempo de entrega standard es de 24 a 48 horas hábiles dentro de Lima. Para productos especiales o personalizados, el tiempo puede extenderse hasta 7 días hábiles. Ofrecemos la opción de entrega express (mismo día) con un costo adicional en distritos seleccionados.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Puedo programar la entrega para un día específico?</button>
-                            <div class="faq-answer">
-                                <p>Sí, puedes programar la entrega para la fecha y horario que mejor te convenga, sujeto a disponibilidad de nuestro personal de reparto. Al realizar tu pedido, nuestro asesor te consultará sobre tus preferencias de entrega.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Categoría Pagos -->
-                    <div class="faq-category" id="pagos">
-                        <h2 class="section-title">Pagos</h2>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Qué métodos de pago aceptan?</button>
-                            <div class="faq-answer">
-                                <p>Aceptamos múltiples métodos de pago: efectivo, tarjetas de crédito y débito (Visa, MasterCard, American Express), transferencias bancarias, Yape, Plin y depósitos. También ofrecemos planes de financiamiento hasta 24 meses sin intereses con tarjetas participantes.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Ofrecen descuentos por pagar al contado?</button>
-                            <div class="faq-answer">
-                                <p>Sí, ofrecemos un 5% de descuento por pagos al contado (efectivo o transferencia). Además, tenemos promociones especiales durante fechas específicas del año donde los descuentos pueden ser mayores.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Puedo pagar una parte al momento de la compra y el saldo contra entrega?</button>
-                            <div class="faq-answer">
-                                <p>Sí, aceptamos pagos parciales. Requerimos un adelanto mínimo del 30% al realizar el pedido, y el saldo restante puede pagarse al momento de la entrega en efectivo o con tarjeta mediante datáfono móvil.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Categoría Cuidado y Mantenimiento -->
-                    <div class="faq-category" id="cuidado">
-                        <h2 class="section-title">Cuidado y Mantenimiento</h2>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Cómo debo cuidar mi colchón para que dure más?</button>
-                            <div class="faq-answer">
-                                <p>Para prolongar la vida útil de tu colchón te recomendamos: rotarlo cabeza-pies cada 3 meses durante el primer año, y cada 6 meses después; usar protector de colchón; ventilarlo regularmente; evitar saltar sobre él; y limpiarlo con aspiradera regularmente y con productos suaves específicos para colchones.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Cada cuánto tiempo debo cambiar mi colchón?</button>
-                            <div class="faq-answer">
-                                <p>Se recomienda cambiar el colchón cada 8-10 años, aunque esto puede variar según la calidad del colchón, el uso y el cuidado. Señales de que necesitas un colchón nuevo: hundimientos visibles, ruidos molestos, despertarte con dolores o notar que descansas mejor en otras camas.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-item">
-                            <button class="faq-question">¿Qué hago si se mancha mi colchón?</button>
-                            <div class="faq-answer">
-                                <p>Para manchas comunes, usa una solución suave de agua tibia con jabón neutro. Aplica con un paño humedecido (no empapado) y seca inmediatamente con otro paño seco. No uses productos químicos agresivos ni satures el colchón con líquido. Para manchas difíciles, recomendamos contactar a un servicio profesional de limpieza.</p>
-                                <div class="helpful-buttons">
-                                    <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Contáctanos 
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Cómo elijo el colchón adecuado para mí?</button>
+              <div class="faq-answer">
+                <p>La elección del colchón depende de varios factores: tu peso, posición preferida para dormir,
+                  problemas de salud específicos y preferencias personales de firmeza. Nuestros asesores están
+                  capacitados para recomendarte el colchón ideal según tus necesidades. También ofrecemos periodos de
+                  prueba para que puedas comprobar la comodidad.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Los colchones son hipoalergénicos?</button>
+              <div class="faq-answer">
+                <p>Sí, la mayoría de nuestros colchones están fabricados con materiales hipoalergénicos y tratamientos
+                  antiácaros. Especialmente nuestros modelos premium incluyen cubiertas con tecnología anti-alergias que
+                  previenen la acumulación de ácaros, bacterias y hongos.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Qué diferencia hay entre un colchón de espuma y uno de resortes?</button>
+              <div class="faq-answer">
+                <p>Los colchones de espuma (especialmente viscoelástica) se adaptan perfectamente al cuerpo, distribuyen
+                  uniformemente la presión y reducen puntos de presión. Los colchones de resortes ofrecen mayor
+                  ventilación y firmeza, ideales para personas que prefieren un soporte más firme o duermen calurosas.
+                  Los colchones híbridos combinan ambas tecnologías.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoría - Garantía -->
+          <div class="faq-category" id="garantia">
+            <h2 class="section-title">Garantía</h2>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Qué cubre la garantía de los colchones?</button>
+              <div class="faq-answer">
+                <p>Nuestra garantía cubre defectos de fabricación como hundimientos anormales (superiores a 3 cm),
+                  roturas de resortes o fallos en los materiales. La garantía no cubre manchas, desgaste normal por uso,
+                  daños por mal uso o falta de mantenimiento adecuado. La duración de la garantía varía según el modelo
+                  (entre 5 y 15 años).</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Cómo activo la garantía de mi colchón?</button>
+              <div class="faq-answer">
+                <p>Para activar la garantía, necesitas contactarnos con tu ticket de compra y fotos que evidencien el
+                  defecto. Nuestro equipo técnico evaluará el caso y, si corresponde a un defecto cubierto por la
+                  garantía, coordinaremos la reparación o reemplazo según sea necesario.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">¿La garantía es transferible si vendo mi colchón?</button>
+              <div class="faq-answer">
+                <p>No, la garantía aplica únicamente para el comprador original y no es transferible a terceros. Esto
+                  nos permite mantener un registro adecuado y ofrecer un servicio personalizado a nuestros clientes
+                  directos.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoría Entrega -->
+          <div class="faq-category" id="entrega">
+            <h2 class="section-title">Entrega</h2>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Realizan entregas a domicilio?</button>
+              <div class="faq-answer">
+                <p>Sí, ofrecemos entrega a domicilio gratuita en la mayoría de distritos de Lima metropolitana. Para
+                  envíos a provincias o distritos fuera de nuestra zona de cobertura, aplican cargos adicionales que
+                  varían según la ubicación. Contamos con servicio de instalación y retiro de colchón antiguo sin costo
+                  adicional.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Cuánto tiempo tarda la entrega?</button>
+              <div class="faq-answer">
+                <p>El tiempo de entrega standard es de 24 a 48 horas hábiles dentro de Lima. Para productos especiales o
+                  personalizados, el tiempo puede extenderse hasta 7 días hábiles. Ofrecemos la opción de entrega
+                  express (mismo día) con un costo adicional en distritos seleccionados.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Puedo programar la entrega para un día específico?</button>
+              <div class="faq-answer">
+                <p>Sí, puedes programar la entrega para la fecha y horario que mejor te convenga, sujeto a
+                  disponibilidad de nuestro personal de reparto. Al realizar tu pedido, nuestro asesor te consultará
+                  sobre tus preferencias de entrega.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoría Pagos -->
+          <div class="faq-category" id="pagos">
+            <h2 class="section-title">Pagos</h2>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Qué métodos de pago aceptan?</button>
+              <div class="faq-answer">
+                <p>Aceptamos múltiples métodos de pago: efectivo, tarjetas de crédito y débito (Visa, MasterCard,
+                  American Express), transferencias bancarias, Yape, Plin y depósitos. También ofrecemos planes de
+                  financiamiento hasta 24 meses sin intereses con tarjetas participantes.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Ofrecen descuentos por pagar al contado?</button>
+              <div class="faq-answer">
+                <p>Sí, ofrecemos un 5% de descuento por pagos al contado (efectivo o transferencia). Además, tenemos
+                  promociones especiales durante fechas específicas del año donde los descuentos pueden ser mayores.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Puedo pagar una parte al momento de la compra y el saldo contra
+                entrega?</button>
+              <div class="faq-answer">
+                <p>Sí, aceptamos pagos parciales. Requerimos un adelanto mínimo del 30% al realizar el pedido, y el
+                  saldo restante puede pagarse al momento de la entrega en efectivo o con tarjeta mediante datáfono
+                  móvil.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoría Cuidado y Mantenimiento -->
+          <div class="faq-category" id="cuidado">
+            <h2 class="section-title">Cuidado y Mantenimiento</h2>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Cómo debo cuidar mi colchón para que dure más?</button>
+              <div class="faq-answer">
+                <p>Para prolongar la vida útil de tu colchón te recomendamos: rotarlo cabeza-pies cada 3 meses durante
+                  el primer año, y cada 6 meses después; usar protector de colchón; ventilarlo regularmente; evitar
+                  saltar sobre él; y limpiarlo con aspiradera regularmente y con productos suaves específicos para
+                  colchones.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Cada cuánto tiempo debo cambiar mi colchón?</button>
+              <div class="faq-answer">
+                <p>Se recomienda cambiar el colchón cada 8-10 años, aunque esto puede variar según la calidad del
+                  colchón, el uso y el cuidado. Señales de que necesitas un colchón nuevo: hundimientos visibles, ruidos
+                  molestos, despertarte con dolores o notar que descansas mejor en otras camas.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">¿Qué hago si se mancha mi colchón?</button>
+              <div class="faq-answer">
+                <p>Para manchas comunes, usa una solución suave de agua tibia con jabón neutro. Aplica con un paño
+                  humedecido (no empapado) y seca inmediatamente con otro paño seco. No uses productos químicos
+                  agresivos ni satures el colchón con líquido. Para manchas difíciles, recomendamos contactar a un
+                  servicio profesional de limpieza.</p>
+                <div class="helpful-buttons">
+                  <button class="helpful-btn">¿Te resultó útil esta respuesta?</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contáctanos 
                     <div class="contact-promo">
                         <h3>¿No encontraste tu respuesta?</h3>
                         <p>Nuestro equipo de atención al cliente está listo para ayudarte con cualquier consulta adicional que puedas tener.</p>
                         <a href="ubicanos.html" class="btn btn-light btn-lg mt-3">Contáctanos</a>
                     </div>
                     -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white pt-5">
-      <div class="container">
-        <div class="row">
-          <!-- Columna 1 -->
-          <div class="col-md-6 mb-3">
-            <h5 class="fw-bold">Atención al Cliente</h5>
-            <ul class="list-unstyled">
-              <li>
-                <a href="#" class="text-white text-decoration-none"
-                  >Preguntas Frecuentes</a
-                >
-              </li>
-              <li>
-                <a href="#" class="text-white text-decoration-none"
-                  >Contáctanos</a
-                >
-              </li>
-            </ul>
-          </div>
-          <!-- Columna 2 -->
-          <div class="col-md-6 mb-3">
-            <h5 class="fw-bold">Nuestra Empresa</h5>
-            <ul class="list-unstyled">
-              <li>
-                <a href="#" class="text-white text-decoration-none">Ubícanos</a>
-              </li>
-              <li>
-                <a href="#" class="text-white text-decoration-none">Nosotros</a>
-              </li>
-              <li>
-                <a href="#" class="text-white text-decoration-none"
-                  >Libro de Reclamos</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Redes sociales -->
-        <div class="text-center my-3">
-          <a href="#" class="text-white fs-4 me-3"
-            ><i class="bi bi-facebook"></i
-          ></a>
-          <a href="#" class="text-white fs-4 me-3"
-            ><i class="bi bi-instagram"></i
-          ></a>
-          <a href="#" class="text-white fs-4 me-3"
-            ><i class="bi bi-whatsapp"></i
-          ></a>
-          <a href="#" class="text-white fs-4"><i class="bi bi-youtube"></i></a>
-        </div>
-
-        <!-- Derechos reservados -->
-        <div class="text-center border-top border-secondary pt-3">
-          <small
-            >&copy; 2025 ColchonesFactory - Todos los derechos reservados</small
-          >
         </div>
       </div>
-    </footer>
+    </div>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/scriptFAQ.js"></script>
+  <footer class="bg-dark text-white pt-5">
+    <div class="container">
+      <div class="row">
+        <!-- Columna 1 -->
+        <div class="col-md-3 mb-4">
+          <h5 class="fw-bold mb-3">Atención al Cliente</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white-50 text-decoration-none">Preguntas Frecuentes</a></li>
+            <li><a href="#" class="text-white-50 text-decoration-none">Contáctanos</a></li>
+            <li><a href="#" class="text-white-50 text-decoration-none">Libro de Reclamaciones</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 2 -->
+        <div class="col-md-3 mb-4">
+          <h5 class="fw-bold mb-3">Nuestra Empresa</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white-50 text-decoration-none">Ubícanos</a></li>
+            <li><a href="#" class="text-white-50 text-decoration-none">Nosotros</a></li>
+            <li><a href="#" class="text-white-50 text-decoration-none">Trabaja con Nosotros</a></li>
+          </ul>
+        </div>
+
+
+        <!-- Columna 4 -->
+        <div class="col-md-3 mb-4">
+          <h5 class="fw-bold mb-3">Suscríbete</h5>
+          <p class="text-white-50">Recibe nuestras ofertas y novedades directamente en tu correo.</p>
+          <form class="d-flex">
+            <input type="email" class="form-control form-control-sm me-2" placeholder="Tu correo" />
+            <button class="btn btn-warning btn-sm">OK</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Redes sociales -->
+      <div class="text-center my-4">
+        <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-whatsapp"></i></a>
+        <a href="#" class="text-white fs-4 social-link"><i class="bi bi-youtube"></i></a>
+      </div>
+
+      <!-- Derechos reservados -->
+      <div class="text-center border-top border-secondary pt-3">
+        <small class="text-white-50">&copy; 2025 Colchones D'Encanto - Todos los derechos reservados</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/scriptFAQ.js"></script>
 </body>
+
 </html>
