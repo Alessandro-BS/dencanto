@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intranet - Gestión de Cotizaciones</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!-- MENÚ LATERAL -->
+      <aside id="sidebar">
+        <div class="d-flex justify-content-between p-4">
+          <div class="sidebar-logo">
+            <a href="#">Colchones D'<br />Encanto</a>
+          </div>
+          <button class="toggle-btn border-0" type="button">
+            <i id="icon" class="bx bxs-chevrons-right"></i>
+          </button>
+        </div>
+        <ul class="sidebar-nav">
+          <!-- PERFIL (ADMIN/USUARIO)-->
+          <li class="sidebar-item">
+            <a href="/intranet/dashboard" class="sidebar-link">
+              <i class="bx bx-history"></i>
+              <span>Historial</span>
+            </a>
+          </li>
+          <!-- MENU PARA ADMIN -->
+           <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+            <a href="/intranet/reportes" class="sidebar-link">
+              <i class="bx bxs-report"></i>
+              <span>Generar Reportes</span>
+            </a>
+          </li>
+          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+            <a href="/intranet/productos" class="sidebar-link">
+              <i class="bx bxs-box"></i>
+              <span>Gestión de Productos</span>
+            </a>
+          </li>
+          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+            <a href="/intranet/usuarios" class="sidebar-link">
+              <i class="bx bxs-user-account"></i>
+              <span>Gestión de Usuarios</span>
+            </a>
+          </li>
+          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+            <a href="/intranet/cotizaciones" class="sidebar-link">
+              <i class="bx bxs-food-menu"></i>
+              <span>Visualizar Cotizaciones</span>
+            </a>
+          </li>
+          <!-- MENU PARA VENDEDORES -->
+          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+            <a href="/intranet/revisarCotizaciones" class="sidebar-link">
+              <i class="bx bxs-file"></i>
+              <span>Revisar Cotizaciones</span>
+            </a>
+          </li>
+          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+            <a href="/intranet/registrarVentas" class="sidebar-link">
+              <i class="bx bxs-cart"></i>
+              <span>Registrar Ventas</span>
+            </a>
+          </li>
+          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+            <a href="/intranet/historialVentas" class="sidebar-link">
+              <i class="bx bxs-car"></i>
+              <span>Historial de Ventas</span>
+            </a>
+          </li>
+        </ul>
+        <div class="sidebar-footer">
+          <a href="#" class="sidebar-link">
+            <i class="bx bx-log-out"></i>
+            <span>Cerrar Sesión</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- CONTENIDO -->
+      <div class="main">
+        <!-- ROL -->
+        <nav class="navbar navbar-expand px-4 py-3">
+          <div class="navbar-collapse collapse">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <span class="nav-link">
+                  <b></b>
+                  <span th:text="${rol}"></span>
+                </span>
+              </li>
+              <li class="nav-item-dropdown">
+                <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                  <img src="/img/account.png" class="avatar img-fluid" alt="" />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <main class="content px-3 py-4">
+          <div class="container-fluid">
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold fs-4 mb-0">Gestión de Cotizaciones</h3>
+              </div>
+              
+              <!-- Tarjetas de estadísticas -->
+              <div class="row mb-4">
+                <div class="col-12 col-md-2">
+                  <div class="card shadow stats-card">
+                    <div class="card-body py-4 text-center">
+                      <h6 class="mb-2 fw-bold">Total</h6>
+                      <p class="fw-bold mb-2 fs-3 text-primary">48</p>
+                      <div class="mb-0">
+                        <span class="fw-bold text-muted">Cotizaciones</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-2">
+                  <div class="card shadow stats-card">
+                    <div class="card-body py-4 text-center">
+                      <h6 class="mb-2 fw-bold">Pendientes</h6>
+                      <p class="fw-bold mb-2 fs-3 text-warning">12</p>
+                      <div class="mb-0">
+                        <span class="fw-bold text-muted">Por asignar</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-2">
+                  <div class="card shadow stats-card">
+                    <div class="card-body py-4 text-center">
+                      <h6 class="mb-2 fw-bold">En Proceso</h6>
+                      <p class="fw-bold mb-2 fs-3 text-info">18</p>
+                      <div class="mb-0">
+                        <span class="fw-bold text-muted">Activas</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-2">
+                  <div class="card shadow stats-card">
+                    <div class="card-body py-4 text-center">
+                      <h6 class="mb-2 fw-bold">Contactadas</h6>
+                      <p class="fw-bold mb-2 fs-3 text-primary">8</p>
+                      <div class="mb-0">
+                        <span class="fw-bold text-muted">En seguimiento</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-2">
+                  <div class="card shadow stats-card">
+                    <div class="card-body py-4 text-center">
+                      <h6 class="mb-2 fw-bold">Cerradas</h6>
+                      <p class="fw-bold mb-2 fs-3 text-success">7</p>
+                      <div class="mb-0">
+                        <span class="fw-bold text-muted">Convertidas</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-2">
+                  <div class="card shadow stats-card">
+                    <div class="card-body py-4 text-center">
+                      <h6 class="mb-2 fw-bold">Tasa Conversión</h6>
+                      <p class="fw-bold mb-2 fs-3 text-success">14.6%</p>
+                      <div class="mb-0">
+                        <span class="fw-bold text-muted">Éxito</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Filtros y búsqueda -->
+              <div class="row mb-4">
+                <div class="col-md-4">
+                  <div class="search-container">
+                    <input type="text" class="form-control" placeholder="Buscar cotizaciones...">
+                    <i class="bx bx-search search-icon"></i>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <select class="form-select">
+                    <option selected>Estado: Todos</option>
+                    <option>Pendiente</option>
+                    <option>En Proceso</option>
+                    <option>Contactado</option>
+                    <option>Cerrada</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <select class="form-select">
+                    <option selected>Vendedor: Todos</option>
+                    <option>Fabrizio Bustamante</option>
+                    <option>Shayuri Garcia</option>
+                    <option>Walter Mantari</option>
+                    <option>Sin asignar</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <select class="form-select">
+                    <option selected>Prioridad: Todas</option>
+                    <option>Alta</option>
+                    <option>Media</option>
+                    <option>Baja</option>
+                  </select>
+                </div>
+              </div>
+              
+              <!-- Tabla de cotizaciones -->
+              <div class="card shadow">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr class="highlight">
+                          <th scope="col">ID</th>
+                          <th scope="col">Cliente</th>
+                          <th scope="col">Productos</th>
+                          <th scope="col">Total</th>
+                          <th scope="col">Vendedor</th>
+                          <th scope="col">Estado</th>
+                          <th scope="col">Prioridad</th>
+                          <th scope="col">Fecha</th>
+                          <th scope="col">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Cotización 1 -->
+                        <tr class="quote-item priority-high">
+                          <th scope="row">COT-001</th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div>
+                                <div class="fw-bold">Carlos López</div>
+                                <small class="text-muted">carlos.lopez@email.com</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="fw-bold">Colchón King Size</span>
+                            <br>
+                          </td>
+                          <td>
+                            <span class="fw-bold">S/ 2,150.00</span>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <span>Fabrizio Bustamante</span>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="badge badge-pendiente status-badge">En Proceso</span>
+                          </td>
+                          <td>
+                            <span class="badge bg-danger">Alta</span>
+                          </td>
+                          <td>14/01/2024</td>
+                          <td class="action-buttons">
+                            <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#changeStatusModal">
+                              <i class="bx bx-refresh"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewQuoteModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#reassignModal">
+                              <i class="bx bx-transfer"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        <!-- Cotización 2 -->
+                        <tr class="quote-item priority-medium">
+                          <th scope="row">COT-002</th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div>
+                                <div class="fw-bold">María Rodríguez</div>
+                                <small class="text-muted">maria.rodriguez@email.com</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="fw-bold">Colchón King Size + Base</span>
+                            <br>
+                          </td>
+                          <td>
+                            <span class="fw-bold">S/ 1,850.00</span>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <span>Fabrizio Bustamante</span>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="badge badge-en-proceso status-badge">Pendiente</span>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning">Media</span>
+                          </td>
+                          <td>14/01/2024</td>
+                          <td class="action-buttons">
+                            <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#changeStatusModal">
+                              <i class="bx bx-refresh"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewQuoteModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#reassignModal">
+                              <i class="bx bx-transfer"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        
+                        
+                        
+                        <!-- Cotización 3 -->
+                        <tr class="quote-item priority-low">
+                          <th scope="row">COT-003</th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div>
+                                <div class="fw-bold">Ana Martínez</div>
+                                <small class="text-muted">ana.martinez@email.com</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="fw-bold">Almohadas Viscoelásticas</span>
+                            <br>
+                          </td>
+                          <td>
+                            <span class="fw-bold">S/ 480.00</span>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <span>Shayuri García</span>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="badge badge-contactado status-badge">Contactado</span>
+                          </td>
+                          <td>
+                            <span class="badge bg-success">Baja</span>
+                          </td>
+                          <td>13/01/2024</td>
+                          <td class="action-buttons">
+                            <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#changeStatusModal">
+                              <i class="bx bx-refresh"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewQuoteModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#reassignModal">
+                              <i class="bx bx-transfer"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        
+                        <!-- Cotización 4 -->
+                        <tr class="quote-item">
+                          <th scope="row">COT-004</th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div>
+                                <div class="fw-bold">Roberto Silva</div>
+                                <small class="text-muted">roberto.silva@email.com</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="fw-bold">Colchón Twin + Protector</span>
+                            <br>
+                          </td>
+                          <td>
+                            <span class="fw-bold">S/ 950.00</span>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <span>Walter Mantari</span>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="badge badge-cerrada status-badge">Cerrada</span>
+                          </td>
+                          <td>
+                            <span class="badge bg-success">Baja</span>
+                          </td>
+                          <td>12/01/2024</td>
+                          <td class="action-buttons">
+                            <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#changeStatusModal">
+                              <i class="bx bx-refresh"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewQuoteModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#reassignModal">
+                              <i class="bx bx-transfer"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  
+                  <!-- Paginación -->
+                  <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center mt-4">
+                      <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                      </li>
+                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">Siguiente</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row text-body-secondary">
+              <div class="col-6 text-start">
+                <a href="#" class="text-body-secondary">
+                  <strong>Colchones D'Encanto</strong>
+                </a>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Modal para asignar vendedor -->
+    <div class="modal fade" id="assignModal" tabindex="-1" aria-labelledby="assignModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="assignModalLabel">Asignar Vendedor</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Cotización:</strong> COT-001 - María Rodríguez</p>
+            <p><strong>Total:</strong> S/ 1,850.00</p>
+            
+            <div class="mb-3">
+              <label for="assignSeller" class="form-label">Seleccionar Vendedor</label>
+              <select class="form-select" id="assignSeller">
+                <option selected disabled>Seleccionar vendedor...</option>
+                <option value="1">Fabrizio Bustamante (3 cotizaciones activas)</option>
+                <option value="2">Shayuri Garcia (2 cotizaciones activas)</option>
+                <option value="3">Walter Mantari (4 cotizaciones activas)</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="assignNotes" class="form-label">Notas internas (opcional)</label>
+              <textarea class="form-control" id="assignNotes" rows="2" placeholder="Información adicional para el vendedor..."></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary">Asignar Vendedor</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para ver cotización -->
+    <div class="modal fade" id="viewQuoteModal" tabindex="-1" aria-labelledby="viewQuoteModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewQuoteModalLabel">Detalle de Cotización - COT-001</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <h6>Información del Cliente</h6>
+                <p><strong>Nombre:</strong> Carlos López<br>
+                <strong>Email:</strong> carlos.lopez@email.com<br>
+                <strong>Teléfono:</strong> +51 987 654 321<br>
+                <strong>Dirección:</strong> Av. Lima 123, Miraflores</p>
+              </div>
+              <div class="col-md-6">
+                <h6>Información de la Cotización</h6>
+                <p><strong>Fecha:</strong> 14/01/2024<br>
+                <strong>Estado:</strong> <span class="badge badge-pendiente">En Proceso</span><br>
+                <strong>Vendedor:</strong> Fabrizio Bustamante<br>
+                <strong>Prioridad:</strong> <span class="badge bg-danger">Alta</span></p>
+              </div>
+            </div>
+            
+            <h6>Productos Cotizados</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Colchón Queen Size Memory Foam</td>
+                    <td>1</td>
+                    <td>S/ 2,150.00</td>
+                    <td>S/ 2,150.00</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                    <td><strong>S/ 2,150.00</strong></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <!-- OPCIONAL IMPRIMIR 
+            <button type="button" class="btn btn-primary">Imprimir Cotización</button>
+            -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Modal para cambiar estado -->
+    <div class="modal fade" id="changeStatusModal" tabindex="-1" aria-labelledby="changeStatusModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="changeStatusModalLabel">Cambiar Estado</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Cotización:</strong> COT-001 - Carlos López</p>
+            <p><strong>Estado actual:</strong> <span class="badge badge-en-proceso">En Proceso</span></p>
+            
+            <div class="mb-3">
+              <label for="newStatus" class="form-label">Nuevo Estado</label>
+              <select class="form-select" id="newStatus">
+                <option value="pendiente">Pendiente</option>
+                <option value="en-proceso" selected>En Proceso</option>
+                <option value="contactado">Contactado</option>
+                <option value="cerrada">Cerrada</option>
+                <option value="rechazada">Rechazada</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="statusNotes" class="form-label">Comentarios</label>
+              <textarea class="form-control" id="statusNotes" rows="3" placeholder="Agregar comentarios sobre el cambio de estado..."></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary">Actualizar Estado</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para reasignar -->
+    <div class="modal fade" id="reassignModal" tabindex="-1" aria-labelledby="reassignModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="reassignModalLabel">Reasignar Cotización</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Cotización:</strong> COT-001 - Carlos López</p>
+            <p><strong>Vendedor actual:</strong> Fabrizio Bustamante</p>
+            
+            <div class="mb-3">
+              <label for="reassignSeller" class="form-label">Nuevo Vendedor</label>
+              <select class="form-select" id="reassignSeller">
+                <option selected disabled>Seleccionar nuevo vendedor...</option>
+                <option value="1">Fabrizio Bustamante (actual)</option>
+                <option value="2">Shayuri Garcia (2 cotizaciones activas)</option>
+                <option value="3">Walter Mantari (4 cotizaciones activas)</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="reassignReason" class="form-label">Motivo de reasignación</label>
+              <textarea class="form-control" id="reassignReason" rows="2" placeholder="Especificar el motivo de la reasignación..."></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary">Reasignar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="/js/scriptCotizaciones.js"></script>
+  </body>
+</html>

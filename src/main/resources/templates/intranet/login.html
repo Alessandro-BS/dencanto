@@ -3,75 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intranet - Login</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #f5f7fb; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
-        .card { background:white; padding:24px; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,0.1); width:320px; }
-        h2 { text-align:center; margin-bottom:16px; color:#333; }
-        label { display:block; margin-top:10px; font-size:14px; color:#444; }
-        input { width:100%; padding:10px; margin-top:6px; border:1px solid #ccc; border-radius:6px; }
-        button { width:100%; margin-top:16px; padding:10px; background:#2b6ef6; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; }
-        button:hover { background:#1d4ed8; }
-        .small { font-size:12px; text-align:center; margin-top:10px; color:#666; }
-
-        /* Modal */
-        .modal { display:none; position:fixed; z-index:1000; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; }
-        .modal-content { background:#fff; padding:20px; border-radius:8px; text-align:center; width:280px; box-shadow:0 6px 20px rgba(0,0,0,0.2); }
-        .success { color:green; }
-        .error { color:red; }
-    </style>
+    <title>Intranet - Colchones D'Encanto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-    <div class="card">
-        <h2>Acceso Intranet</h2>
-        <form th:action="@{/intranet/login}" method="post">
-            <label for="username">Usuario</label>
-            <input type="text" id="username" name="username" placeholder="admin" required>
-            <label for="password">Contraseña</label>
-            <input type="password" id="password" name="password" placeholder="1234" required>
-            <button type="submit">Ingresar</button>
-        </form>
-        <p class="small">Pruebas: <b>admin / 1234</b> o <b>vendedor / 1234</b></p>
+    <div class="login-container">
+        <div class="login-right">
+            <div class="login-form">
+                <h2>Intranet - Colchones D'Encanto</h2>
+                
+                <form th:action="@{/intranet/login}" method="post">
+                    <div class="form-group">
+                        <label for="username" class="form-label">Usuario</label>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Ingresa tu usuario" required>
+                        
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="************" required>
+                        
+                    </div>
+                    
+                    <button type="submit" class="btn-login">
+                        <i class='bx bxs-check-circle'></i> Iniciar
+                    </button>
+                </form>        
+            </div>
+        </div>
     </div>
 
     <!-- Modal éxito -->
     <div class="modal" id="successModal" th:if="${success}">
         <div class="modal-content">
-            <h3 class="success">✅ Bienvenido</h3>
-            <p th:text="'Usuario: ' + ${usuario}"></p>
+            <div class="modal-icon success">
+                <i class='bx bx-check-circle'></i>
+            </div>
+            <h3 class="success">Acceso Concedido</h3>
+            <p th:text="'Bienvenido, ' + ${usuario}"></p>
+            <p th:text="'Rol: ' + ${rol}"></p>
+            <div class="spinner-border text-success mt-3" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
+            <p class="small mt-2">Redirigiendo al dashboard...</p>
         </div>
     </div>
 
     <!-- Modal error -->
     <div class="modal" id="errorModal" th:if="${error}">
         <div class="modal-content">
-            <h3 class="error">❌ Usuario y/o contraseña incorrectos</h3>
-            <p th:text="${error}"></p>
+            <div class="modal-icon error">
+                <i class='bx bx-x-circle'></i>
+            </div>
+            <h3 class="error">Error de Autenticación</h3>
+            <p>Usuario y/o contraseña incorrectos</p>
+            <button class="btn btn-secondary mt-3" onclick="closeModal()">Reintentar</button>
         </div>
     </div>
 
-    <script th:inline="javascript">
-        window.onload = function() {
-            // Modal éxito
-            const successModal = document.getElementById("successModal");
-            if (successModal) {
-                successModal.style.display = "flex";
-                setTimeout(function() {
-                    var usuario = /*[[${usuario}]]*/ 'Invitado';
-                    var rol = /*[[${rol}]]*/ 'INVITADO';
-                    window.location.href = "/intranet/dashboard?usuario=" + encodeURIComponent(usuario) + "&rol=" + encodeURIComponent(rol);
-                }, 2000);
-            }
-
-            // Modal error
-            const errorModal = document.getElementById("errorModal");
-            if (errorModal) {
-                errorModal.style.display = "flex";
-                setTimeout(function() {
-                    errorModal.style.display = "none";
-                }, 2000);
-            }
-        };
-    </script>
+   <script src="/js/script.js"></script>
 </body>
 </html>

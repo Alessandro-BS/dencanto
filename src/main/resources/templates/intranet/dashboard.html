@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard Using Bootstrap 5</title>
+    <title>Intranet - Historial</title>
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -20,6 +20,7 @@
 
   <body>
     <div class="wrapper">
+      <!-- MENÚ LATERAL -->
       <aside id="sidebar">
         <div class="d-flex justify-content-between p-4">
           <div class="sidebar-logo">
@@ -30,11 +31,18 @@
           </button>
         </div>
         <ul class="sidebar-nav">
-          <!-- MENU PARA ADMIN -->
+          <!-- PERFIL (ADMIN/USUARIO)-->
           <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
-              <i class="bx bxs-user-account"></i>
-              <span>Perfil</span>
+            <a href="/intranet/dashboard" class="sidebar-link">
+              <i class="bx bx-history"></i>
+              <span>Historial</span>
+            </a>
+          </li>
+          <!-- MENU PARA ADMIN -->
+           <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+            <a href="/intranet/reportes" class="sidebar-link">
+              <i class="bx bxs-report"></i>
+              <span>Generar Reportes</span>
             </a>
           </li>
           <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
@@ -45,13 +53,19 @@
           </li>
           <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
             <a href="/intranet/usuarios" class="sidebar-link">
-              <i class="bx bxs-user-detail"></i>
+              <i class="bx bxs-user-account"></i>
               <span>Gestión de Usuarios</span>
+            </a>
+          </li>
+          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+            <a href="/intranet/cotizaciones" class="sidebar-link">
+              <i class="bx bxs-food-menu"></i>
+              <span>Visualizar Cotizaciones</span>
             </a>
           </li>
           <!-- MENU PARA VENDEDORES -->
           <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
-            <a href="/intranet/cotizaciones" class="sidebar-link">
+            <a href="/intranet/revisarCotizaciones" class="sidebar-link">
               <i class="bx bxs-file"></i>
               <span>Revisar Cotizaciones</span>
             </a>
@@ -62,160 +76,84 @@
               <span>Registrar Ventas</span>
             </a>
           </li>
-          <!-- OPCIONAL
-          <li class="sidebar-item">
-            <a
-              href="#"
-              class="sidebar-link collapsed has-dropdown"
-              data-bs-toggle="collapse"
-              data-bs-target="#auth"
-              aria-expanded="false"
-              aria-controls="auth"
-            >
-              <i class="bx bxs-user-detail"></i>
-              <span>Gestion de Usuarios</span>
-            </a>
-            <ul
-              id="auth"
-              class="sidebar-dropdown list-unstyled collapse"
-              data-bs-parent="#sidebar"
-            >
-              <li class="sidebar-item">
-                <a href="#" class="sidebar-link"> Mostrar Usuarios </a>
-              </li> 
-            </ul>
-          </li>
-          <li class="sidebar-item">
-            <a
-              href="#"
-              class="sidebar-link collapsed has-dropdown"
-              data-bs-toggle="collapse"
-              data-bs-target="#multi"
-              aria-expanded="false"
-              aria-controls="multi"
-            >
-              <i class="bx bx-bar-chart-alt-2"></i>
-              <span>Multi Level</span>
-            </a>
-            <ul
-              id="multi"
-              class="sidebar-dropdown list-unstyled collapse"
-              data-bs-parent="#sidebar"
-            >
-              <li class="sidebar-item">
-                <a
-                  href="#"
-                  class="sidebar-link collapsed has-dropdown"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#multi-two"
-                  aria-expanded="false"
-                  aria-controls="multi-two"
-                >
-                  Two Links
-                </a>
-                <ul
-                  id="multi-two"
-                  class="sidebar-dropdown list-unstyled collapse"
-                >
-                  <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">Link 1</a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">Link 2</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          -->
-          <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
-              <i class="bx bxs-bell-ring"></i>
-              <span>Notificaciones</span>
-            </a>
-          </li>
-
-          <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
-              <i class="bx bxs-cog"></i>
-              <span>Configuración</span>
+          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+            <a href="/intranet/historialVentas" class="sidebar-link">
+              <i class="bx bxs-car"></i>
+              <span>Historial de Ventas</span>
             </a>
           </li>
         </ul>
         <div class="sidebar-footer">
-          <a href="#" class="sidebar-link">
+          <a href="/intranet/login" class="sidebar-link" onclick="confirmLogout()">
             <i class="bx bx-log-out"></i>
             <span>Cerrar Sesión</span>
           </a>
         </div>
       </aside>
+
+      <!-- CONTENIDO -->
       <div class="main">
+        <!-- ROL -->
         <nav class="navbar navbar-expand px-4 py-3">
-          <form action="#" class="d-none d-sm-inline-block">
-            <div class="input-group input-group-navbar">
-              <input
-                type="text"
-                class="form-control border-0 rounded-0 rounded-0 pe-0"
-                placeholder="Search..."
-                aria-label="Search"
-              />
-              <button class="btn border-0 rounded-0" type="button">
-                <i class="bx bx-search"></i>
-              </button>
-            </div>
-          </form>
           <div class="navbar-collapse collapse">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
                 <span class="nav-link">
-                  👤 <b th:text="${usuario}"></b> -
+                  <b></b>
                   <span th:text="${rol}"></span>
                 </span>
               </li>
-
               <li class="nav-item-dropdown">
                 <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
                   <img src="/img/account.png" class="avatar img-fluid" alt="" />
                 </a>
-                <div
-                  class="dropdown-menu dropdown-menu-end rounded-0 border-0 shadow mt-3"
-                >
-                  <a href="#" class="dropdown-item">
-                    <i class="bx bx-data"></i>
-                    <span>Analítica</span>
-                  </a>
-                  <a href="#" class="dropdown-item">
-                    <i class="bx bx-cog"></i>
-                    <span>Configuración</span>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">
-                    <i class="bx bx-help-circle"></i>
-                    <span>Centro de Ayuda</span>
-                  </a>
-                </div>
               </li>
             </ul>
           </div>
         </nav>
+
         <main class="content px-3 py-4">
           <div class="container-fluid">
             <div class="mb-3">
-              <h3 class="fw-bold fs-4 mb-3">Admin Dashboard</h3>
+              <h3 class="fw-bold fs-4 mb-3">Historial</h3>
               <div class="row">
-                <!-- CARD SOLO PARA ADMIN -->
+                <!-- CARD SOLO PARA ADMIN 1-->
                 <div th:if="${rol} == 'ADMIN'" class="col-12 col-md-4">
                   <div class="card shadow">
                     <div class="card-body py-4">
-                      <h6 class="mb-2 fw-bold">Productos en Stock</h6>
-                      <p class="fw-bold mb-2">320</p>
+                      <h6 class="mb-2 fw-bold">Ventas Totales</h6>
+                      <p class="fw-bold mb-2 text-primary">S/ 45,680.00</p>
                       <div class="mb-0">
-                        <span class="badge text-success me-2"> +9.0% </span>
-                        <span class="fw-bold"> Since Last Month </span>
+                        <span class="fw-bold text-success"> Ingresos del mes </span>
                       </div>
                     </div>
-                  </div>
+                  </div>    
                 </div>
+                <!-- CARD SOLO PARA ADMIN 2-->
+                <div th:if="${rol} == 'ADMIN'" class="col-12 col-md-4">
+                  <div class="card shadow">
+                    <div class="card-body py-4">
+                      <h6 class="mb-2 fw-bold">Total de Usuarios</h6>
+                      <p class="fw-bold mb-2 text-info">24</p>
+                      <div class="mb-0">
+                        <span class="fw-bold text-success"> ¡Nuevos Usuarios! </span>
+                      </div>
+                    </div>
+                  </div>    
+                </div>
+                <!-- CARD SOLO PARA ADMIN 3-->
+                <div th:if="${rol} == 'ADMIN'" class="col-12 col-md-4">
+                  <div class="card shadow">
+                    <div class="card-body py-4">
+                      <h6 class="mb-2 fw-bold">Cotizaciones</h6>
+                      <p class="fw-bold mb-2 text-danger">48</p>
+                      <div class="mb-0">
+                        <span class="fw-bold text-success"> ¡Éxito! </span>
+                      </div>
+                    </div>
+                  </div>    
+                </div>
+
                 <!-- CARD SOLO PARA VENDEDOR -->
                 <div th:if="${rol} == 'VENDEDOR'" class="col-12 col-md-4">
                   <div class="card shadow">
@@ -229,29 +167,15 @@
                     </div>
                   </div>
                 </div>
-                <!-- OPCIONAL 
-                <div class="col-12 col-md-4">
-                  <div class="card shadow">
-                    <div class="card-body py-4">
-                      <h6 class="mb-2 fw-bold">Member Progress</h6>
-                      <p class="fw-bold mb-2">S/ 150.00</p>
-                      <div class="mb-0">
-                        <span class="badge text-success me-2"> +9.0% </span>
-                        <span class="fw-bold"> Since Last Month </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                -->
               </div>
+              
+              <!-- TABLA Y REPORTES -->
               <div class="row">
                 <div class="col-12 col-md-7">
-                  <h3
-                    th:text="${rol} == 'ADMIN' ? 'Usuarios del Sistema' : 'Clientes / Cotizaciones'"
-                    class="fw-bold fs-4 my-3"
-                  >
-                    Personal
-                  </h3>
+                  <h3 th:text="${rol} == 'ADMIN' ? 'Usuarios del Sistema' : 'Clientes / Cotizaciones'"
+                      class="fw-bold fs-4 my-3">Personal
+                    </h3>
+                  <!-- TABLA USUARIOS DEL SISTEMA (ADMIN)-->  
                   <table class="table table-striped">
                     <thead>
                       <tr class="highlight">
@@ -266,23 +190,39 @@
                         <th scope="row">1</th>
                         <td>Fabrizio Alessandro</td>
                         <td>Bustamante Soria</td>
-                        <td>Vendedor</td>
+                        <td>Administrador</td>
                       </tr>
                       <tr>
                         <th scope="row">2</th>
                         <td>Shayuri Kiara</td>
-                        <td>Garcia Ortega</td>
+                        <td>García Ortega</td>
                         <td>Vendedora</td>
                       </tr>
                       <tr>
                         <th scope="row">3</th>
-                        <td>Walter</td>
-                        <td>Mantari</td>
+                        <td>Walter Isaac</td>
+                        <td>Mantari Licapa</td>
                         <td>Vendedor</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        <td>Juan Daniel</td>
+                        <td>Ore Ramos</td>
+                        <td>Vendedor</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">5</th>
+                        <td>Marcela Natalie</td>
+                        <td>Rodriguez Munaylla</td>
+                        <td>Vendedora</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
+                
+
+
+                <!-- GRAFICO DE BARRAS -->
                 <div class="col-12 col-md-5">
                   <h3
                     class="fw-bold fs-4 my-3"
@@ -294,22 +234,12 @@
                     height="450"
                   ></canvas>
                 </div>
-
-                <div
-                  th:text="${rol} == 'ADMIN' ? 'Reporte General de Ventas' : 'Mi Rendimiento de Ventas'"
-                  class="col-12 col-md-5"
-                >
-                  <h3 class="fw-bold fs-4 my-3">Resumen de Informes</h3>
-                  <canvas
-                    id="bar-chart-grouped"
-                    width="800"
-                    height="450"
-                  ></canvas>
-                </div>
               </div>
             </div>
           </div>
         </main>
+
+        <!-- FOOTER -->
         <footer class="footer">
           <div class="container-fluid">
             <div class="row text-body-secondary">
@@ -318,26 +248,12 @@
                   <strong>Colchones D'Encanto</strong>
                 </a>
               </div>
-              <div class="col-6 text-end text-body-secondary d-none d-md-block">
-                <ul class="list-inline mb-0">
-                  <li class="list-inline-item">
-                    <a href="#" class="text-body-secondary">Contacto</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#" class="text-body-secondary">Acerca de</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#" class="text-body-secondary"
-                      >Terminos y Condiciones</a
-                    >
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
         </footer>
       </div>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script

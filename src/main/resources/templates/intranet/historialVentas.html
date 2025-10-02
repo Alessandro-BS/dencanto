@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Historial de Ventas - Colchones D'Encanto</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      /* Estilos del sidebar y estructura general */
+      :root {
+        --sidebar-bg-color: #2c3e50;
+        --sidebar-color: #fff;
+        --sidebar-width: 250px;
+        --sidebar-collapsed-width: 70px;
+        --main-bg-color: #f8f9fa;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #e9ecef;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .wrapper {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      #sidebar {
+        width: var(--sidebar-width);
+        background: var(--sidebar-bg-color);
+        color: var(--sidebar-color);
+        transition: all 0.3s;
+        position: relative;
+        z-index: 1000;
+      }
+
+      #sidebar.collapsed {
+        width: var(--sidebar-collapsed-width);
+      }
+
+      #sidebar.collapsed .sidebar-logo,
+      #sidebar.collapsed .sidebar-link span,
+      #sidebar.collapsed .sidebar-footer span {
+        display: none;
+      }
+
+      .sidebar-logo {
+        padding: 1rem 0;
+        text-align: center;
+      }
+
+      .sidebar-logo a {
+        color: var(--sidebar-color);
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .toggle-btn {
+        background: transparent;
+        color: var(--sidebar-color);
+        cursor: pointer;
+      }
+
+      .sidebar-nav {
+        list-style: none;
+        padding: 0;
+      }
+
+      .sidebar-item {
+        position: relative;
+      }
+
+      .sidebar-link {
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        align-items: center;
+        color: var(--sidebar-color);
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .sidebar-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .sidebar-link.active {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .sidebar-link i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+      }
+
+      .sidebar-dropdown {
+        list-style: none;
+        padding-left: 2rem;
+      }
+
+      .sidebar-footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 1rem;
+      }
+
+      .main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s;
+      }
+
+      .navbar {
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .content {
+        flex: 1;
+        padding: 2rem;
+      }
+
+      .footer {
+        background: #fff;
+        padding: 1rem;
+        border-top: 1px solid #dee2e6;
+      }
+
+      .card {
+        border: none;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      }
+
+      .table th {
+        border-top: none;
+        font-weight: 600;
+      }
+
+      .highlight {
+        background-color: #f8f9fa;
+      }
+
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+
+      /* Estilos específicos para historial de ventas */
+      .stats-card {
+        transition: transform 0.2s;
+      }
+
+      .stats-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .kpi-card {
+        text-align: center;
+        padding: 1.5rem;
+      }
+
+      .kpi-value {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .kpi-label {
+        font-size: 0.9rem;
+        color: #6c757d;
+        text-transform: uppercase;
+      }
+
+      .trend-up {
+        color: #28a745;
+      }
+
+      .trend-down {
+        color: #dc3545;
+      }
+
+      .sale-item {
+        border-left: 4px solid #28a745;
+        transition: all 0.3s;
+      }
+
+      .sale-item:hover {
+        background-color: #f8f9fa;
+      }
+
+      .status-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+      }
+
+      .customer-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .chart-container {
+        position: relative;
+        height: 250px;
+        width: 100%;
+      }
+
+      .progress-thin {
+        height: 6px;
+      }
+
+      .commission-badge {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+      }
+
+      .export-buttons .btn {
+        margin-right: 0.5rem;
+      }
+
+      .filter-section {
+        background: #f8f9fa;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .product-badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+        margin-right: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <aside id="sidebar">
+        <div class="d-flex justify-content-between p-4">
+          <div class="sidebar-logo">
+            <a href="#">Colchones D'<br />Encanto</a>
+          </div>
+          <button class="toggle-btn border-0" type="button">
+            <i id="icon" class="bx bxs-chevrons-right"></i>
+          </button>
+        </div>
+        <ul class="sidebar-nav">
+          <!-- MENU PARA VENDEDOR -->
+          <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+              <i class="bx bxs-dashboard"></i>
+              <span>Mi Dashboard</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+              <i class="bx bxs-file"></i>
+              <span>Mis Cotizaciones</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+              <i class="bx bxs-cart"></i>
+              <span>Registrar Venta</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="sidebar-link active">
+              <i class="bx bxs-history"></i>
+              <span>Mi Historial</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+              <i class="bx bxs-bell-ring"></i>
+              <span>Notificaciones</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+              <i class="bx bxs-cog"></i>
+              <span>Configuración</span>
+            </a>
+          </li>
+        </ul>
+        <div class="sidebar-footer">
+          <a href="#" class="sidebar-link">
+            <i class="bx bx-log-out"></i>
+            <span>Cerrar Sesión</span>
+          </a>
+        </div>
+      </aside>
+      <div class="main">
+        <nav class="navbar navbar-expand px-4 py-3">
+          <form action="#" class="d-none d-sm-inline-block">
+            <div class="input-group input-group-navbar">
+              <input
+                type="text"
+                class="form-control border-0 rounded-0 rounded-0 pe-0"
+                placeholder="Buscar..."
+                aria-label="Search"
+              />
+              <button class="btn border-0 rounded-0" type="button">
+                <i class="bx bx-search"></i>
+              </button>
+            </div>
+          </form>
+          <div class="navbar-collapse collapse">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <span class="nav-link">
+                  👤 <b>Fabrizio Bustamante</b> - <span>VENDEDOR</span>
+                </span>
+              </li>
+
+              <li class="nav-item-dropdown">
+                <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                  <img src="/img/account.png" class="avatar img-fluid" alt="" />
+                </a>
+                <div
+                  class="dropdown-menu dropdown-menu-end rounded-0 border-0 shadow mt-3"
+                >
+                  <a href="#" class="dropdown-item">
+                    <i class="bx bx-data"></i>
+                    <span>Mi Rendimiento</span>
+                  </a>
+                  <a href="#" class="dropdown-item">
+                    <i class="bx bx-cog"></i>
+                    <span>Configuración</span>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="dropdown-item">
+                    <i class="bx bx-help-circle"></i>
+                    <span>Centro de Ayuda</span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <main class="content px-3 py-4">
+          <div class="container-fluid">
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold fs-4 mb-0">Mi Historial de Ventas</h3>
+                <div class="export-buttons">
+                  <button class="btn btn-outline-success">
+                    <i class="bx bx-download"></i> Exportar Excel
+                  </button>
+                  <button class="btn btn-outline-primary">
+                    <i class="bx bx-file"></i> Generar Reporte
+                  </button>
+                </div>
+              </div>
+
+              <!-- Filtros -->
+              <div class="filter-section">
+                <div class="row g-3">
+                  <div class="col-md-3">
+                    <label class="form-label">Período</label>
+                    <select class="form-select">
+                      <option selected>Enero 2024</option>
+                      <option>Diciembre 2023</option>
+                      <option>Noviembre 2023</option>
+                      <option>Últimos 30 días</option>
+                      <option>Personalizado</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label">Estado</label>
+                    <select class="form-select">
+                      <option selected>Todas las ventas</option>
+                      <option>Completadas</option>
+                      <option>Pendientes de entrega</option>
+                      <option>Canceladas</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label">Método de Pago</label>
+                    <select class="form-select">
+                      <option selected>Todos los métodos</option>
+                      <option>Efectivo</option>
+                      <option>Tarjeta</option>
+                      <option>Transferencia</option>
+                      <option>Yape/Plin</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label">Ordenar por</label>
+                    <select class="form-select">
+                      <option selected>Más reciente</option>
+                      <option>Mayor monto</option>
+                      <option>Menor monto</option>
+                      <option>Cliente A-Z</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <button class="btn btn-primary">
+                      <i class="bx bx-filter-alt"></i> Aplicar Filtros
+                    </button>
+                    <button class="btn btn-outline-secondary">
+                      <i class="bx bx-reset"></i> Limpiar
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- KPIs Personales -->
+              <div class="row mb-4">
+                <div class="col-12 col-md-3">
+                  <div class="card kpi-card stats-card">
+                    <div class="kpi-value text-primary">S/ 18,250.00</div>
+                    <div class="kpi-label">Ventas Totales</div>
+                    <div class="trend-up">
+                      <i class="bx bx-up-arrow-alt"></i> 15.2% vs mes anterior
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-3">
+                  <div class="card kpi-card stats-card">
+                    <div class="kpi-value text-success">12</div>
+                    <div class="kpi-label">Ventas Realizadas</div>
+                    <div class="trend-up">
+                      <i class="bx bx-up-arrow-alt"></i> 3 más que el mes pasado
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-3">
+                  <div class="card kpi-card stats-card">
+                    <div class="kpi-value text-info">S/ 1,520.83</div>
+                    <div class="kpi-label">Promedio por Venta</div>
+                    <div class="trend-up">
+                      <i class="bx bx-up-arrow-alt"></i> S/ 120.50 más
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-3">
+                  <div class="card kpi-card stats-card">
+                    <div class="kpi-value text-warning">S/ 1,825.00</div>
+                    <div class="kpi-label">Comisiones Estimadas</div>
+                    <div class="trend-up">
+                      <i class="bx bx-up-arrow-alt"></i> 10% del total
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gráficos de rendimiento -->
+              <div class="row mb-4">
+                <div class="col-12 col-md-6">
+                  <div class="card shadow">
+                    <div class="card-header bg-white">
+                      <h6 class="mb-0 fw-bold">Mis Ventas Mensuales</h6>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-container">
+                        <canvas id="salesChart"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="card shadow">
+                    <div class="card-header bg-white">
+                      <h6 class="mb-0 fw-bold">Distribución por Categoría</h6>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Lista de ventas -->
+              <div class="card shadow">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr class="highlight">
+                          <th scope="col">ID Venta</th>
+                          <th scope="col">Cliente</th>
+                          <th scope="col">Productos</th>
+                          <th scope="col">Total</th>
+                          <th scope="col">Comisión</th>
+                          <th scope="col">Método Pago</th>
+                          <th scope="col">Estado</th>
+                          <th scope="col">Fecha</th>
+                          <th scope="col">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Venta 1 -->
+                        <tr class="sale-item">
+                          <th scope="row">
+                            <div class="fw-bold">V-2024-00125</div>
+                            <small class="text-muted">Desde COT-008</small>
+                          </th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="https://via.placeholder.com/40" class="customer-avatar me-2" alt="Cliente">
+                              <div>
+                                <div class="fw-bold">Carlos López</div>
+                                <small class="text-muted">Cliente frecuente</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div>
+                              <span class="badge bg-primary product-badge">Colchón King Size</span>
+                              <span class="badge bg-info product-badge">Base Cama</span>
+                            </div>
+                            <small class="text-muted">2 productos · Entregado</small>
+                          </td>
+                          <td>
+                            <div class="fw-bold">S/ 3,040.00</div>
+                            <small class="text-success">+ IGV S/ 547.20</small>
+                          </td>
+                          <td>
+                            <span class="badge bg-success commission-badge">S/ 304.00</span>
+                            <div class="text-muted small">10% comisión</div>
+                          </td>
+                          <td>
+                            <span class="badge bg-success status-badge">
+                              <i class="bx bx-money"></i> Efectivo
+                            </span>
+                          </td>
+                          <td>
+                            <span class="badge bg-success status-badge">Completada</span>
+                          </td>
+                          <td>
+                            <div class="fw-bold">15/01/2024</div>
+                            <small class="text-muted">14:30</small>
+                          </td>
+                          <td>
+                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#saleDetailModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-success">
+                              <i class="bx bx-receipt"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info">
+                              <i class="bx bx-chat"></i>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Venta 2 -->
+                        <tr class="sale-item">
+                          <th scope="row">
+                            <div class="fw-bold">V-2024-00118</div>
+                            <small class="text-muted">Venta directa</small>
+                          </th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="https://via.placeholder.com/40" class="customer-avatar me-2" alt="Cliente">
+                              <div>
+                                <div class="fw-bold">Ana Martínez</div>
+                                <small class="text-muted">Nueva cliente</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div>
+                              <span class="badge bg-warning product-badge">Almohadas (x4)</span>
+                            </div>
+                            <small class="text-muted">1 tipo · Entregado</small>
+                          </td>
+                          <td>
+                            <div class="fw-bold">S/ 480.00</div>
+                            <small class="text-success">+ IGV S/ 86.40</small>
+                          </td>
+                          <td>
+                            <span class="badge bg-success commission-badge">S/ 48.00</span>
+                            <div class="text-muted small">10% comisión</div>
+                          </td>
+                          <td>
+                            <span class="badge bg-primary status-badge">
+                              <i class="bx bx-credit-card"></i> Tarjeta
+                            </span>
+                          </td>
+                          <td>
+                            <span class="badge bg-success status-badge">Completada</span>
+                          </td>
+                          <td>
+                            <div class="fw-bold">12/01/2024</div>
+                            <small class="text-muted">11:15</small>
+                          </td>
+                          <td>
+                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#saleDetailModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-success">
+                              <i class="bx bx-receipt"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info">
+                              <i class="bx bx-chat"></i>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Venta 3 -->
+                        <tr class="sale-item">
+                          <th scope="row">
+                            <div class="fw-bold">V-2024-00105</div>
+                            <small class="text-muted">Desde COT-005</small>
+                          </th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="https://via.placeholder.com/40" class="customer-avatar me-2" alt="Cliente">
+                              <div>
+                                <div class="fw-bold">Laura Mendoza</div>
+                                <small class="text-muted">Cliente premium</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div>
+                              <span class="badge bg-primary product-badge">Colchón Queen</span>
+                              <span class="badge bg-info product-badge">Base Ajustable</span>
+                              <span class="badge bg-warning product-badge">Almohadas (x2)</span>
+                            </div>
+                            <small class="text-muted">3 productos · Pendiente entrega</small>
+                          </td>
+                          <td>
+                            <div class="fw-bold">S/ 3,200.00</div>
+                            <small class="text-success">+ IGV S/ 576.00</small>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning commission-badge">S/ 320.00*</span>
+                            <div class="text-muted small">* Pendiente de pago</div>
+                          </td>
+                          <td>
+                            <span class="badge bg-info status-badge">
+                              <i class="bx bx-transfer"></i> Transferencia
+                            </span>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning status-badge">Pendiente entrega</span>
+                          </td>
+                          <td>
+                            <div class="fw-bold">10/01/2024</div>
+                            <small class="text-muted">16:45</small>
+                          </td>
+                          <td>
+                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#saleDetailModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-warning">
+                              <i class="bx bx-package"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info">
+                              <i class="bx bx-chat"></i>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Venta 4 -->
+                        <tr class="sale-item">
+                          <th scope="row">
+                            <div class="fw-bold">V-2024-00098</div>
+                            <small class="text-muted">Venta directa</small>
+                          </th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="https://via.placeholder.com/40" class="customer-avatar me-2" alt="Cliente">
+                              <div>
+                                <div class="fw-bold">Roberto Silva</div>
+                                <small class="text-muted">Cliente regular</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div>
+                              <span class="badge bg-primary product-badge">Colchón Twin</span>
+                              <span class="badge bg-success product-badge">Protector</span>
+                            </div>
+                            <small class="text-muted">2 productos · Entregado</small>
+                          </td>
+                          <td>
+                            <div class="fw-bold">S/ 950.00</div>
+                            <small class="text-success">+ IGV S/ 171.00</small>
+                          </td>
+                          <td>
+                            <span class="badge bg-success commission-badge">S/ 95.00</span>
+                            <div class="text-muted small">10% comisión</div>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning status-badge">
+                              <i class="bx bx-mobile-alt"></i> Yape
+                            </span>
+                          </td>
+                          <td>
+                            <span class="badge bg-success status-badge">Completada</span>
+                          </td>
+                          <td>
+                            <div class="fw-bold">08/01/2024</div>
+                            <small class="text-muted">09:20</small>
+                          </td>
+                          <td>
+                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#saleDetailModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-success">
+                              <i class="bx bx-receipt"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info">
+                              <i class="bx bx-chat"></i>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Venta 5 -->
+                        <tr class="sale-item">
+                          <th scope="row">
+                            <div class="fw-bold">V-2024-00087</div>
+                            <small class="text-muted">Desde COT-012</small>
+                          </th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="https://via.placeholder.com/40" class="customer-avatar me-2" alt="Cliente">
+                              <div>
+                                <div class="fw-bold">Miguel Ángel Rojas</div>
+                                <small class="text-muted">Nuevo cliente</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div>
+                              <span class="badge bg-primary product-badge">Colchón Queen</span>
+                              <span class="badge bg-info product-badge">Base Cama</span>
+                              <span class="badge bg-warning product-badge">Almohadas (x2)</span>
+                            </div>
+                            <small class="text-muted">3 productos · Entregado</small>
+                          </td>
+                          <td>
+                            <div class="fw-bold">S/ 2,850.00</div>
+                            <small class="text-success">+ IGV S/ 513.00</small>
+                          </td>
+                          <td>
+                            <span class="badge bg-success commission-badge">S/ 285.00</span>
+                            <div class="text-muted small">10% comisión</div>
+                          </td>
+                          <td>
+                            <span class="badge bg-success status-badge">
+                              <i class="bx bx-money"></i> Efectivo
+                            </span>
+                          </td>
+                          <td>
+                            <span class="badge bg-success status-badge">Completada</span>
+                          </td>
+                          <td>
+                            <div class="fw-bold">05/01/2024</div>
+                            <small class="text-muted">15:10</small>
+                          </td>
+                          <td>
+                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#saleDetailModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-success">
+                              <i class="bx bx-receipt"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info">
+                              <i class="bx bx-chat"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Resumen del período -->
+                  <div class="row mt-4">
+                    <div class="col-md-6">
+                      <div class="card bg-light">
+                        <div class="card-body">
+                          <h6 class="fw-bold">Resumen del Período (Enero 2024)</h6>
+                          <div class="row text-center">
+                            <div class="col-4">
+                              <div class="fw-bold fs-5 text-primary">12</div>
+                              <small class="text-muted">Ventas</small>
+                            </div>
+                            <div class="col-4">
+                              <div class="fw-bold fs-5 text-success">S/ 18,250</div>
+                              <small class="text-muted">Total Vendido</small>
+                            </div>
+                            <div class="col-4">
+                              <div class="fw-bold fs-5 text-warning">S/ 1,825</div>
+                              <small class="text-muted">Comisiones</small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card bg-light">
+                        <div class="card-body">
+                          <h6 class="fw-bold">Mi Progreso de Metas</h6>
+                          <div class="mb-2">
+                            <div class="d-flex justify-content-between">
+                              <span>Meta de ventas: S/ 20,000</span>
+                              <span class="fw-bold">91%</span>
+                            </div>
+                            <div class="progress progress-thin">
+                              <div class="progress-bar bg-success" style="width: 91%"></div>
+                            </div>
+                          </div>
+                          <div class="mb-2">
+                            <div class="d-flex justify-content-between">
+                              <span>Meta de clientes: 15</span>
+                              <span class="fw-bold">80%</span>
+                            </div>
+                            <div class="progress progress-thin">
+                              <div class="progress-bar bg-info" style="width: 80%"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Paginación -->
+                  <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center mt-4">
+                      <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                      </li>
+                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">Siguiente</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row text-body-secondary">
+              <div class="col-6 text-start">
+                <a href="#" class="text-body-secondary">
+                  <strong>Colchones D'Encanto</strong>
+                </a>
+              </div>
+              <div class="col-6 text-end text-body-secondary d-none d-md-block">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <a href="#" class="text-body-secondary">Contacto</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-body-secondary">Acerca de</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-body-secondary"
+                      >Términos y Condiciones</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Modal de detalle de venta -->
+    <div class="modal fade" id="saleDetailModal" tabindex="-1" aria-labelledby="saleDetailModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="saleDetailModalLabel">Detalle de Venta - V-2024-00125</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <h6>Información del Cliente</h6>
+                <p>
+                  <strong>Nombre:</strong> Carlos López<br>
+                  <strong>Email:</strong> carlos.lopez@email.com<br>
+                  <strong>Teléfono:</strong> +51 987 654 321<br>
+                  <strong>DNI:</strong> 76543210<br>
+                  <strong>Dirección:</strong> Av. Javier Prado 123, San Isidro
+                </p>
+              </div>
+              <div class="col-md-6">
+                <h6>Información de la Venta</h6>
+                <p>
+                  <strong>Fecha:</strong> 15/01/2024 14:30<br>
+                  <strong>Vendedor:</strong> Fabrizio Bustamante<br>
+                  <strong>Estado:</strong> <span class="badge bg-success">Completada</span><br>
+                  <strong>Método Pago:</strong> <span class="badge bg-success">Efectivo</span><br>
+                  <strong>Origen:</strong> <span class="badge bg-info">Desde cotización COT-008</span>
+                </p>
+              </div>
+            </div>
+
+            <h6>Productos Vendidos</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Colchón King Size Memory Foam Premium</td>
+                    <td>1</td>
+                    <td>S/ 2,150.00</td>
+                    <td>S/ 2,150.00</td>
+                  </tr>
+                  <tr>
+                    <td>Base Cama King Size Ajustable</td>
+                    <td>1</td>
+                    <td>S/ 890.00</td>
+                    <td>S/ 890.00</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3" class="text-end"><strong>Subtotal:</strong></td>
+                    <td><strong>S/ 3,040.00</strong></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" class="text-end"><strong>IGV (18%):</strong></td>
+                    <td><strong>S/ 547.20</strong></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                    <td><strong class="text-success">S/ 3,587.20</strong></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <h6>Información de Comisión</h6>
+                <div class="bg-light rounded p-3">
+                  <div class="d-flex justify-content-between mb-2">
+                    <span><strong>Total Venta:</strong></span>
+                    <span>S/ 3,587.20</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-2">
+                    <span><strong>Porcentaje Comisión:</strong></span>
+                    <span>10%</span>
+                  </div>
+                  <div class="d-flex justify-content-between fw-bold">
+                    <span><strong>Comisión:</strong></span>
+                    <span class="text-success">S/ 358.72</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <h6>Información de Entrega</h6>
+                <div class="bg-light rounded p-3">
+                  <p>
+                    <strong>Fecha de Entrega:</strong> 16/01/2024<br>
+                    <strong>Estado:</strong> <span class="badge bg-success">Entregado</span><br>
+                    <strong>Dirección Entrega:</strong> Av. Javier Prado 123, San Isidro<br>
+                    <strong>Notas:</strong> Cliente satisfecho, producto entregado en perfecto estado
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-outline-primary">
+              <i class="bx bx-printer"></i> Imprimir Comprobante
+            </button>
+            <button type="button" class="btn btn-primary">
+              <i class="bx bx-download"></i> Descargar PDF
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // Script para el sidebar toggle
+      document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.querySelector('.toggle-btn');
+        const sidebar = document.getElementById('sidebar');
+        const icon = document.getElementById('icon');
+        
+        toggleBtn.addEventListener('click', function() {
+          sidebar.classList.toggle('collapsed');
+          if (sidebar.classList.contains('collapsed')) {
+            icon.classList.remove('bx-chevrons-right');
+            icon.classList.add('bx-chevrons-left');
+          } else {
+            icon.classList.remove('bx-chevrons-left');
+            icon.classList.add('bx-chevrons-right');
+          }
+        });
+
+        // Inicializar gráficos
+        initializeCharts();
+      });
+
+      function initializeCharts() {
+        // Gráfico de ventas mensuales personales
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        new Chart(salesCtx, {
+          type: 'bar',
+          data: {
+            labels: ['Oct', 'Nov', 'Dic', 'Ene'],
+            datasets: [{
+              label: 'Mis Ventas (S/)',
+              data: [12500, 14200, 15800, 18250],
+              backgroundColor: '#007bff',
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: {
+                  color: 'rgba(0, 0, 0, 0.1)'
+                }
+              },
+              x: {
+                grid: {
+                  display: false
+                }
+              }
+            }
+          }
+        });
+
+        // Gráfico de distribución por categoría
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(categoryCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Colchones', 'Base Cama', 'Almohadas', 'Protectores'],
+            datasets: [{
+              data: [65, 20, 10, 5],
+              backgroundColor: [
+                '#007bff',
+                '#28a745',
+                '#ffc107',
+                '#dc3545'
+              ],
+              borderWidth: 2,
+              borderColor: '#fff'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }
+        });
+      }
+
+      // Función para exportar reporte
+      function exportReport(format) {
+        const toast = document.createElement('div');
+        toast.className = 'alert alert-success position-fixed top-0 end-0 m-3';
+        toast.style.zIndex = '9999';
+        toast.innerHTML = `Reporte de ventas exportado en formato ${format.toUpperCase()} exitosamente`;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.remove();
+        }, 3000);
+      }
+
+      // Asignar eventos de exportación
+      document.querySelector('.btn-outline-success').addEventListener('click', () => exportReport('excel'));
+      document.querySelector('.btn-outline-primary').addEventListener('click', () => exportReport('pdf'));
+    </script>
+  </body>
+</html>

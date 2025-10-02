@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mis Cotizaciones - Colchones D'Encanto</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <style>
+      /* Estilos del sidebar y estructura general */
+      :root {
+        --sidebar-bg-color: #2c3e50;
+        --sidebar-color: #fff;
+        --sidebar-width: 250px;
+        --sidebar-collapsed-width: 70px;
+        --main-bg-color: #f8f9fa;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #e9ecef;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .wrapper {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      #sidebar {
+        width: var(--sidebar-width);
+        background: var(--sidebar-bg-color);
+        color: var(--sidebar-color);
+        transition: all 0.3s;
+        position: relative;
+        z-index: 1000;
+      }
+
+      #sidebar.collapsed {
+        width: var(--sidebar-collapsed-width);
+      }
+
+      #sidebar.collapsed .sidebar-logo,
+      #sidebar.collapsed .sidebar-link span,
+      #sidebar.collapsed .sidebar-footer span {
+        display: none;
+      }
+
+      .sidebar-logo {
+        padding: 1rem 0;
+        text-align: center;
+      }
+
+      .sidebar-logo a {
+        color: var(--sidebar-color);
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .toggle-btn {
+        background: transparent;
+        color: var(--sidebar-color);
+        cursor: pointer;
+      }
+
+      .sidebar-nav {
+        list-style: none;
+        padding: 0;
+      }
+
+      .sidebar-item {
+        position: relative;
+      }
+
+      .sidebar-link {
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        align-items: center;
+        color: var(--sidebar-color);
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .sidebar-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .sidebar-link.active {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .sidebar-link i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+      }
+
+      .sidebar-dropdown {
+        list-style: none;
+        padding-left: 2rem;
+      }
+
+      .sidebar-footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 1rem;
+      }
+
+      .main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s;
+      }
+
+      .navbar {
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .content {
+        flex: 1;
+        padding: 2rem;
+      }
+
+      .footer {
+        background: #fff;
+        padding: 1rem;
+        border-top: 1px solid #dee2e6;
+      }
+
+      .card {
+        border: none;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      }
+
+      .table th {
+        border-top: none;
+        font-weight: 600;
+      }
+
+      .highlight {
+        background-color: #f8f9fa;
+      }
+
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+
+      /* Estilos específicos para cotizaciones del vendedor */
+      .action-buttons .btn {
+        margin-right: 5px;
+      }
+
+      .status-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+      }
+
+      .search-container {
+        position: relative;
+      }
+
+      .search-container .form-control {
+        padding-right: 2.5rem;
+      }
+
+      .search-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+      }
+
+      .stats-card {
+        transition: transform 0.2s;
+      }
+
+      .stats-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .quote-item {
+        border-left: 4px solid #007bff;
+        transition: all 0.3s;
+      }
+
+      .quote-item:hover {
+        background-color: #f8f9fa;
+      }
+
+      .badge-pendiente { background-color: #ffc107; color: #000; }
+      .badge-en-proceso { background-color: #17a2b8; color: #fff; }
+      .badge-contactado { background-color: #007bff; color: #fff; }
+      .badge-cerrada { background-color: #28a745; color: #fff; }
+      .badge-rechazada { background-color: #dc3545; color: #fff; }
+
+      .customer-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .priority-high { border-left-color: #dc3545 !important; }
+      .priority-medium { border-left-color: #ffc107 !important; }
+      .priority-low { border-left-color: #28a745 !important; }
+
+      .urgency-badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+      }
+
+      .follow-up-date {
+        font-size: 0.8rem;
+        color: #6c757d;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <aside id="sidebar">
+        <div class="d-flex justify-content-between p-4">
+          <div class="sidebar-logo">
+            <a href="#">Colchones D'<br />Encanto</a>
+          </div>
+          <button class="toggle-btn border-0" type="button">
+            <i id="icon" class="bx bxs-chevrons-right"></i>
+          </button>
+        </div>
+        <ul class="sidebar-nav">
+          <!-- MENU PARA VENDEDOR -->
+          <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+              <i class="bx bxs-dashboard"></i>
+              <span>Mi Dashboard</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="sidebar-link active">
+              <i class="bx bxs-file"></i>
+              <span>Mis Cotizaciones</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+              <i class="bx bxs-cart"></i>
+              <span>Registrar Venta</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+              <i class="bx bxs-history"></i>
+              <span>Mi Historial</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+              <i class="bx bxs-bell-ring"></i>
+              <span>Notificaciones</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+              <i class="bx bxs-cog"></i>
+              <span>Configuración</span>
+            </a>
+          </li>
+        </ul>
+        <div class="sidebar-footer">
+          <a href="#" class="sidebar-link">
+            <i class="bx bx-log-out"></i>
+            <span>Cerrar Sesión</span>
+          </a>
+        </div>
+      </aside>
+      <div class="main">
+        <nav class="navbar navbar-expand px-4 py-3">
+          <form action="#" class="d-none d-sm-inline-block">
+            <div class="input-group input-group-navbar">
+              <input
+                type="text"
+                class="form-control border-0 rounded-0 rounded-0 pe-0"
+                placeholder="Buscar..."
+                aria-label="Search"
+              />
+              <button class="btn border-0 rounded-0" type="button">
+                <i class="bx bx-search"></i>
+              </button>
+            </div>
+          </form>
+          <div class="navbar-collapse collapse">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <span class="nav-link">
+                  👤 <b>Fabrizio Bustamante</b> - <span>VENDEDOR</span>
+                </span>
+              </li>
+
+              <li class="nav-item-dropdown">
+                <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                  <img src="/img/account.png" class="avatar img-fluid" alt="" />
+                </a>
+                <div
+                  class="dropdown-menu dropdown-menu-end rounded-0 border-0 shadow mt-3"
+                >
+                  <a href="#" class="dropdown-item">
+                    <i class="bx bx-data"></i>
+                    <span>Mi Rendimiento</span>
+                  </a>
+                  <a href="#" class="dropdown-item">
+                    <i class="bx bx-cog"></i>
+                    <span>Configuración</span>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="dropdown-item">
+                    <i class="bx bx-help-circle"></i>
+                    <span>Centro de Ayuda</span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <main class="content px-3 py-4">
+          <div class="container-fluid">
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold fs-4 mb-0">Mis Cotizaciones</h3>
+                <div class="d-flex align-items-center">
+                  <span class="badge bg-primary me-3">
+                    <i class="bx bx-time"></i> Próximo seguimiento: 2 clientes
+                  </span>
+                  <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#quickActionModal">
+                    <i class="bx bx-plus"></i> Acción Rápida
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Tarjetas de estadísticas personales -->
+              <div class="row mb-4">
+                <div class="col-12 col-md-3">
+                  <div class="card shadow stats-card">
+                    <div class="card-body py-4 text-center">
+                      <h6 class="mb-2 fw-bold">Asignadas</h6>
+                      <p class="fw-bold mb-2 fs-3 text-primary">18</p>
+                      <div class="mb-0">
+                        <span class="fw-bold text-muted">Cotizaciones activas</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-3">
+                  <div class="card shadow stats-card">
+                    <div class="card-body py-4 text-center">
+                      <h6 class="mb-2 fw-bold">Por Contactar</h6>
+                      <p class="fw-bold mb-2 fs-3 text-warning">5</p>
+                      <div class="mb-0">
+                        <span class="fw-bold text-muted">Urgentes hoy</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-3">
+                  <div class="card shadow stats-card">
+                    <div class="card-body py-4 text-center">
+                      <h6 class="mb-2 fw-bold">Convertidas</h6>
+                      <p class="fw-bold mb-2 fs-3 text-success">4</p>
+                      <div class="mb-0">
+                        <span class="fw-bold text-muted">Este mes</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-3">
+                  <div class="card shadow stats-card">
+                    <div class="card-body py-4 text-center">
+                      <h6 class="mb-2 fw-bold">Mi Tasa</h6>
+                      <p class="fw-bold mb-2 fs-3 text-info">22.2%</p>
+                      <div class="mb-0">
+                        <span class="fw-bold text-muted">Conversión</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Filtros y búsqueda -->
+              <div class="row mb-4">
+                <div class="col-md-5">
+                  <div class="search-container">
+                    <input type="text" class="form-control" placeholder="Buscar en mis cotizaciones...">
+                    <i class="bx bx-search search-icon"></i>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <select class="form-select">
+                    <option selected>Estado: Todos</option>
+                    <option>Pendiente</option>
+                    <option>En Proceso</option>
+                    <option>Contactado</option>
+                    <option>Cerrada</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <select class="form-select">
+                    <option selected>Prioridad</option>
+                    <option>Alta</option>
+                    <option>Media</option>
+                    <option>Baja</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <select class="form-select">
+                    <option selected>Ordenar por</option>
+                    <option>Más reciente</option>
+                    <option>Próximo seguimiento</option>
+                    <option>Mayor valor</option>
+                  </select>
+                </div>
+              </div>
+              
+              <!-- Lista de cotizaciones del vendedor -->
+              <div class="card shadow">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr class="highlight">
+                          <th scope="col">ID</th>
+                          <th scope="col">Cliente</th>
+                          <th scope="col">Productos</th>
+                          <th scope="col">Total</th>
+                          <th scope="col">Estado</th>
+                          <th scope="col">Próximo Seguimiento</th>
+                          <th scope="col">Prioridad</th>
+                          <th scope="col">Asignada</th>
+                          <th scope="col">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Cotización 1 - Urgente -->
+                        <tr class="quote-item priority-high">
+                          <th scope="row">COT-015</th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="https://via.placeholder.com/40" class="customer-avatar me-2" alt="Cliente">
+                              <div>
+                                <div class="fw-bold">Carlos López</div>
+                                <small class="text-muted">+51 987 654 321</small>
+                                <div>
+                                  <span class="badge bg-danger urgency-badge">URGENTE</span>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="fw-bold">Colchón King Size</span>
+                            <br>
+                            <small class="text-muted">1 producto - Alta gama</small>
+                          </td>
+                          <td>
+                            <span class="fw-bold">S/ 2,150.00</span>
+                          </td>
+                          <td>
+                            <span class="badge badge-pendiente status-badge">Pendiente</span>
+                          </td>
+                          <td>
+                            <span class="text-danger fw-bold">HOY</span>
+                            <br>
+                            <small class="follow-up-date">15:00 PM</small>
+                          </td>
+                          <td>
+                            <span class="badge bg-danger">Alta</span>
+                          </td>
+                          <td>Hace 2 días</td>
+                          <td class="action-buttons">
+                            <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+                              <i class="bx bx-phone"></i> Contactar
+                            </button>
+                            <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewQuoteModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        
+                        <!-- Cotización 2 - En proceso -->
+                        <tr class="quote-item priority-medium">
+                          <th scope="row">COT-008</th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="https://via.placeholder.com/40" class="customer-avatar me-2" alt="Cliente">
+                              <div>
+                                <div class="fw-bold">Ana Martínez</div>
+                                <small class="text-muted">+51 987 654 322</small>
+                                <div>
+                                  <span class="badge bg-warning urgency-badge">INTERESADA</span>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="fw-bold">Almohadas Viscoelásticas</span>
+                            <br>
+                            <small class="text-muted">4 unidades</small>
+                          </td>
+                          <td>
+                            <span class="fw-bold">S/ 480.00</span>
+                          </td>
+                          <td>
+                            <span class="badge badge-contactado status-badge">Contactado</span>
+                          </td>
+                          <td>
+                            <span class="text-warning fw-bold">MAÑANA</span>
+                            <br>
+                            <small class="follow-up-date">10:00 AM</small>
+                          </td>
+                          <td>
+                            <span class="badge bg-warning">Media</span>
+                          </td>
+                          <td>Hace 5 días</td>
+                          <td class="action-buttons">
+                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+                              <i class="bx bx-chat"></i> Seguir
+                            </button>
+                            <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewQuoteModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        
+                        <!-- Cotización 3 - En proceso -->
+                        <tr class="quote-item priority-low">
+                          <th scope="row">COT-012</th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="https://via.placeholder.com/40" class="customer-avatar me-2" alt="Cliente">
+                              <div>
+                                <div class="fw-bold">Roberto Silva</div>
+                                <small class="text-muted">+51 987 654 323</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="fw-bold">Colchón Twin + Protector</span>
+                            <br>
+                            <small class="text-muted">2 productos</small>
+                          </td>
+                          <td>
+                            <span class="fw-bold">S/ 950.00</span>
+                          </td>
+                          <td>
+                            <span class="badge badge-en-proceso status-badge">En Proceso</span>
+                          </td>
+                          <td>
+                            <span class="text-success">En 3 días</span>
+                            <br>
+                            <small class="follow-up-date">Jueves 18</small>
+                          </td>
+                          <td>
+                            <span class="badge bg-success">Baja</span>
+                          </td>
+                          <td>Hace 1 semana</td>
+                          <td class="action-buttons">
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+                              <i class="bx bx-refresh"></i> Actualizar
+                            </button>
+                            <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewQuoteModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        
+                        <!-- Cotización 4 - Cerrada exitosa -->
+                        <tr class="quote-item">
+                          <th scope="row">COT-005</th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="https://via.placeholder.com/40" class="customer-avatar me-2" alt="Cliente">
+                              <div>
+                                <div class="fw-bold">Laura Mendoza</div>
+                                <small class="text-muted">+51 987 654 324</small>
+                                <div>
+                                  <span class="badge bg-success urgency-badge">CLIENTE SATISFECHO</span>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="fw-bold">Base Cama Ajustable + Colchón</span>
+                            <br>
+                            <small class="text-muted">2 productos - Premium</small>
+                          </td>
+                          <td>
+                            <span class="fw-bold text-success">S/ 3,200.00</span>
+                          </td>
+                          <td>
+                            <span class="badge badge-cerrada status-badge">Cerrada ✓</span>
+                          </td>
+                          <td>
+                            <span class="text-muted">Completado</span>
+                            <br>
+                            <small class="follow-up-date">12/01/2024</small>
+                          </td>
+                          <td>
+                            <span class="badge bg-secondary">Finalizada</span>
+                          </td>
+                          <td>Hace 2 semanas</td>
+                          <td class="action-buttons">
+                            <button class="btn btn-sm btn-outline-success">
+                              <i class="bx bx-download"></i> Recibo
+                            </button>
+                            <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewQuoteModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        
+                        <!-- Cotización 5 - Nueva asignación -->
+                        <tr class="quote-item priority-high">
+                          <th scope="row">COT-021</th>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="https://via.placeholder.com/40" class="customer-avatar me-2" alt="Cliente">
+                              <div>
+                                <div class="fw-bold">Miguel Ángel Rojas</div>
+                                <small class="text-muted">+51 987 654 325</small>
+                                <div>
+                                  <span class="badge bg-info urgency-badge">NUEVO</span>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="fw-bold">Colchón Queen + Base + Almohadas</span>
+                            <br>
+                            <small class="text-muted">3 productos - Combo</small>
+                          </td>
+                          <td>
+                            <span class="fw-bold">S/ 2,850.00</span>
+                          </td>
+                          <td>
+                            <span class="badge badge-pendiente status-badge">Pendiente</span>
+                          </td>
+                          <td>
+                            <span class="text-info fw-bold">PRÓXIMOS 2 DÍAS</span>
+                            <br>
+                            <small class="follow-up-date">Por programar</small>
+                          </td>
+                          <td>
+                            <span class="badge bg-danger">Alta</span>
+                          </td>
+                          <td>Hace 1 hora</td>
+                          <td class="action-buttons">
+                            <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+                              <i class="bx bx-phone"></i> Contactar
+                            </button>
+                            <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewQuoteModal">
+                              <i class="bx bx-show"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  
+                  <!-- Paginación -->
+                  <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center mt-4">
+                      <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                      </li>
+                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">Siguiente</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row text-body-secondary">
+              <div class="col-6 text-start">
+                <a href="#" class="text-body-secondary">
+                  <strong>Colchones D'Encanto</strong>
+                </a>
+              </div>
+              <div class="col-6 text-end text-body-secondary d-none d-md-block">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <a href="#" class="text-body-secondary">Contacto</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-body-secondary">Acerca de</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-body-secondary"
+                      >Términos y Condiciones</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Modal para actualizar estado -->
+    <div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateStatusModalLabel">Actualizar Estado - COT-015</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Cliente:</strong> Carlos López</p>
+            <p><strong>Producto:</strong> Colchón King Size - S/ 2,150.00</p>
+            
+            <div class="mb-3">
+              <label for="statusSelect" class="form-label">Nuevo Estado</label>
+              <select class="form-select" id="statusSelect">
+                <option value="pendiente">Pendiente</option>
+                <option value="en-proceso">En Proceso</option>
+                <option value="contactado" selected>Contactado</option>
+                <option value="cerrada">Cerrada (Venta Exitosa)</option>
+                <option value="rechazada">Rechazada</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="contactMethod" class="form-label">Medio de Contacto</label>
+              <select class="form-select" id="contactMethod">
+                <option value="">Seleccionar medio...</option>
+                <option value="llamada">Llamada telefónica</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="email">Email</option>
+                <option value="presencial">Visita presencial</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="nextFollowUp" class="form-label">Próximo Seguimiento</label>
+              <input type="datetime-local" class="form-control" id="nextFollowUp">
+            </div>
+            
+            <div class="mb-3">
+              <label for="statusNotes" class="form-label">Notas del Contacto</label>
+              <textarea class="form-control" id="statusNotes" rows="3" placeholder="Detalles de la conversación, objeciones, próximos pasos..."></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Interés del Cliente</label>
+              <div class="btn-group w-100" role="group">
+                <input type="radio" class="btn-check" name="interestLevel" id="interestHigh" autocomplete="off" checked>
+                <label class="btn btn-outline-success" for="interestHigh">Alto</label>
+
+                <input type="radio" class="btn-check" name="interestLevel" id="interestMedium" autocomplete="off">
+                <label class="btn btn-outline-warning" for="interestMedium">Medio</label>
+
+                <input type="radio" class="btn-check" name="interestLevel" id="interestLow" autocomplete="off">
+                <label class="btn btn-outline-danger" for="interestLow">Bajo</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary">Guardar Cambios</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para ver cotización -->
+    <div class="modal fade" id="viewQuoteModal" tabindex="-1" aria-labelledby="viewQuoteModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewQuoteModalLabel">Detalle de Cotización - COT-015</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <h6>Información del Cliente</h6>
+                <p>
+                  <strong>Nombre:</strong> Carlos López<br>
+                  <strong>Email:</strong> carlos.lopez@email.com<br>
+                  <strong>Teléfono:</strong> +51 987 654 321<br>
+                  <strong>Dirección:</strong> Av. Javier Prado 123, San Isidro
+                </p>
+              </div>
+              <div class="col-md-6">
+                <h6>Información de la Cotización</h6>
+                <p>
+                  <strong>Fecha:</strong> 15/01/2024<br>
+                  <strong>Estado:</strong> <span class="badge badge-pendiente">Pendiente</span><br>
+                  <strong>Asignada a:</strong> Fabrizio Bustamante<br>
+                  <strong>Prioridad:</strong> <span class="badge bg-danger">Alta</span>
+                </p>
+              </div>
+            </div>
+            
+            <h6>Productos Cotizados</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Colchón King Size Memory Foam Premium</td>
+                    <td>1</td>
+                    <td>S/ 2,150.00</td>
+                    <td>S/ 2,150.00</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                    <td><strong>S/ 2,150.00</strong></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label"><strong>Notas del Cliente:</strong></label>
+              <p class="form-control-plaintext border rounded p-2">"Necesito el colchón lo antes posible. ¿Tienen disponibilidad inmediata? También me interesa saber sobre garantías."</p>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label"><strong>Historial de Seguimiento:</strong></label>
+              <div class="border rounded p-3">
+                <div class="d-flex mb-2">
+                  <div class="flex-shrink-0">
+                    <span class="badge bg-secondary">15/01</span>
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <strong>Asignación inicial</strong>
+                    <p class="mb-0 text-muted">Cotización asignada automáticamente al vendedor</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-outline-primary">
+              <i class="bx bx-printer"></i> Imprimir
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+              <i class="bx bx-edit"></i> Actualizar Estado
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para acción rápida -->
+    <div class="modal fade" id="quickActionModal" tabindex="-1" aria-labelledby="quickActionModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="quickActionModalLabel">Acción Rápida</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <div class="row g-3">
+              <div class="col-6">
+                <button class="btn btn-outline-primary w-100 h-100 py-3" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+                  <i class="bx bx-phone display-6 mb-2"></i><br>
+                  <span>Registrar Llamada</span>
+                </button>
+              </div>
+              <div class="col-6">
+                <button class="btn btn-outline-success w-100 h-100 py-3">
+                  <i class="bx bx-message-rounded display-6 mb-2"></i><br>
+                  <span>Enviar WhatsApp</span>
+                </button>
+              </div>
+              <div class="col-6">
+                <button class="btn btn-outline-info w-100 h-100 py-3">
+                  <i class="bx bx-envelope display-6 mb-2"></i><br>
+                  <span>Enviar Email</span>
+                </button>
+              </div>
+              <div class="col-6">
+                <button class="btn btn-outline-warning w-100 h-100 py-3">
+                  <i class="bx bx-calendar-event display-6 mb-2"></i><br>
+                  <span>Agendar Visita</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // Script para el sidebar toggle
+      document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.querySelector('.toggle-btn');
+        const sidebar = document.getElementById('sidebar');
+        const icon = document.getElementById('icon');
+        
+        toggleBtn.addEventListener('click', function() {
+          sidebar.classList.toggle('collapsed');
+          if (sidebar.classList.contains('collapsed')) {
+            icon.classList.remove('bx-chevrons-right');
+            icon.classList.add('bx-chevrons-left');
+          } else {
+            icon.classList.remove('bx-chevrons-left');
+            icon.classList.add('bx-chevrons-right');
+          }
+        });
+        
+        // Función para filtrar cotizaciones
+        document.querySelector('.search-container input').addEventListener('input', function(e) {
+          const searchTerm = e.target.value.toLowerCase();
+          const rows = document.querySelectorAll('tbody tr');
+          
+          rows.forEach(row => {
+            const clientName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            if (clientName.includes(searchTerm)) {
+              row.style.display = '';
+            } else {
+              row.style.display = 'none';
+            }
+          });
+        });
+
+        // Simular notificación de nueva cotización
+        function simulateNewQuote() {
+          setTimeout(() => {
+            const toast = document.createElement('div');
+            toast.className = 'alert alert-info alert-dismissible position-fixed top-0 end-0 m-3';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+              <strong>Nueva cotización asignada!</strong> COT-025 - Cliente: Sofia Ramirez
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(toast);
+          }, 5000);
+        }
+
+        // Ejecutar simulación
+        simulateNewQuote();
+      });
+
+      // Función para cambio rápido de estado
+      function quickStatusUpdate(quoteId, newStatus) {
+        // Simular actualización
+        const row = document.querySelector(`tr:has(th:contains("${quoteId}")`);
+        if (row) {
+          const statusBadge = row.querySelector('.status-badge');
+          statusBadge.className = `badge badge-${newStatus} status-badge`;
+          statusBadge.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
+          
+          // Mostrar confirmación
+          alert(`Estado de ${quoteId} actualizado a: ${newStatus}`);
+        }
+      }
+    </script>
+  </body>
+</html>
