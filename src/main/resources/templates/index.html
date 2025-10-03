@@ -70,13 +70,36 @@
           </ul>
 
           <!-- Carrito -->
-          <a class="btn btn-outline-warning rounded-pill ms-lg-3" href="#">
-            <i class="bi bi-cart me-1"></i> Carrito
+          <!-- Botón Carrito en el Navbar -->
+          <a class="btn btn-outline-warning rounded-pill ms-lg-3" href="#" data-bs-toggle="modal"
+            data-bs-target="#carritoModal">
+            <i class="bi bi-cart me-1"></i> Carrito <span class="badge bg-danger" id="cart-count">0</span>
           </a>
         </div>
       </div>
     </nav>
   </header>
+  <div class="modal fade" id="carritoModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-warning">
+          <h5 class="modal-title"><i class="bi bi-cart"></i> Mi Carrito</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Lista de productos -->
+          <ul class="list-group" id="cart-items">
+            <li class="list-group-item text-center text-muted">Tu carrito está vacío 🛒</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <h5 class="me-auto">Total: <span class="fw-bold text-danger" id="cart-total">S/ 0.00</span></h5>
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Seguir comprando</button>
+          <button class="btn btn-success">Finalizar compra</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Carrusel -->
   <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -192,7 +215,7 @@
       <div class="modal-content shadow-lg border-0 rounded-4">
 
         <!-- Encabezado -->
-        
+
 
         <!-- Cuerpo -->
         <div class="modal-body p-4">
