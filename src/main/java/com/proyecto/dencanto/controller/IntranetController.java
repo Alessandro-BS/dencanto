@@ -98,7 +98,7 @@ public class IntranetController {
 
     @GetMapping("/historialVentas")
     public String gestionHistorialVentas() {
-        return "intranet/reportes";
+        return "intranet/historialVentas";
     }
 
      @GetMapping("/ventas")

@@ -78,7 +78,7 @@
           </li>
           <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
             <a href="/intranet/historialVentas" class="sidebar-link">
-              <i class="bx bxs-car"></i>
+              <i class="bx bx-search-alt-2"></i>
               <span>Historial de Ventas</span>
             </a>
           </li>
@@ -172,10 +172,10 @@
               <!-- TABLA Y REPORTES -->
               <div class="row">
                 <div class="col-12 col-md-7">
-                  <h3 th:text="${rol} == 'ADMIN' ? 'Usuarios del Sistema' : 'Clientes / Cotizaciones'"
+                  <h3 th:text="${rol} == 'ADMIN' ? 'Usuarios del Sistema' : 'Usuarios del Sistema'"
                       class="fw-bold fs-4 my-3">Personal
                     </h3>
-                  <!-- TABLA USUARIOS DEL SISTEMA (ADMIN)-->  
+                    
                   <table class="table table-striped">
                     <thead>
                       <tr class="highlight">
@@ -219,9 +219,6 @@
                     </tbody>
                   </table>
                 </div>
-                
-
-
                 <!-- GRAFICO DE BARRAS -->
                 <div class="col-12 col-md-5">
                   <h3

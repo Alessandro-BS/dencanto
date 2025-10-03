@@ -11,32 +11,31 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/productos.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-
     <header>
         <!-- Barra Superior -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
-            <div class="container">
-                <!-- Botón hamburguesa (móvil) -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSup"
-                    aria-controls="navbarSup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Contenido colapsable -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom py-1">
+            <div class="container d-flex justify-content-between">
+                <!-- Links lado derecho -->
                 <div class="collapse navbar-collapse" id="navbarSup">
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link small" th:href="@{/FAQ}">Preguntas Frecuentes</a>
+                            <a class="nav-link small text-light" th:href="@{/FAQ}">
+                                <i class="bi bi-question-circle me-1"></i> Preguntas Frecuentes
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link small" th:href="@{/ubicanos}">Ubícanos</a>
+                            <a class="nav-link small text-light" th:href="@{/ubicanos}">
+                                <i class="bi bi-geo-alt me-1"></i> Ubícanos
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link small text-primary" href="/login">
-                                <i class="bi bi-person-circle"></i> Intranet</a>
+                            <a class="nav-link small text-warning fw-bold" th:href="@{/intranet/login}">
+                                <i class="bi bi-person-circle me-1"></i> Intranet
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -44,42 +43,45 @@
         </nav>
 
         <!-- Barra Principal -->
-        <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm">
+        <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
             <div class="container">
                 <!-- Logo -->
-                <a class="navbar-brand fw-bold" th:href="@{/}">
+                <a class="navbar-brand fw-bold text-dark" th:href="@{/}">
                     <img src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/110ef33b-0246-49d3-bdda-72b3e0ee8b42/LogoEncanto_QCBIJL.png"
-                        height="40 px" />
+                        height="45" class="me-2" />
                 </a>
 
-                <!-- Botón hamburguesa (móvil) -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarInf"
-                    aria-controls="navbarInf" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- Botón hamburguesa -->
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarInf" aria-controls="navbarInf" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Opciones -->
+                <!-- Menú -->
                 <div class="collapse navbar-collapse" id="navbarInf">
-                    <ul class="navbar-nav ms-end">
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-primary" th:href="@{/productos}">Productos</a>
+                            <a class="nav-link fw-semibold text-dark" th:href="@{/productos}">Productos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" th:href="@{/ofertas}">Ofertas</a>
+                            <a class="nav-link fw-semibold text-dark" th:href="@{/ofertas}">Ofertas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" th:href="@{/nosotros}">Nosotros</a>
+                            <a class="nav-link fw-semibold text-dark" th:href="@{/nosotros}">Nosotros</a>
                         </li>
                     </ul>
-                </div>
-                <li class="nav-item">
-                    <a class="btn btn-outline-warning ms-2" href="#">
-                        <i class="bi bi-cart"></i>Carrito
+
+                    <!-- Carrito -->
+                    <a class="btn btn-outline-warning rounded-pill ms-lg-3" href="#">
+                        <i class="bi bi-cart me-1"></i> Carrito
                     </a>
-                </li>
+                </div>
             </div>
         </nav>
     </header>
+
+
     <!-- Encabezado -->
     <section class="py-4 text-center bg-light">
         <div class="container">
@@ -91,11 +93,10 @@
     <!-- Contenido -->
     <section class="container my-5">
         <div class="row">
-            <!-- Sidebar filtros -->
+
+            <!-- Sidebar filtros (versión anterior, simple) -->
             <aside class="col-md-3 mb-4">
                 <h5 class="fw-bold mb-3">Filtrar por</h5>
-
-                <!-- Categoría -->
                 <div class="mb-3">
                     <label class="form-label">Categoría</label>
                     <select class="form-select">
@@ -105,14 +106,10 @@
                         <option>Bases</option>
                     </select>
                 </div>
-
-                <!-- Precio -->
                 <div class="mb-3">
                     <label class="form-label">Precio máximo</label>
                     <input type="range" class="form-range" min="100" max="5000" step="100">
                 </div>
-
-                <!-- Tamaño -->
                 <div class="mb-3">
                     <label class="form-label">Tamaño</label>
                     <select class="form-select">
@@ -124,8 +121,6 @@
                         <option>King</option>
                     </select>
                 </div>
-
-                <!-- Modelo -->
                 <div class="mb-3">
                     <label class="form-label">Modelo</label>
                     <select class="form-select">
@@ -144,411 +139,529 @@
 
                     <!-- Producto 1 -->
                     <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/c5f22385-a3a6-4403-8de4-584a0203b424/cochon1_png_SXPHFH.jpg"
-                                class="card-img-top" alt="Colchón Premium" data-bs-toggle="modal"
-                                data-bs-target="#modalProducto1">
-                            <div class="card-body">
-                                <h5 class="card-title">Colchón Premium</h5>
-                                <p class="fw-bold text-success">S/ 1200.00</p>
-                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <div class="card h-100 shadow-sm border-0 rounded-3 product-card">
+                            <img src="https://picsum.photos/400/250?random=1" class="card-img-top p-2 rounded-3"
+                                alt="Colchón Supreme Deluxe">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Supreme Deluxe</h5>
+                                <p class="fw-bold text-success fs-5">S/ 1200.00</p>
+                                <button class="btn btn-dark w-100 fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#modalProducto1">
+                                    Ver detalles
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Producto 2 -->
                     <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Colchón Ortopédico"
-                                data-bs-toggle="modal" data-bs-target="#modalProducto2">
-                            <div class="card-body">
-                                <h5 class="card-title">Colchón Ortopédico</h5>
-                                <p class="fw-bold text-success">S/ 950.00</p>
-                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <div class="card h-100 shadow-sm border-0 rounded-3 product-card">
+                            <img src="https://picsum.photos/400/250?random=2" class="card-img-top p-2 rounded-3"
+                                alt="Colchón Ortopédico Plus">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Ortopédico Plus</h5>
+                                <p class="fw-bold text-success fs-5">S/ 950.00</p>
+                                <button class="btn btn-dark w-100 fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#modalProducto2">
+                                    Ver detalles
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Producto 3 -->
                     <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top"
-                                alt="Almohada Viscoelástica" data-bs-toggle="modal" data-bs-target="#modalProducto3">
-                            <div class="card-body">
-                                <h5 class="card-title">Almohada Viscoelástica</h5>
-                                <p class="fw-bold text-success">S/ 150.00</p>
-                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <div class="card h-100 shadow-sm border-0 rounded-3 product-card">
+                            <img src="https://picsum.photos/400/250?random=3" class="card-img-top p-2 rounded-3"
+                                alt="Colchón Visco Memory">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Visco Memory</h5>
+                                <p class="fw-bold text-success fs-5">S/ 1350.00</p>
+                                <button class="btn btn-dark w-100 fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#modalProducto3">
+                                    Ver detalles
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Producto 4 -->
                     <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Colchón Clásico"
-                                data-bs-toggle="modal" data-bs-target="#modalProducto4">
-                            <div class="card-body">
-                                <h5 class="card-title">Colchón Clásico</h5>
-                                <p class="fw-bold text-success">S/ 700.00</p>
-                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <div class="card h-100 shadow-sm border-0 rounded-3 product-card">
+                            <img src="https://picsum.photos/400/250?random=4" class="card-img-top p-2 rounded-3"
+                                alt="Colchón Premium Gold">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Premium Gold</h5>
+                                <p class="fw-bold text-success fs-5">S/ 1600.00</p>
+                                <button class="btn btn-dark w-100 fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#modalProducto4">
+                                    Ver detalles
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Producto 5 -->
                     <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Base King"
-                                data-bs-toggle="modal" data-bs-target="#modalProducto5">
-                            <div class="card-body">
-                                <h5 class="card-title">Base King</h5>
-                                <p class="fw-bold text-success">S/ 450.00</p>
-                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <div class="card h-100 shadow-sm border-0 rounded-3 product-card">
+                            <img src="https://picsum.photos/400/250?random=5" class="card-img-top p-2 rounded-3"
+                                alt="Colchón Ortopédico Premium">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Ortopédico Premium</h5>
+                                <p class="fw-bold text-success fs-5">S/ 1100.00</p>
+                                <button class="btn btn-dark w-100 fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#modalProducto5">
+                                    Ver detalles
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Producto 6 -->
                     <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Almohada Clásica"
-                                data-bs-toggle="modal" data-bs-target="#modalProducto6">
-                            <div class="card-body">
-                                <h5 class="card-title">Almohada Clásica</h5>
-                                <p class="fw-bold text-success">S/ 80.00</p>
-                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <div class="card h-100 shadow-sm border-0 rounded-3 product-card">
+                            <img src="https://picsum.photos/400/250?random=6" class="card-img-top p-2 rounded-3"
+                                alt="Colchón Fresh Air">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Fresh Air</h5>
+                                <p class="fw-bold text-success fs-5">S/ 1250.00</p>
+                                <button class="btn btn-dark w-100 fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#modalProducto6">
+                                    Ver detalles
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Producto 7 -->
                     <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Almohada Clásica"
-                                data-bs-toggle="modal" data-bs-target="#modalProducto7">
-                            <div class="card-body">
-                                <h5 class="card-title">Almohada Clásica</h5>
-                                <p class="fw-bold text-success">S/ 80.00</p>
-                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <div class="card h-100 shadow-sm border-0 rounded-3 product-card">
+                            <img src="https://picsum.photos/400/250?random=7" class="card-img-top p-2 rounded-3"
+                                alt="Colchón Dream Soft">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Dream Soft</h5>
+                                <p class="fw-bold text-success fs-5">S/ 980.00</p>
+                                <button class="btn btn-dark w-100 fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#modalProducto7">
+                                    Ver detalles
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Producto 8 -->
                     <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Almohada Clásica"
-                                data-bs-toggle="modal" data-bs-target="#modalProducto8">
-                            <div class="card-body">
-                                <h5 class="card-title">Almohada Clásica</h5>
-                                <p class="fw-bold text-success">S/ 80.00</p>
-                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <div class="card h-100 shadow-sm border-0 rounded-3 product-card">
+                            <img src="https://picsum.photos/400/250?random=8" class="card-img-top p-2 rounded-3"
+                                alt="Colchón Relax Foam">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Relax Foam</h5>
+                                <p class="fw-bold text-success fs-5">S/ 890.00</p>
+                                <button class="btn btn-dark w-100 fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#modalProducto8">
+                                    Ver detalles
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Producto 9 -->
                     <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Almohada Clásica"
-                                data-bs-toggle="modal" data-bs-target="#modalProducto9">
-                            <div class="card-body">
-                                <h5 class="card-title">Almohada Clásica</h5>
-                                <p class="fw-bold text-success">S/ 80.00</p>
-                                <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <div class="card h-100 shadow-sm border-0 rounded-3 product-card">
+                            <img src="https://picsum.photos/400/250?random=9" class="card-img-top p-2 rounded-3"
+                                alt="Colchón King Comfort">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">King Comfort</h5>
+                                <p class="fw-bold text-success fs-5">S/ 1750.00</p>
+                                <button class="btn btn-dark w-100 fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#modalProducto9">
+                                    Ver detalles
+                                </button>
                             </div>
                         </div>
                     </div>
-
-                    
 
                 </div>
             </div>
         </div>
     </section>
-    <!-- Modal Producto 1 -->
+    <!-- 🔹 MODAL PRODUCTO 1 -->
     <div class="modal fade" id="modalProducto1" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Colchón Premium</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-content shadow-lg border-0 rounded-4">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Colchón Supreme Deluxe</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body row">
+                <div class="modal-body row p-4">
+                    <!-- Imagen -->
                     <div class="col-md-6">
-                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Colchón Premium">
+                        <img src="https://picsum.photos/500/300?random=10" class="img-fluid rounded shadow-sm"
+                            alt="Colchón Supreme Deluxe">
                     </div>
+                    <!-- Ficha técnica -->
                     <div class="col-md-6">
-                        <p>Diseñado con espuma de alta densidad y resortes individuales para un descanso superior.</p>
-                        <ul>
-                            <li>Garantía de 10 años</li>
-                            <li>Tecnología antiácaros</li>
-                            <li>Disponible en todos los tamaños</li>
+                        <p>El colchón más exclusivo de nuestra fábrica, diseñado con materiales de última generación
+                            para un descanso saludable.</p>
+                        <ul class="small">
+                            <li>🌙 Espuma viscoelástica premium</li>
+                            <li>💨 Tecnología de ventilación 360°</li>
+                            <li>🛏️ Garantía de 10 años</li>
+                            <li>✅ Tela tejido en punto y acolchado computarizado</li>
+                            <li>🦠 Hipoalergénico y antiácaros</li>
                         </ul>
+                        <hr>
+                        <h6 class="fw-bold">Garantía</h6>
+                        <p class="small">10 años contra defectos de fabricación.</p>
+                        <h6 class="fw-bold">Recomendaciones</h6>
+                        <p class="small">Usar sobre superficie plana, rotar cada 3 meses.</p>
                         <p class="fw-bold text-success fs-5">S/ 1200.00</p>
-                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <button class="btn btn-success w-100 fw-bold"><i class="bi bi-cart-plus"></i> Agregar al
+                            carrito</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Producto 2 -->
+    <!-- 🔹 MODAL PRODUCTO 2 -->
     <div class="modal fade" id="modalProducto2" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Colchón Ortopédico</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-content shadow-lg border-0 rounded-4">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Colchón Ortopédico Plus</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body row">
+                <div class="modal-body row p-4">
                     <div class="col-md-6">
-                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Colchón Ortopédico">
+                        <img src="https://picsum.photos/500/300?random=11" class="img-fluid rounded shadow-sm"
+                            alt="Colchón Ortopédico Plus">
                     </div>
                     <div class="col-md-6">
-                        <p>Ideal para cuidar tu postura con un soporte firme y ergonómico.</p>
-                        <ul>
-                            <li>Diseño ortopédico para columna</li>
-                            <li>Forro hipoalergénico</li>
-                            <li>Garantía de 8 años</li>
+                        <p>Especialmente diseñado para mantener la postura correcta durante el descanso.</p>
+                        <ul class="small">
+                            <li>🦴 Núcleo firme para soporte lumbar</li>
+                            <li>🌬️ Canales de ventilación interna</li>
+                            <li>🛡️ Reforzado en bordes perimetrales</li>
+                            <li>✅ Tejido resistente al desgaste</li>
+                            <li>🦠 Protección antiácaros</li>
                         </ul>
+                        <hr>
+                        <h6 class="fw-bold">Garantía</h6>
+                        <p class="small">8 años en estructura interna.</p>
+                        <h6 class="fw-bold">Recomendaciones</h6>
+                        <p class="small">Ideal para personas con dolores lumbares.</p>
                         <p class="fw-bold text-success fs-5">S/ 950.00</p>
-                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <button class="btn btn-success w-100 fw-bold"><i class="bi bi-cart-plus"></i> Agregar al
+                            carrito</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Producto 3 -->
+    <!-- 🔹 MODAL PRODUCTO 3 -->
     <div class="modal fade" id="modalProducto3" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Almohada Viscoelástica</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-content shadow-lg border-0 rounded-4">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Colchón Visco Memory</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body row">
+                <div class="modal-body row p-4">
                     <div class="col-md-6">
-                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Almohada Viscoelástica">
+                        <img src="https://picsum.photos/500/300?random=12" class="img-fluid rounded shadow-sm"
+                            alt="Colchón Visco Memory">
                     </div>
                     <div class="col-md-6">
-                        <p>Perfecta para un descanso reparador gracias a su espuma de memoria.</p>
-                        <ul>
-                            <li>Soporte cervical</li>
-                            <li>Material transpirable</li>
-                            <li>Funda lavable</li>
+                        <p>Fabricado con espuma viscoelástica de alta densidad para un soporte ergonómico.</p>
+                        <ul class="small">
+                            <li>🌙 Efecto memoria que se adapta al cuerpo</li>
+                            <li>🛏️ Confort suave y firme al mismo tiempo</li>
+                            <li>💨 Tejido respirable</li>
+                            <li>✅ No genera presión en articulaciones</li>
+                            <li>🦠 Antiácaros e hipoalergénico</li>
                         </ul>
-                        <p class="fw-bold text-success fs-5">S/ 150.00</p>
-                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <hr>
+                        <h6 class="fw-bold">Garantía</h6>
+                        <p class="small">7 años contra defectos de fábrica.</p>
+                        <h6 class="fw-bold">Recomendaciones</h6>
+                        <p class="small">Recomendado para personas con insomnio o estrés muscular.</p>
+                        <p class="fw-bold text-success fs-5">S/ 1350.00</p>
+                        <button class="btn btn-success w-100 fw-bold"><i class="bi bi-cart-plus"></i> Agregar al
+                            carrito</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Producto 4 -->
+    <!-- 🔹 MODAL PRODUCTO 4 -->
     <div class="modal fade" id="modalProducto4" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Colchón Clásico</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-content shadow-lg border-0 rounded-4">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Colchón Premium Gold</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body row">
+                <div class="modal-body row p-4">
                     <div class="col-md-6">
-                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Colchón Clásico">
+                        <img src="https://picsum.photos/500/300?random=13" class="img-fluid rounded shadow-sm"
+                            alt="Colchón Premium Gold">
                     </div>
                     <div class="col-md-6">
-                        <p>La opción económica y confiable para un descanso cómodo.</p>
-                        <ul>
-                            <li>Espuma estándar de alta resistencia</li>
-                            <li>Cobertura de tela jacquard</li>
-                            <li>Garantía de 5 años</li>
+                        <p>Una opción de lujo con acabados en tejido dorado y confort supremo.</p>
+                        <ul class="small">
+                            <li>Diseño elegante y resistente</li>
+                            <li>Espuma HR de alta densidad</li>
+                            <li>Sistema de resortes encapsulados</li>
+                            <li>Máxima durabilidad</li>
+                            <li>Tejido transpirable</li>
                         </ul>
-                        <p class="fw-bold text-success fs-5">S/ 700.00</p>
-                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <hr>
+                        <h6 class="fw-bold">Garantía</h6>
+                        <p class="small">10 años de cobertura.</p>
+                        <h6 class="fw-bold">Recomendaciones</h6>
+                        <p class="small">Recomendado para climas cálidos.</p>
+                        <p class="fw-bold text-success fs-5">S/ 1600.00</p>
+                        <button class="btn btn-success w-100 fw-bold"><i class="bi bi-cart-plus"></i> Agregar al
+                            carrito</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Producto 5 -->
+    <!-- 🔹 MODAL PRODUCTO 5 -->
     <div class="modal fade" id="modalProducto5" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Base King</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-content shadow-lg border-0 rounded-4">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Colchón Ortopédico Premium</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body row">
+                <div class="modal-body row p-4">
                     <div class="col-md-6">
-                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Base King">
+                        <img src="https://picsum.photos/500/300?random=14" class="img-fluid rounded shadow-sm"
+                            alt="Colchón Ortopédico Premium">
                     </div>
                     <div class="col-md-6">
-                        <p>Estructura sólida de madera reforzada para colchones King.</p>
-                        <ul>
-                            <li>Material 100% madera</li>
-                            <li>Acabado elegante</li>
-                            <li>Soporta hasta 250 kg</li>
+                        <p>Proporciona soporte firme y adaptado para quienes buscan máxima estabilidad al dormir.</p>
+                        <ul class="small">
+                            <li> Recomendado por ortopedistas</li>
+                            <li> Sistema de ventilación lateral</li>
+                            <li> Mayor durabilidad</li>
+                            <li> Tejido antibacterial</li>
+                            <li> Alta densidad</li>
                         </ul>
-                        <p class="fw-bold text-success fs-5">S/ 450.00</p>
-                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <hr>
+                        <h6 class="fw-bold">Garantía</h6>
+                        <p class="small">6 años en estructura.</p>
+                        <h6 class="fw-bold">Recomendaciones</h6>
+                        <p class="small">Uso recomendado en superficies planas rígidas.</p>
+                        <p class="fw-bold text-success fs-5">S/ 1100.00</p>
+                        <button class="btn btn-success w-100 fw-bold"><i class="bi bi-cart-plus"></i> Agregar al
+                            carrito</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Producto 6 -->
+    <!-- 🔹 MODAL PRODUCTO 6 -->
     <div class="modal fade" id="modalProducto6" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Almohada Clásica</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-content shadow-lg border-0 rounded-4">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Colchón Fresh Air</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body row">
+                <div class="modal-body row p-4">
                     <div class="col-md-6">
-                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Almohada Clásica">
+                        <img src="https://picsum.photos/500/300?random=15" class="img-fluid rounded shadow-sm"
+                            alt="Colchón Fresh Air">
                     </div>
                     <div class="col-md-6">
-                        <p>La almohada tradicional para un descanso ligero y cómodo.</p>
-                        <ul>
-                            <li>Relleno de fibra suave</li>
-                            <li>Tela hipoalergénica</li>
-                            <li>Fácil de lavar</li>
+                        <p>Perfecto para climas cálidos gracias a su sistema de ventilación.</p>
+                        <ul class="small">
+                            <li> Tecnología FreshCool</li>
+                            <li> Espuma de gel refrescante</li>
+                            <li> Cubrecolchón integrado</li>
+                            <li> Confort medio-firme</li>
+                            <li> Protección hipoalergénica</li>
                         </ul>
-                        <p class="fw-bold text-success fs-5">S/ 80.00</p>
-                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <hr>
+                        <h6 class="fw-bold">Garantía</h6>
+                        <p class="small">5 años en estructura.</p>
+                        <h6 class="fw-bold">Recomendaciones</h6>
+                        <p class="small">Ideal para personas calurosas.</p>
+                        <p class="fw-bold text-success fs-5">S/ 1250.00</p>
+                        <button class="btn btn-success w-100 fw-bold"><i class="bi bi-cart-plus"></i> Agregar al
+                            carrito</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Producto 6 -->
+    <!-- 🔹 MODAL PRODUCTO 7 -->
     <div class="modal fade" id="modalProducto7" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Almohada Clásica</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-content shadow-lg border-0 rounded-4">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Colchón Dream Soft</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body row">
+                <div class="modal-body row p-4">
                     <div class="col-md-6">
-                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Almohada Clásica">
+                        <img src="https://picsum.photos/500/300?random=16" class="img-fluid rounded shadow-sm"
+                            alt="Colchón Dream Soft">
                     </div>
                     <div class="col-md-6">
-                        <p>La almohada tradicional para un descanso ligero y cómodo.</p>
-                        <ul>
-                            <li>Relleno de fibra suave</li>
-                            <li>Tela hipoalergénica</li>
-                            <li>Fácil de lavar</li>
+                        <p>Un colchón suave con máxima comodidad, perfecto para quienes buscan relajación total.</p>
+                        <ul class="small">
+                            <li> Extra acolchado</li>
+                            <li> Doble capa de espuma suave</li>
+                            <li> Tela transpirable</li>
+                            <li> Ideal para personas de bajo peso</li>
+                            <li> Tejido hipoalergénico</li>
                         </ul>
-                        <p class="fw-bold text-success fs-5">S/ 80.00</p>
-                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <hr>
+                        <h6 class="fw-bold">Garantía</h6>
+                        <p class="small">5 años.</p>
+                        <h6 class="fw-bold">Recomendaciones</h6>
+                        <p class="small">No recomendado para personas con problemas de espalda.</p>
+                        <p class="fw-bold text-success fs-5">S/ 980.00</p>
+                        <button class="btn btn-success w-100 fw-bold"><i class="bi bi-cart-plus"></i> Agregar al
+                            carrito</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Producto 6 -->
+    <!-- 🔹 MODAL PRODUCTO 8 -->
     <div class="modal fade" id="modalProducto8" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Almohada Clásica</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-content shadow-lg border-0 rounded-4">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Colchón Relax Foam</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body row">
+                <div class="modal-body row p-4">
                     <div class="col-md-6">
-                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Almohada Clásica">
+                        <img src="https://picsum.photos/500/300?random=17" class="img-fluid rounded shadow-sm"
+                            alt="Colchón Relax Foam">
                     </div>
                     <div class="col-md-6">
-                        <p>La almohada tradicional para un descanso ligero y cómodo.</p>
-                        <ul>
-                            <li>Relleno de fibra suave</li>
-                            <li>Tela hipoalergénica</li>
-                            <li>Fácil de lavar</li>
+                        <p>Colchón económico pero de alta calidad, pensado para estudiantes y hogares jóvenes.</p>
+                        <ul class="small">
+                            <li> Espuma de alta durabilidad</li>
+                            <li> Ventilación interna</li>
+                            <li> Resistente a deformaciones</li>
+                            <li> Firmeza media</li>
+                            <li> Tratamiento antibacterial</li>
                         </ul>
-                        <p class="fw-bold text-success fs-5">S/ 80.00</p>
-                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <hr>
+                        <h6 class="fw-bold">Garantía</h6>
+                        <p class="small">3 años.</p>
+                        <h6 class="fw-bold">Recomendaciones</h6>
+                        <p class="small">Ideal para segundas camas o uso ocasional.</p>
+                        <p class="fw-bold text-success fs-5">S/ 890.00</p>
+                        <button class="btn btn-success w-100 fw-bold"><i class="bi bi-cart-plus"></i> Agregar al
+                            carrito</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Producto 6 -->
+    <!-- 🔹 MODAL PRODUCTO 9 -->
     <div class="modal fade" id="modalProducto9" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Almohada Clásica</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-content shadow-lg border-0 rounded-4">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Colchón King Comfort</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body row">
+                <div class="modal-body row p-4">
                     <div class="col-md-6">
-                        <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="Almohada Clásica">
+                        <img src="https://picsum.photos/500/300?random=18" class="img-fluid rounded shadow-sm"
+                            alt="Colchón King Comfort">
                     </div>
                     <div class="col-md-6">
-                        <p>La almohada tradicional para un descanso ligero y cómodo.</p>
-                        <ul>
-                            <li>Relleno de fibra suave</li>
-                            <li>Tela hipoalergénica</li>
-                            <li>Fácil de lavar</li>
+                        <p>El colchón más amplio y cómodo, ideal para parejas que buscan máximo espacio.</p>
+                        <ul class="small">
+                            <li> Tamaño King</li>
+                            <li> Espuma viscoelástica + resortes independientes</li>
+                            <li> Estructura reforzada</li>
+                            <li> Acolchado premium</li>
+                            <li> Tejido transpirable</li>
                         </ul>
-                        <p class="fw-bold text-success fs-5">S/ 80.00</p>
-                        <a href="#" class="btn btn-primary w-100">Agregar al carrito</a>
+                        <hr>
+                        <h6 class="fw-bold">Garantía</h6>
+                        <p class="small">10 años en resortes.</p>
+                        <h6 class="fw-bold">Recomendaciones</h6>
+                        <p class="small">Perfecto para dormitorios amplios.</p>
+                        <p class="fw-bold text-success fs-5">S/ 1750.00</p>
+                        <button class="btn btn-success w-100 fw-bold"><i class="bi bi-cart-plus"></i> Agregar al
+                            carrito</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Aquí deberías duplicar y personalizar los modales para los productos 2, 3, 4, 5 y 6 -->
 
     <footer class="bg-dark text-white pt-5">
         <div class="container">
             <div class="row">
                 <!-- Columna 1 -->
-                <div class="col-md-6 mb-3">
-                    <h5 class="fw-bold">Atención al Cliente</h5>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold mb-3">Atención al Cliente</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">Preguntas Frecuentes</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Contáctanos</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Preguntas Frecuentes</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Contáctanos</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Libro de Reclamaciones</a></li>
                     </ul>
                 </div>
+
                 <!-- Columna 2 -->
-                <div class="col-md-6 mb-3">
-                    <h5 class="fw-bold">Nuestra Empresa</h5>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold mb-3">Nuestra Empresa</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">Ubícanos</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Nosotros</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Libro de Reclamos</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Ubícanos</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Nosotros</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Trabaja con Nosotros</a></li>
                     </ul>
+                </div>
+
+
+                <!-- Columna 4 -->
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold mb-3">Suscríbete</h5>
+                    <p class="text-white-50">Recibe nuestras ofertas y novedades directamente en tu correo.</p>
+                    <form class="d-flex">
+                        <input type="email" class="form-control form-control-sm me-2" placeholder="Tu correo" />
+                        <button class="btn btn-warning btn-sm">OK</button>
+                    </form>
                 </div>
             </div>
 
             <!-- Redes sociales -->
-            <div class="text-center my-3">
-                <a href="#" class="text-white fs-4 me-3"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="text-white fs-4 me-3"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="text-white fs-4 me-3"><i class="bi bi-whatsapp"></i></a>
-                <a href="#" class="text-white fs-4"><i class="bi bi-youtube"></i></a>
+            <div class="text-center my-4">
+                <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-whatsapp"></i></a>
+                <a href="#" class="text-white fs-4 social-link"><i class="bi bi-youtube"></i></a>
             </div>
 
             <!-- Derechos reservados -->
             <div class="text-center border-top border-secondary pt-3">
-                <small>&copy; 2025 ColchonesFactory - Todos los derechos reservados</small>
+                <small class="text-white-50">&copy; 2025 Colchones D'Encanto - Todos los derechos reservados</small>
             </div>
         </div>
     </footer>
-
-    <!-- Footer (igual que index) -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,319 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registrar Venta - Colchones D'Encanto</title>
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <style>
-      /* Estilos del sidebar y estructura general */
-      :root {
-        --sidebar-bg-color: #2c3e50;
-        --sidebar-color: #fff;
-        --sidebar-width: 250px;
-        --sidebar-collapsed-width: 70px;
-        --main-bg-color: #f8f9fa;
-      }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Venta - Colchones D'Encanto</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/intranet.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
 
-      body {
-        background-color: #e9ecef;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
-
-      .wrapper {
-        display: flex;
-        min-height: 100vh;
-      }
-
-      #sidebar {
-        width: var(--sidebar-width);
-        background: var(--sidebar-bg-color);
-        color: var(--sidebar-color);
-        transition: all 0.3s;
-        position: relative;
-        z-index: 1000;
-      }
-
-      #sidebar.collapsed {
-        width: var(--sidebar-collapsed-width);
-      }
-
-      #sidebar.collapsed .sidebar-logo,
-      #sidebar.collapsed .sidebar-link span,
-      #sidebar.collapsed .sidebar-footer span {
-        display: none;
-      }
-
-      .sidebar-logo {
-        padding: 1rem 0;
-        text-align: center;
-      }
-
-      .sidebar-logo a {
-        color: var(--sidebar-color);
-        font-size: 1.2rem;
-        font-weight: 600;
-        text-decoration: none;
-      }
-
-      .toggle-btn {
-        background: transparent;
-        color: var(--sidebar-color);
-        cursor: pointer;
-      }
-
-      .sidebar-nav {
-        list-style: none;
-        padding: 0;
-      }
-
-      .sidebar-item {
-        position: relative;
-      }
-
-      .sidebar-link {
-        padding: 0.8rem 1.5rem;
-        display: flex;
-        align-items: center;
-        color: var(--sidebar-color);
-        text-decoration: none;
-        transition: all 0.3s;
-      }
-
-      .sidebar-link:hover {
-        background: rgba(255, 255, 255, 0.1);
-      }
-
-      .sidebar-link.active {
-        background: rgba(255, 255, 255, 0.15);
-      }
-
-      .sidebar-link i {
-        margin-right: 10px;
-        font-size: 1.2rem;
-      }
-
-      .sidebar-dropdown {
-        list-style: none;
-        padding-left: 2rem;
-      }
-
-      .sidebar-footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        padding: 1rem;
-      }
-
-      .main {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        transition: all 0.3s;
-      }
-
-      .navbar {
-        background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .content {
-        flex: 1;
-        padding: 2rem;
-      }
-
-      .footer {
-        background: #fff;
-        padding: 1rem;
-        border-top: 1px solid #dee2e6;
-      }
-
-      .card {
-        border: none;
-        border-radius: 0.5rem;
-        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-      }
-
-      .table th {
-        border-top: none;
-        font-weight: 600;
-      }
-
-      .highlight {
-        background-color: #f8f9fa;
-      }
-
-      .avatar {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-      }
-
-      /* Estilos específicos para registrar ventas */
-      .sale-form-section {
-        background: #fff;
-        border-radius: 0.5rem;
-        padding: 2rem;
-        margin-bottom: 2rem;
-      }
-
-      .product-item {
-        border: 1px solid #dee2e6;
-        border-radius: 0.375rem;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        transition: all 0.3s;
-      }
-
-      .product-item:hover {
-        border-color: #007bff;
-        background-color: #f8f9fa;
-      }
-
-      .product-image-sm {
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-        border-radius: 0.25rem;
-      }
-
-      .quantity-controls {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .quantity-controls .btn {
-        width: 35px;
-        height: 35px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .summary-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border-radius: 0.5rem;
-      }
-
-      .client-option {
-        border: 2px solid #e9ecef;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        cursor: pointer;
-        transition: all 0.3s;
-      }
-
-      .client-option:hover {
-        border-color: #007bff;
-        background-color: #f8f9fa;
-      }
-
-      .client-option.selected {
-        border-color: #007bff;
-        background-color: #e7f1ff;
-      }
-
-      .stock-badge {
-        font-size: 0.7rem;
-        padding: 0.2rem 0.4rem;
-      }
-
-      .payment-method-option {
-        border: 2px solid #e9ecef;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        cursor: pointer;
-        transition: all 0.3s;
-        text-align: center;
-      }
-
-      .payment-method-option:hover {
-        border-color: #007bff;
-      }
-
-      .payment-method-option.selected {
-        border-color: #28a745;
-        background-color: #e7f1ff;
-      }
-
-      .step-indicator {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 2rem;
-        position: relative;
-      }
-
-      .step-indicator::before {
-        content: '';
-        position: absolute;
-        top: 20px;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: #e9ecef;
-        z-index: 1;
-      }
-
-      .step {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-        z-index: 2;
-      }
-
-      .step-number {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: #e9ecef;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-        border: 3px solid white;
-      }
-
-      .step.active .step-number {
-        background: #007bff;
-        color: white;
-      }
-
-      .step.completed .step-number {
-        background: #28a745;
-        color: white;
-      }
-
-      .step-label {
-        font-size: 0.875rem;
-        font-weight: 500;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="wrapper">
-      <aside id="sidebar">
+<body>
+  <div class="wrapper">
+    <!-- MENÚ LATERAL -->
+    <aside id="sidebar">
         <div class="d-flex justify-content-between p-4">
           <div class="sidebar-logo">
             <a href="#">Colchones D'<br />Encanto</a>
@@ -323,794 +24,403 @@
           </button>
         </div>
         <ul class="sidebar-nav">
-          <!-- MENU PARA VENDEDOR -->
+          <!-- PERFIL (ADMIN/USUARIO)-->
           <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
-              <i class="bx bxs-dashboard"></i>
-              <span>Mi Dashboard</span>
+            <a href="/intranet/dashboard" class="sidebar-link">
+              <i class="bx bx-history"></i>
+              <span>Historial</span>
             </a>
           </li>
-          <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
+          <!-- MENU PARA ADMIN -->
+           <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+            <a href="/intranet/reportes" class="sidebar-link">
+              <i class="bx bxs-report"></i>
+              <span>Generar Reportes</span>
+            </a>
+          </li>
+          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+            <a href="/intranet/productos" class="sidebar-link">
+              <i class="bx bxs-box"></i>
+              <span>Gestión de Productos</span>
+            </a>
+          </li>
+          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+            <a href="/intranet/usuarios" class="sidebar-link">
+              <i class="bx bxs-user-account"></i>
+              <span>Gestión de Usuarios</span>
+            </a>
+          </li>
+          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+            <a href="/intranet/cotizaciones" class="sidebar-link">
+              <i class="bx bxs-food-menu"></i>
+              <span>Visualizar Cotizaciones</span>
+            </a>
+          </li>
+          <!-- MENU PARA VENDEDORES -->
+          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+            <a href="/intranet/revisarCotizaciones" class="sidebar-link">
               <i class="bx bxs-file"></i>
-              <span>Mis Cotizaciones</span>
+              <span>Revisar Cotizaciones</span>
             </a>
           </li>
-          <li class="sidebar-item">
-            <a href="#" class="sidebar-link active">
+          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+            <a href="/intranet/ventas" class="sidebar-link">
               <i class="bx bxs-cart"></i>
-              <span>Registrar Venta</span>
+              <span>Registrar Ventas</span>
             </a>
           </li>
-          <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
-              <i class="bx bxs-history"></i>
-              <span>Mi Historial</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
-              <i class="bx bxs-bell-ring"></i>
-              <span>Notificaciones</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
-              <i class="bx bxs-cog"></i>
-              <span>Configuración</span>
+          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+            <a href="/intranet/historialVentas" class="sidebar-link">
+              <i class="bx bx-search-alt-2"></i>
+              <span>Historial de Ventas</span>
             </a>
           </li>
         </ul>
         <div class="sidebar-footer">
-          <a href="#" class="sidebar-link">
+          <a href="/intranet/login" class="sidebar-link" onclick="confirmLogout()">
             <i class="bx bx-log-out"></i>
             <span>Cerrar Sesión</span>
           </a>
         </div>
       </aside>
-      <div class="main">
-        <nav class="navbar navbar-expand px-4 py-3">
-          <form action="#" class="d-none d-sm-inline-block">
-            <div class="input-group input-group-navbar">
-              <input
-                type="text"
-                class="form-control border-0 rounded-0 rounded-0 pe-0"
-                placeholder="Buscar..."
-                aria-label="Search"
-              />
-              <button class="btn border-0 rounded-0" type="button">
-                <i class="bx bx-search"></i>
-              </button>
-            </div>
-          </form>
-          <div class="navbar-collapse collapse">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <span class="nav-link">
-                  👤 <b>Fabrizio Bustamante</b> - <span>VENDEDOR</span>
-                </span>
-              </li>
 
-              <li class="nav-item-dropdown">
-                <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                  <img src="/img/account.png" class="avatar img-fluid" alt="" />
-                </a>
-                <div
-                  class="dropdown-menu dropdown-menu-end rounded-0 border-0 shadow mt-3"
-                >
-                  <a href="#" class="dropdown-item">
-                    <i class="bx bx-data"></i>
-                    <span>Mi Rendimiento</span>
-                  </a>
-                  <a href="#" class="dropdown-item">
-                    <i class="bx bx-cog"></i>
-                    <span>Configuración</span>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">
-                    <i class="bx bx-help-circle"></i>
-                    <span>Centro de Ayuda</span>
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <main class="content px-3 py-4">
-          <div class="container-fluid">
-            <div class="mb-3">
-              <div class="d-flex justify-content-between align-items-center mb-4">
-                <h3 class="fw-bold fs-4 mb-0">Registrar Venta Manual</h3>
-                <div>
-                  <button class="btn btn-outline-secondary me-2" onclick="resetForm()">
-                    <i class="bx bx-reset"></i> Limpiar Formulario
-                  </button>
-                  <span class="badge bg-info">
-                    <i class="bx bx-time"></i> Venta #V-2024-00125
-                  </span>
-                </div>
-              </div>
-
-              <!-- Indicador de pasos -->
-              <div class="step-indicator">
-                <div class="step active" id="step1">
-                  <div class="step-number">1</div>
-                  <div class="step-label">Cliente</div>
-                </div>
-                <div class="step" id="step2">
-                  <div class="step-number">2</div>
-                  <div class="step-label">Productos</div>
-                </div>
-                <div class="step" id="step3">
-                  <div class="step-number">3</div>
-                  <div class="step-label">Pago</div>
-                </div>
-                <div class="step" id="step4">
-                  <div class="step-number">4</div>
-                  <div class="step-label">Confirmación</div>
-                </div>
-              </div>
-
-              <!-- Paso 1: Selección de Cliente -->
-              <div class="sale-form-section" id="step1-content">
-                <h5 class="fw-bold mb-4">📋 Paso 1: Seleccionar Cliente</h5>
-                
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="mb-4">
-                      <label class="form-label fw-bold">Buscar Cliente Existente</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar por nombre, email o teléfono...">
-                        <button class="btn btn-outline-secondary" type="button">
-                          <i class="bx bx-search"></i>
-                        </button>
-                      </div>
-                    </div>
-
-                    <!-- Lista de clientes existentes -->
-                    <div class="client-option selected" onclick="selectClient('existing')">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <h6 class="fw-bold mb-1">Carlos López</h6>
-                          <p class="mb-1 text-muted">carlos.lopez@email.com · +51 987 654 321</p>
-                          <small class="text-muted">Av. Javier Prado 123, San Isidro</small>
-                        </div>
-                        <div class="text-end">
-                          <span class="badge bg-success">Cliente frecuente</span>
-                          <div class="text-success fw-bold mt-1">3 compras anteriores</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="client-option" onclick="selectClient('existing')">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <h6 class="fw-bold mb-1">Ana Martínez</h6>
-                          <p class="mb-1 text-muted">ana.martinez@email.com · +51 987 654 322</p>
-                          <small class="text-muted">Jr. Lima 456, Miraflores</small>
-                        </div>
-                        <div class="text-end">
-                          <span class="badge bg-warning">Nuevo cliente</span>
-                          <div class="text-muted mt-1">1 compra anterior</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="client-option" onclick="selectClient('new')" id="new-client-option">
-                      <div class="text-center py-4">
-                        <i class="bx bx-user-plus display-4 text-primary mb-3"></i>
-                        <h5 class="fw-bold">Nuevo Cliente</h5>
-                        <p class="text-muted">Registrar información de un nuevo cliente</p>
-                      </div>
-                    </div>
-
-                    <!-- Formulario para nuevo cliente (oculto inicialmente) -->
-                    <div id="new-client-form" style="display: none;">
-                      <div class="border rounded p-3 bg-light">
-                        <h6 class="fw-bold mb-3">Información del Nuevo Cliente</h6>
-                        <div class="row g-3">
-                          <div class="col-md-6">
-                            <label class="form-label">Nombres</label>
-                            <input type="text" class="form-control" placeholder="Ingresar nombres">
-                          </div>
-                          <div class="col-md-6">
-                            <label class="form-label">Apellidos</label>
-                            <input type="text" class="form-control" placeholder="Ingresar apellidos">
-                          </div>
-                          <div class="col-md-6">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" placeholder="email@ejemplo.com">
-                          </div>
-                          <div class="col-md-6">
-                            <label class="form-label">Teléfono</label>
-                            <input type="tel" class="form-control" placeholder="+51 XXX XXX XXX">
-                          </div>
-                          <div class="col-12">
-                            <label class="form-label">Dirección</label>
-                            <textarea class="form-control" rows="2" placeholder="Dirección completa"></textarea>
-                          </div>
-                          <div class="col-12">
-                            <label class="form-label">DNI/RUC</label>
-                            <input type="text" class="form-control" placeholder="Número de documento">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="text-end mt-4">
-                  <button class="btn btn-primary" onclick="nextStep(2)">
-                    Siguiente <i class="bx bx-chevron-right"></i>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Paso 2: Selección de Productos -->
-              <div class="sale-form-section" id="step2-content" style="display: none;">
-                <h5 class="fw-bold mb-4">🛒 Paso 2: Agregar Productos</h5>
-                
-                <div class="row">
-                  <div class="col-md-8">
-                    <div class="mb-3">
-                      <label class="form-label fw-bold">Buscar Productos en Stock</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar productos..." id="productSearch">
-                        <button class="btn btn-outline-secondary" type="button">
-                          <i class="bx bx-search"></i>
-                        </button>
-                      </div>
-                    </div>
-
-                    <!-- Lista de productos disponibles -->
-                    <div id="products-list">
-                      <!-- Producto 1 -->
-                      <div class="product-item" onclick="addProductToSale(1)">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="d-flex align-items-center">
-                            <img src="https://via.placeholder.com/50" class="product-image-sm me-3" alt="Producto">
-                            <div>
-                              <h6 class="fw-bold mb-1">Colchón Queen Size Memory Foam</h6>
-                              <p class="mb-1 text-muted">Categoría: Colchones · SKU: COL-QS-MF-001</p>
-                              <div>
-                                <span class="badge bg-success stock-badge">Stock: 15</span>
-                                <span class="badge bg-primary stock-badge">Precio: S/ 1,250.00</span>
-                              </div>
-                            </div>
-                          </div>
-                          <button class="btn btn-outline-primary btn-sm">
-                            <i class="bx bx-plus"></i> Agregar
-                          </button>
-                        </div>
-                      </div>
-
-                      <!-- Producto 2 -->
-                      <div class="product-item" onclick="addProductToSale(2)">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="d-flex align-items-center">
-                            <img src="https://via.placeholder.com/50" class="product-image-sm me-3" alt="Producto">
-                            <div>
-                              <h6 class="fw-bold mb-1">Base Cama Ajustable King Size</h6>
-                              <p class="mb-1 text-muted">Categoría: Base Cama · SKU: BAS-KS-AJ-001</p>
-                              <div>
-                                <span class="badge bg-warning stock-badge">Stock: 8</span>
-                                <span class="badge bg-primary stock-badge">Precio: S/ 890.00</span>
-                              </div>
-                            </div>
-                          </div>
-                          <button class="btn btn-outline-primary btn-sm">
-                            <i class="bx bx-plus"></i> Agregar
-                          </button>
-                        </div>
-                      </div>
-
-                      <!-- Producto 3 -->
-                      <div class="product-item" onclick="addProductToSale(3)">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="d-flex align-items-center">
-                            <img src="https://via.placeholder.com/50" class="product-image-sm me-3" alt="Producto">
-                            <div>
-                              <h6 class="fw-bold mb-1">Almohada Viscoelástica Premium</h6>
-                              <p class="mb-1 text-muted">Categoría: Almohadas · SKU: ALM-VP-001</p>
-                              <div>
-                                <span class="badge bg-danger stock-badge">Stock: 0</span>
-                                <span class="badge bg-primary stock-badge">Precio: S/ 120.00</span>
-                              </div>
-                            </div>
-                          </div>
-                          <button class="btn btn-outline-secondary btn-sm" disabled>
-                            <i class="bx bx-x"></i> Sin Stock
-                          </button>
-                        </div>
-                      </div>
-
-                      <!-- Producto 4 -->
-                      <div class="product-item" onclick="addProductToSale(4)">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="d-flex align-items-center">
-                            <img src="https://via.placeholder.com/50" class="product-image-sm me-3" alt="Producto">
-                            <div>
-                              <h6 class="fw-bold mb-1">Protector Impermeable Queen Size</h6>
-                              <p class="mb-1 text-muted">Categoría: Protectores · SKU: PRO-QS-IM-001</p>
-                              <div>
-                                <span class="badge bg-success stock-badge">Stock: 22</span>
-                                <span class="badge bg-primary stock-badge">Precio: S/ 85.00</span>
-                              </div>
-                            </div>
-                          </div>
-                          <button class="btn btn-outline-primary btn-sm">
-                            <i class="bx bx-plus"></i> Agregar
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4">
-                    <div class="card summary-card">
-                      <div class="card-body">
-                        <h6 class="card-title text-white fw-bold">Resumen de Venta</h6>
-                        
-                        <div id="selected-products">
-                          <div class="text-center text-white-50 py-3">
-                            <i class="bx bx-cart display-4 mb-2"></i>
-                            <p>No hay productos agregados</p>
-                          </div>
-                        </div>
-
-                        <div class="border-top border-white-50 pt-3 mt-3">
-                          <div class="d-flex justify-content-between text-white mb-2">
-                            <span>Subtotal:</span>
-                            <span id="subtotal">S/ 0.00</span>
-                          </div>
-                          <div class="d-flex justify-content-between text-white mb-2">
-                            <span>IGV (18%):</span>
-                            <span id="igv">S/ 0.00</span>
-                          </div>
-                          <div class="d-flex justify-content-between text-white fw-bold fs-5">
-                            <span>Total:</span>
-                            <span id="total">S/ 0.00</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="mt-3">
-                      <button class="btn btn-success w-100" onclick="nextStep(3)">
-                        <i class="bx bx-credit-card"></i> Continuar al Pago
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="text-end mt-4">
-                  <button class="btn btn-outline-secondary me-2" onclick="previousStep(1)">
-                    <i class="bx bx-chevron-left"></i> Anterior
-                  </button>
-                </div>
-              </div>
-
-              <!-- Paso 3: Información de Pago -->
-              <div class="sale-form-section" id="step3-content" style="display: none;">
-                <h5 class="fw-bold mb-4">💳 Paso 3: Información de Pago</h5>
-                
-                <div class="row">
-                  <div class="col-md-6">
-                    <h6 class="fw-bold mb-3">Método de Pago</h6>
-                    
-                    <div class="row g-3">
-                      <div class="col-md-6">
-                        <div class="payment-method-option selected" onclick="selectPaymentMethod('cash')">
-                          <i class="bx bx-money display-6 text-success mb-2"></i>
-                          <div class="fw-bold">Efectivo</div>
-                          <small class="text-muted">Pago en efectivo</small>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="payment-method-option" onclick="selectPaymentMethod('card')">
-                          <i class="bx bx-credit-card display-6 text-primary mb-2"></i>
-                          <div class="fw-bold">Tarjeta</div>
-                          <small class="text-muted">Débito/Crédito</small>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="payment-method-option" onclick="selectPaymentMethod('transfer')">
-                          <i class="bx bx-transfer display-6 text-info mb-2"></i>
-                          <div class="fw-bold">Transferencia</div>
-                          <small class="text-muted">Transferencia bancaria</small>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="payment-method-option" onclick="selectPaymentMethod('yape')">
-                          <i class="bx bx-mobile-alt display-6 text-warning mb-2"></i>
-                          <div class="fw-bold">Yape/Plin</div>
-                          <small class="text-muted">Pago móvil</small>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div id="cash-payment" class="mt-3">
-                      <div class="row g-3">
-                        <div class="col-md-6">
-                          <label class="form-label">Monto Recibido</label>
-                          <input type="number" class="form-control" placeholder="0.00" id="amountReceived">
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label">Vuelto</label>
-                          <input type="text" class="form-control" id="changeAmount" readonly value="S/ 0.00">
-                        </div>
-                      </div>
-                    </div>
-
-                    <div id="card-payment" class="mt-3" style="display: none;">
-                      <div class="row g-3">
-                        <div class="col-md-6">
-                          <label class="form-label">Tipo de Tarjeta</label>
-                          <select class="form-select">
-                            <option>Visa</option>
-                            <option>Mastercard</option>
-                            <option>American Express</option>
-                          </select>
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label">Últimos 4 dígitos</label>
-                          <input type="text" class="form-control" placeholder="1234" maxlength="4">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <h6 class="fw-bold mb-3">Información Adicional</h6>
-                    
-                    <div class="mb-3">
-                      <label class="form-label">Tipo de Comprobante</label>
-                      <select class="form-select">
-                        <option selected>Boleta de Venta</option>
-                        <option>Factura</option>
-                        <option>Ticket</option>
-                      </select>
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label">Fecha de Entrega</label>
-                      <input type="date" class="form-control" id="deliveryDate">
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label">Dirección de Entrega</label>
-                      <textarea class="form-control" rows="3" placeholder="Dirección para la entrega..."></textarea>
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label">Notas Internas</label>
-                      <textarea class="form-control" rows="2" placeholder="Observaciones adicionales..."></textarea>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="text-end mt-4">
-                  <button class="btn btn-outline-secondary me-2" onclick="previousStep(2)">
-                    <i class="bx bx-chevron-left"></i> Anterior
-                  </button>
-                  <button class="btn btn-success" onclick="processSale()">
-                    <i class="bx bx-check"></i> Procesar Venta
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </main>
-        <footer class="footer">
-          <div class="container-fluid">
-            <div class="row text-body-secondary">
-              <div class="col-6 text-start">
-                <a href="#" class="text-body-secondary">
-                  <strong>Colchones D'Encanto</strong>
-                </a>
-              </div>
-              <div class="col-6 text-end text-body-secondary d-none d-md-block">
-                <ul class="list-inline mb-0">
-                  <li class="list-inline-item">
-                    <a href="#" class="text-body-secondary">Contacto</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#" class="text-body-secondary">Acerca de</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#" class="text-body-secondary"
-                      >Términos y Condiciones</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </div>
-
-    <!-- Modal de confirmación -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header bg-success text-white">
-            <h5 class="modal-title" id="successModalLabel">¡Venta Registrada Exitosamente!</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body text-center">
-            <i class="bx bx-check-circle display-1 text-success mb-3"></i>
-            <h5 class="fw-bold">Venta #V-2024-00125</h5>
-            <p class="mb-3">La venta ha sido registrada correctamente en el sistema.</p>
-            
-            <div class="bg-light rounded p-3 mb-3">
-              <div class="d-flex justify-content-between">
-                <span class="fw-bold">Cliente:</span>
-                <span>Carlos López</span>
-              </div>
-              <div class="d-flex justify-content-between">
-                <span class="fw-bold">Total:</span>
-                <span class="text-success fw-bold">S/ 2,140.00</span>
-              </div>
-              <div class="d-flex justify-content-between">
-                <span class="fw-bold">Método:</span>
-                <span>Efectivo</span>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">
-              <i class="bx bx-printer"></i> Imprimir Comprobante
-            </button>
-          </div>
+    <!-- CONTENIDO -->
+    <div class="main">
+      <!-- ROL -->
+      <nav class="navbar navbar-expand px-4 py-3">
+        <div class="navbar-collapse collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <span class="nav-link">
+                <b></b>
+                <span th:text="${rol}"></span>
+              </span>
+            </li>
+            <li class="nav-item-dropdown">
+              <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                <img src="/img/account.png" class="avatar img-fluid" alt="" />
+              </a>
+            </li>
+          </ul>
         </div>
-      </div>
-    </div>
+      </nav>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      // Script para el sidebar toggle
-      document.addEventListener('DOMContentLoaded', function() {
-        const toggleBtn = document.querySelector('.toggle-btn');
-        const sidebar = document.getElementById('sidebar');
-        const icon = document.getElementById('icon');
-        
-        toggleBtn.addEventListener('click', function() {
-          sidebar.classList.toggle('collapsed');
-          if (sidebar.classList.contains('collapsed')) {
-            icon.classList.remove('bx-chevrons-right');
-            icon.classList.add('bx-chevrons-left');
-          } else {
-            icon.classList.remove('bx-chevrons-left');
-            icon.classList.add('bx-chevrons-right');
-          }
-        });
+      <main class="content px-3 py-4">
+        <div class="container py-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">Registrar Venta</h2>
+          </div>
 
-        // Configurar fecha mínima para entrega (hoy)
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('deliveryDate').min = today;
-
-        // Inicializar cálculos
-        updateTotals();
-      });
-
-      // Variables globales
-      let currentStep = 1;
-      let selectedProducts = [];
-      let selectedPaymentMethod = 'cash';
-
-      // Navegación entre pasos
-      function nextStep(step) {
-        document.getElementById(`step${currentStep}-content`).style.display = 'none';
-        document.getElementById(`step${currentStep}`).classList.remove('active');
-        
-        document.getElementById(`step${step}-content`).style.display = 'block';
-        document.getElementById(`step${step}`).classList.add('active');
-        
-        currentStep = step;
-      }
-
-      function previousStep(step) {
-        nextStep(step);
-      }
-
-      // Selección de cliente
-      function selectClient(type) {
-        const options = document.querySelectorAll('.client-option');
-        options.forEach(opt => opt.classList.remove('selected'));
-        
-        if (type === 'new') {
-          document.getElementById('new-client-option').classList.add('selected');
-          document.getElementById('new-client-form').style.display = 'block';
-        } else {
-          event.currentTarget.classList.add('selected');
-          document.getElementById('new-client-form').style.display = 'none';
-        }
-      }
-
-      // Selección de método de pago
-      function selectPaymentMethod(method) {
-        selectedPaymentMethod = method;
-        
-        // Remover selección anterior
-        document.querySelectorAll('.payment-method-option').forEach(opt => {
-          opt.classList.remove('selected');
-        });
-        
-        // Agregar selección actual
-        event.currentTarget.classList.add('selected');
-        
-        // Mostrar campos específicos
-        document.getElementById('cash-payment').style.display = method === 'cash' ? 'block' : 'none';
-        document.getElementById('card-payment').style.display = method === 'card' ? 'block' : 'none';
-        
-        // Calcular vuelto si es efectivo
-        if (method === 'cash') {
-          calculateChange();
-        }
-      }
-
-      // Agregar producto a la venta
-      function addProductToSale(productId) {
-        const products = {
-          1: { id: 1, name: 'Colchón Queen Size Memory Foam', price: 1250.00, stock: 15, quantity: 1 },
-          2: { id: 2, name: 'Base Cama Ajustable King Size', price: 890.00, stock: 8, quantity: 1 },
-          4: { id: 4, name: 'Protector Impermeable Queen Size', price: 85.00, stock: 22, quantity: 1 }
-        };
-
-        const product = products[productId];
-        
-        // Verificar si el producto ya está en la lista
-        const existingProduct = selectedProducts.find(p => p.id === productId);
-        if (existingProduct) {
-          existingProduct.quantity++;
-        } else {
-          selectedProducts.push({...product});
-        }
-
-        updateSelectedProductsList();
-        updateTotals();
-        
-        // Mostrar confirmación
-        showToast(`Producto agregado: ${product.name}`);
-      }
-
-      // Actualizar lista de productos seleccionados
-      function updateSelectedProductsList() {
-        const container = document.getElementById('selected-products');
-        
-        if (selectedProducts.length === 0) {
-          container.innerHTML = `
-            <div class="text-center text-white-50 py-3">
-              <i class="bx bx-cart display-4 mb-2"></i>
-              <p>No hay productos agregados</p>
+          <!-- Indicador de pasos -->
+          <div class="step-indicator">
+            <div class="step active" id="step1">
+              <div class="step-number">1</div>
+              <div class="step-label">Productos</div>
             </div>
-          `;
-          return;
-        }
+            <div class="step" id="step2">
+              <div class="step-number">2</div>
+              <div class="step-label">Cliente</div>
+            </div>
+            <div class="step" id="step3">
+              <div class="step-number">3</div>
+              <div class="step-label">Pago</div>
+            </div>
+          </div>
 
-        let html = '';
-        selectedProducts.forEach((product, index) => {
-          html += `
-            <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom border-white-50">
-              <div class="text-white">
-                <div class="fw-bold small">${product.name}</div>
-                <div class="small">S/ ${product.price.toFixed(2)} x ${product.quantity}</div>
+          <!-- Paso 1: Selección de Productos -->
+          <div class="card mb-4" id="step1-content">
+            <div class="card-body">
+              <h5 class="card-title mb-4">🛒 Productos</h5>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Buscar productos..." id="productSearch">
+                  </div>
+
+                  <!-- Lista de productos disponibles -->
+                  <div id="products-list">
+                    <!-- Producto 1 -->
+                    <div class="product-item">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <h6 class="fw-bold mb-1">Colchón Queen Size Memory Foam</h6>
+                          
+                          <div>
+                            <span class="badge bg-success">Stock: 15</span>
+                            <span class="badge bg-primary">S/ 1,250.00</span>
+                          </div>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="addProductToSale(1)">
+                          <i class="bx bx-plus"></i> Agregar
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Producto 2 -->
+                    <div class="product-item">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <h6 class="fw-bold mb-1">Base Cama Ajustable King Size</h6>
+                          
+                          <div>
+                            <span class="badge bg-warning">Stock: 8</span>
+                            <span class="badge bg-primary">S/ 890.00</span>
+                          </div>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="addProductToSale(2)">
+                          <i class="bx bx-plus"></i> Agregar
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Producto 3 -->
+                    <div class="product-item">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <h6 class="fw-bold mb-1">Almohada Viscoelástica Premium</h6>
+                          
+                          <div>
+                            <span class="badge bg-danger">Stock: 0</span>
+                            <span class="badge bg-primary">S/ 120.00</span>
+                          </div>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" disabled>
+                          <i class="bx bx-x"></i> Sin Stock
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Producto 4 -->
+                    <div class="product-item">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <h6 class="fw-bold mb-1">Protector Impermeable Queen Size</h6>
+                          
+                          <div>
+                            <span class="badge bg-success">Stock: 22</span>
+                            <span class="badge bg-primary">S/ 85.00</span>
+                          </div>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="addProductToSale(4)">
+                          <i class="bx bx-plus"></i> Agregar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="card summary-card">
+                    <div class="card-body">
+                      <h6 class="card-title text-white fw-bold">Resumen de Venta</h6>
+
+                      <div id="selected-products">
+                        <div class="text-center text-white-50 py-3">
+                          <i class="bx bx-cart display-4 mb-2"></i>
+                          <p>No hay productos agregados</p>
+                        </div>
+                      </div>
+
+                      <div class="border-top border-white-50 pt-3 mt-3">
+                        <div class="d-flex justify-content-between text-white mb-2">
+                          <span>Subtotal:</span>
+                          <span id="subtotal">S/ 0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-white mb-2">
+                          <span>IGV (18%):</span>
+                          <span id="igv">S/ 0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-white fw-bold fs-5">
+                          <span>Total:</span>
+                          <span id="total">S/ 0.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-3">
+                    <button class="btn btn-success w-100" onclick="nextStep(2)">
+                      Siguiente <i class="bx bx-chevron-right"></i>
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div class="d-flex align-items-center">
-                <span class="text-white fw-bold me-2">S/ ${(product.price * product.quantity).toFixed(2)}</span>
-                <button class="btn btn-sm btn-outline-light" onclick="removeProduct(${index})">
-                  <i class="bx bx-trash"></i>
+            </div>
+          </div>
+
+          <!-- Paso 2: Información del Cliente -->
+          <div class="card mb-4" id="step2-content" style="display: none;">
+            <div class="card-body">
+              <h5 class="card-title mb-4">👤 Cliente</h5>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Buscar Cliente</label>
+                    <input type="text" class="form-control" placeholder="Nombre, email o teléfono">
+                  </div>
+
+                  <div class="mb-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="clientType" id="existingClient" checked>
+                      <label class="form-check-label" for="existingClient">
+                        Cliente existente
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="clientType" id="newClient">
+                      <label class="form-check-label" for="newClient">
+                        Nuevo cliente
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Usuario</label>
+                    <select class="form-select">
+                      <option selected>Seleccionar Usuario...</option>
+                      <option>Fabrizio Bustamante - alessandro.bustamante@colchonesencanto.com</option>
+                      <option>Shayuri García - shayuri.garcia@colchonesencanto.com</option>
+                      <option>Walter Mantari - walter.mantari@colchonesencanto.com</option>
+                      <option>Juan Ore - juan.ore@colchonesencanto.com</option>
+                      <option>Marcela Rodriguez - marcela.rodriguez@colchonesencanto.com</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Notas</label>
+                    <textarea class="form-control" rows="4" placeholder="Observaciones adicionales..."></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-end mt-4">
+                <button class="btn btn-outline-secondary me-2" onclick="previousStep(1)">
+                  <i class="bx bx-chevron-left"></i> Anterior
+                </button>
+                <button class="btn btn-success" onclick="nextStep(3)">
+                  Siguiente <i class="bx bx-chevron-right"></i>
                 </button>
               </div>
             </div>
-          `;
-        });
+          </div>
 
-        container.innerHTML = html;
-      }
+          <!-- Paso 3: Información de Pago -->
+          <div class="card mb-4" id="step3-content" style="display: none;">
+            <div class="card-body">
+              <h5 class="card-title mb-4">💳 Pago</h5>
 
-      // Remover producto
-      function removeProduct(index) {
-        selectedProducts.splice(index, 1);
-        updateSelectedProductsList();
-        updateTotals();
-      }
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Método de Pago</label>
+                    <select class="form-select" id="paymentMethod" onchange="togglePaymentFields()">
+                      <option value="cash" selected>Efectivo</option>
+                      <option value="card">Tarjeta</option>
+                      <option value="transfer">Transferencia</option>
+                      <option value="yape">Yape/Plin</option>
+                    </select>
+                  </div>
 
-      // Actualizar totales
-      function updateTotals() {
-        const subtotal = selectedProducts.reduce((sum, product) => sum + (product.price * product.quantity), 0);
-        const igv = subtotal * 0.18;
-        const total = subtotal + igv;
+                  <div id="cash-payment">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label class="form-label">Monto Recibido</label>
+                        <input type="number" class="form-control" placeholder="0.00" id="amountReceived"
+                          oninput="calculateChange()">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Vuelto</label>
+                        <input type="text" class="form-control" id="changeAmount" readonly value="S/ 0.00">
+                      </div>
+                    </div>
+                  </div>
 
-        document.getElementById('subtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
-        document.getElementById('igv').textContent = `S/ ${igv.toFixed(2)}`;
-        document.getElementById('total').textContent = `S/ ${total.toFixed(2)}`;
+                  <div id="card-payment" style="display: none;">
+                    <div class="mb-3">
+                      <label class="form-label">Número de Tarjeta</label>
+                      <input type="text" class="form-control" placeholder="1234 5678 9012 3456">
+                    </div>
+                  </div>
+                </div>
 
-        // Actualizar cálculo de vuelto si es necesario
-        if (selectedPaymentMethod === 'cash') {
-          calculateChange();
-        }
-      }
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Tipo de Comprobante</label>
+                    <select class="form-select">
+                      <option selected>Boleta de Venta</option>
+                      <option>Factura</option>
+                    </select>
+                  </div>
 
-      // Calcular vuelto
-      function calculateChange() {
-        const amountReceived = parseFloat(document.getElementById('amountReceived').value) || 0;
-        const total = parseFloat(document.getElementById('total').textContent.replace('S/ ', '')) || 0;
-        const change = amountReceived - total;
-        
-        document.getElementById('changeAmount').value = change >= 0 ? `S/ ${change.toFixed(2)}` : 'Falta dinero';
-      }
+                  <div class="mb-3">
+                    <label class="form-label">Fecha de Entrega</label>
+                    <input type="date" class="form-control" id="deliveryDate">
+                  </div>
+                </div>
+              </div>
 
-      // Procesar venta
-      function processSale() {
-        if (selectedProducts.length === 0) {
-          alert('Debe agregar al menos un producto a la venta');
-          return;
-        }
+              <div class="text-end mt-4">
+                <button class="btn btn-outline-secondary me-2" onclick="previousStep(2)">
+                  <i class="bx bx-chevron-left"></i> Anterior
+                </button>
+                <button class="btn btn-success" onclick="processSale()">
+                  <i class="bx bx-check"></i> Finalizar Venta
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        if (selectedPaymentMethod === 'cash') {
-          const amountReceived = parseFloat(document.getElementById('amountReceived').value) || 0;
-          const total = parseFloat(document.getElementById('total').textContent.replace('S/ ', '')) || 0;
-          
-          if (amountReceived < total) {
-            alert('El monto recibido es menor al total de la venta');
-            return;
-          }
-        }
+        <!-- Modal de confirmación -->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="successModalLabel">¡Venta Registrada!</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+                <i class="bx bx-check-circle display-1 text-success mb-3"></i>
+                <h5 class="fw-bold">Venta #V-2024-00125</h5>
+                <p class="mb-3">La venta ha sido registrada correctamente.</p>
 
-        // Mostrar modal de éxito
-        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-        successModal.show();
-      }
+                <div class="bg-light rounded p-3 mb-3">
+                  <div class="d-flex justify-content-between">
+                    <span class="fw-bold">Total:</span>
+                    <span class="text-success fw-bold" id="modalTotal">S/ 0.00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">
+                  <i class="bx bx-printer"></i> Imprimir
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="row text-body-secondary">
+            <div class="col-6 text-start">
+              <a href="#" class="text-body-secondary">
+                <strong>Colchones D'Encanto</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/scriptVentas.js"></script>
+</body>
 
-      // Resetear formulario
-      function resetForm() {
-        selectedProducts = [];
-        currentStep = 1;
-        
-        // Resetear UI
-        document.querySelectorAll('.sale-form-section').forEach(section => {
-          section.style.display = 'none';
-        });
-        document.getElementById('step1-content').style.display = 'block';
-        
-        document.querySelectorAll('.step').forEach(step => {
-          step.classList.remove('active', 'completed');
-        });
-        document.getElementById('step1').classList.add('active');
-        
-        updateSelectedProductsList();
-        updateTotals();
-        
-        showToast('Formulario reiniciado');
-      }
-
-      // Mostrar notificación toast
-      function showToast(message) {
-        const toast = document.createElement('div');
-        toast.className = 'alert alert-info alert-dismissible position-fixed top-0 end-0 m-3';
-        toast.style.zIndex = '9999';
-        toast.innerHTML = `
-          ${message}
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        document.body.appendChild(toast);
-        
-        setTimeout(() => {
-          toast.remove();
-        }, 3000);
-      }
-
-      // Event listeners para cálculos en tiempo real
-      document.getElementById('amountReceived').addEventListener('input', calculateChange);
-    </script>
-  </body>
 </html>

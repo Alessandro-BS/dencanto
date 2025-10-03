@@ -1,334 +1,277 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nosotros - Colchones D'Encanto</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-    />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/css/nosotros.css">
-  </head>
-  <body>
-    <!-- Header -->
-    <header>
-      <!-- Barra Superior -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
-        <div class="container">
-          <!-- Botón hamburguesa (móvil) -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSup"
-            aria-controls="navbarSup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
 
-          <!-- Contenido colapsable -->
-          <div class="collapse navbar-collapse" id="navbarSup">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link small" th:href="@{/FAQ}">Preguntas Frecuentes</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link small" th:href="@{/ubicanos}">Ubícanos</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link small text-primary" href="/login">
-                  <i class="bi bi-person-circle"></i> Intranet</a
-                >
-              </li>
-            </ul>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nosotros - Colchones D'Encanto</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/nosotros.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <header>
+    <!-- Barra Superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom py-1">
+      <div class="container d-flex justify-content-between">
+        <!-- Links lado derecho -->
+        <div class="collapse navbar-collapse" id="navbarSup">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link small text-light" th:href="@{/FAQ}">
+                <i class="bi bi-question-circle me-1"></i> Preguntas Frecuentes
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link small text-light" th:href="@{/ubicanos}">
+                <i class="bi bi-geo-alt me-1"></i> Ubícanos
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link small text-warning fw-bold" th:href="@{/intranet/login}">
+                <i class="bi bi-person-circle me-1"></i> Intranet
+              </a>
+            </li>
+          </ul>
         </div>
-      </nav>
+      </div>
+    </nav>
 
-      <!-- Barra Principal -->
-      <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm">
-        <div class="container">
-          <!-- Logo -->
-          <a class="navbar-brand fw-bold" th:href="@{/}">
-            <img
-              src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/110ef33b-0246-49d3-bdda-72b3e0ee8b42/LogoEncanto_QCBIJL.png"
-              height="40 px"
-            />
+    <!-- Barra Principal -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+      <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold text-dark" th:href="@{/}">
+          <img
+            src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/110ef33b-0246-49d3-bdda-72b3e0ee8b42/LogoEncanto_QCBIJL.png"
+            height="45" class="me-2" />
+        </a>
+
+        <!-- Botón hamburguesa -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarInf"
+          aria-controls="navbarInf" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú -->
+        <div class="collapse navbar-collapse" id="navbarInf">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link fw-semibold text-dark" th:href="@{/productos}">Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold text-dark" th:href="@{/ofertas}">Ofertas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold text-dark" th:href="@{/nosotros}">Nosotros</a>
+            </li>
+          </ul>
+
+          <!-- Carrito -->
+          <a class="btn btn-outline-warning rounded-pill ms-lg-3" href="#">
+            <i class="bi bi-cart me-1"></i> Carrito
           </a>
-
-          <!-- Botón hamburguesa (móvil) -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarInf"
-            aria-controls="navbarInf"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <!-- Opciones -->
-          <div class="collapse navbar-collapse" id="navbarInf">
-            <ul class="navbar-nav ms-end">
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  th:href="@{/productos}"
-                  >Productos</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  th:href="@{/ofertas}"
-                  >Ofertas</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-primary" th:href="@{/nosotros}">Nosotros</a>
-              </li>
-            </ul>
-          </div>
-          <li class="nav-item">
-            <a class="btn btn-outline-warning ms-2" href="#">
-              <i class="bi bi-cart"></i>Carrito
-            </a>
-          </li>
         </div>
-      </nav>
-    </header>
-
-    <!-- Sobre Nosotros -->
-    <section class="hero-section text-center">
-      <div class="container">
-        <h1 class="display-4 fw-bold mb-4">Sobre Nosotros</h1>
-        <p class="lead">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
-          ducimus, tenetur explicabo quod debitis accusantium natus atque
-          reiciendis itaque voluptates cumque expedita quas, iste architecto?
-          Quos ducimus nobis dolorem dignissimos?
-        </p>
       </div>
-    </section>
+    </nav>
+  </header>
 
-    <!-- Descripcion de la empresa (Historia) -->
-    <section class="history-section">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6 mb-4 mb-lg-0">
-            <img
-              src="/img/imagen1.jpg"
-              alt="Nuestra historia"
-              class="img-fluid rounded shadow"
-              width="410"
-            />
-          </div>
-          <div class="col-lg-6">
-            <h2 class="section-title">Nuestra Historia</h2>
-            <p class="lead">
-              Desde 2003, Colchones D'Encanto ha sido sinónimo de calidad y
-              confort en el descanso.
-            </p>
+  <!-- Sobre Nosotros -->
+  <section class="hero-section text-center">
+    <div class="container">
+      <h1 class="display-4 fw-bold mb-4">Sobre Nosotros</h1>
+      <p class="lead">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
+        ducimus, tenetur explicabo quod debitis accusantium natus atque
+        reiciendis itaque voluptates cumque expedita quas, iste architecto?
+        Quos ducimus nobis dolorem dignissimos?
+      </p>
+    </div>
+  </section>
+
+  <!-- Descripcion de la empresa (Historia) -->
+  <section class="history-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <img src="/img/imagen1.jpg" alt="Nuestra historia" class="img-fluid rounded shadow" width="410" />
+        </div>
+        <div class="col-lg-6">
+          <h2 class="section-title">Nuestra Historia</h2>
+          <p class="lead">
+            Desde 2003, Colchones D'Encanto ha sido sinónimo de calidad y
+            confort en el descanso.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+            auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl,
+            eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget
+            ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl
+            nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl
+            nisl aliquam nisl, eget ultricies nisl nisl eget nisl.
+          </p>
+          <p>
+            Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam
+            nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget
+            ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl
+            nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl
+            nisl aliquam nisl, eget ultricies nisl nisl eget nisl.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic
+            mollitia animi exercitationem quia repellat natus qui! A, maiores
+            doloribus. Vero vitae ipsum dolore provident sed. Tempora adipisci
+            facere iusto pariatur!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Misión y Visión -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="value-card">
+            <div class="value-icon">
+              <i class="bx bx-target-lock"></i>
+            </div>
+            <h3 class="h4">Misión</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-              auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl,
-              eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget
-              ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl
-              nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl
-              nisl aliquam nisl, eget ultricies nisl nisl eget nisl.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos
+              dignissimos facilis, similique sit alias nisi totam doloremque
+              magni unde repellat hic blanditiis enim, culpa, odio eius cumque
+              possimus debitis labore!
             </p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="value-card">
+            <div class="value-icon">
+              <i class="bx bx-show"></i>
+            </div>
+            <h3 class="h4">Visión</h3>
             <p>
-              Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam
-              nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget
-              ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl
-              nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl
-              nisl aliquam nisl, eget ultricies nisl nisl eget nisl.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic
-              mollitia animi exercitationem quia repellat natus qui! A, maiores
-              doloribus. Vero vitae ipsum dolore provident sed. Tempora adipisci
-              facere iusto pariatur!
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est
+              odio maxime quidem aliquam repudiandae adipisci a nihil corporis
+              nulla exercitationem at dignissimos qui suscipit, sit
+              perspiciatis! Delectus sunt maiores quae.
             </p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Misión y Visión -->
-    <section class="py-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <div class="value-card">
-              <div class="value-icon">
-                <i class="bx bx-target-lock"></i>
-              </div>
-              <h3 class="h4">Misión</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos
-                dignissimos facilis, similique sit alias nisi totam doloremque
-                magni unde repellat hic blanditiis enim, culpa, odio eius cumque
-                possimus debitis labore!
-              </p>
-            </div>
+  <!-- Nuestro Equipo -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title text-center">Nuestro Equipo</h2>
+      <p class="text-center mb-5">
+        Conoce al equipo de expertos que hace posible tu descanso
+      </p>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="team-member">
+            <img src="/img/imagen1.jpg" alt="Ingeniero" />
+            <h4>Ingresar nombre</h4>
+            <p class="text-muted">Cargo</p>
+            <p>breve descripcion del encargado</p>
           </div>
-          <div class="col-lg-6">
-            <div class="value-card">
-              <div class="value-icon">
-                <i class="bx bx-show"></i>
-              </div>
-              <h3 class="h4">Visión</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est
-                odio maxime quidem aliquam repudiandae adipisci a nihil corporis
-                nulla exercitationem at dignissimos qui suscipit, sit
-                perspiciatis! Delectus sunt maiores quae.
-              </p>
-            </div>
+        </div>
+        <div class="col-md-4">
+          <div class="team-member">
+            <img src="/img/imagen1.jpg" alt="Diseñadora" />
+            <h4>Ingresar nombre</h4>
+            <p class="text-muted">Cargo</p>
+            <p>breve descripcion del encargado</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="team-member">
+            <img src="/img/imagen1.jpg" alt="Especialista" />
+            <h4>Ingresar nombre</h4>
+            <p class="text-muted">Cargo</p>
+            <p>breve descripcion del encargado</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Nuestro Equipo -->
-    <section class="py-5 bg-light">
-      <div class="container">
-        <h2 class="section-title text-center">Nuestro Equipo</h2>
-        <p class="text-center mb-5">
-          Conoce al equipo de expertos que hace posible tu descanso
-        </p>
+  <!-- Video -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="section-title text-center">Conoce Nuestro Proceso</h2>
+      <p class="text-center mb-5">
+        Descubre cómo fabricamos colchones de la más alta calidad
+      </p>
 
-        <div class="row">
-          <div class="col-md-4">
-            <div class="team-member">
-              <img
-                src="/img/imagen1.jpg"
-                alt="Ingeniero"
-              />
-              <h4>Ingresar nombre</h4>
-              <p class="text-muted">Cargo</p>
-              <p>breve descripcion del encargado</p>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="team-member">
-              <img
-                src="/img/imagen1.jpg"
-                alt="Diseñadora"
-              />
-              <h4>Ingresar nombre</h4>
-              <p class="text-muted">Cargo</p>
-              <p>breve descripcion del encargado</p>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="team-member">
-              <img
-                src="/img/imagen1.jpg"
-                alt="Especialista"
-              />
-              <h4>Ingresar nombre</h4>
-              <p class="text-muted">Cargo</p>
-              <p>breve descripcion del encargado</p>
-            </div>
-          </div>
+      <div class="video-placeholder">
+        <div class="play-button">
+          <i class="bx bx-play"></i>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Video -->
-    <section class="py-5">
-      <div class="container">
-        <h2 class="section-title text-center">Conoce Nuestro Proceso</h2>
-        <p class="text-center mb-5">
-          Descubre cómo fabricamos colchones de la más alta calidad
-        </p>
+ <footer class="bg-dark text-white pt-5">
+    <div class="container">
+      <div class="row">
+        <!-- Columna 1 -->
+        <div class="col-md-3 mb-4">
+          <h5 class="fw-bold mb-3">Atención al Cliente</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white-50 text-decoration-none">Preguntas Frecuentes</a></li>
+            <li><a href="#" class="text-white-50 text-decoration-none">Contáctanos</a></li>
+            <li><a href="#" class="text-white-50 text-decoration-none">Libro de Reclamaciones</a></li>
+          </ul>
+        </div>
 
-        <div class="video-placeholder">
-          <div class="play-button">
-            <i class="bx bx-play"></i>
-          </div>
+        <!-- Columna 2 -->
+        <div class="col-md-3 mb-4">
+          <h5 class="fw-bold mb-3">Nuestra Empresa</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white-50 text-decoration-none">Ubícanos</a></li>
+            <li><a href="#" class="text-white-50 text-decoration-none">Nosotros</a></li>
+            <li><a href="#" class="text-white-50 text-decoration-none">Trabaja con Nosotros</a></li>
+          </ul>
+        </div>
+
+      
+        <!-- Columna 4 -->
+        <div class="col-md-3 mb-4">
+          <h5 class="fw-bold mb-3">Suscríbete</h5>
+          <p class="text-white-50">Recibe nuestras ofertas y novedades directamente en tu correo.</p>
+          <form class="d-flex">
+            <input type="email" class="form-control form-control-sm me-2" placeholder="Tu correo" />
+            <button class="btn btn-warning btn-sm">OK</button>
+          </form>
         </div>
       </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white pt-5">
-      <div class="container">
-        <div class="row">
-          <!-- Columna 1 -->
-          <div class="col-md-6 mb-3">
-            <h5 class="fw-bold">Atención al Cliente</h5>
-            <ul class="list-unstyled">
-              <li>
-                <a href="#" class="text-white text-decoration-none"
-                  >Preguntas Frecuentes</a
-                >
-              </li>
-              <li>
-                <a href="#" class="text-white text-decoration-none"
-                  >Contáctanos</a
-                >
-              </li>
-            </ul>
-          </div>
-          <!-- Columna 2 -->
-          <div class="col-md-6 mb-3">
-            <h5 class="fw-bold">Nuestra Empresa</h5>
-            <ul class="list-unstyled">
-              <li>
-                <a href="#" class="text-white text-decoration-none">Ubícanos</a>
-              </li>
-              <li>
-                <a href="#" class="text-white text-decoration-none">Nosotros</a>
-              </li>
-              <li>
-                <a href="#" class="text-white text-decoration-none"
-                  >Libro de Reclamos</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Redes sociales -->
-        <div class="text-center my-3">
-          <a href="#" class="text-white fs-4 me-3"
-            ><i class="bi bi-facebook"></i
-          ></a>
-          <a href="#" class="text-white fs-4 me-3"
-            ><i class="bi bi-instagram"></i
-          ></a>
-          <a href="#" class="text-white fs-4 me-3"
-            ><i class="bi bi-whatsapp"></i
-          ></a>
-          <a href="#" class="text-white fs-4"><i class="bi bi-youtube"></i></a>
-        </div>
-
-        <!-- Derechos reservados -->
-        <div class="text-center border-top border-secondary pt-3">
-          <small
-            >&copy; 2025 ColchonesFactory - Todos los derechos reservados</small
-          >
-        </div>
+      <!-- Redes sociales -->
+      <div class="text-center my-4">
+        <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-whatsapp"></i></a>
+        <a href="#" class="text-white fs-4 social-link"><i class="bi bi-youtube"></i></a>
       </div>
-    </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+      <!-- Derechos reservados -->
+      <div class="text-center border-top border-secondary pt-3">
+        <small class="text-white-50">&copy; 2025 Colchones D'Encanto - Todos los derechos reservados</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>

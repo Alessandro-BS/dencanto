@@ -1,374 +1,333 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title th:text="${titulo}">Colchones D' Encanto</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" href="/css/index.css">
-  </head>
 
-  <body>
-    <header>
-      <!-- Barra Superior -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
-        <div class="container">
-          <!-- Botón hamburguesa (móvil) -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSup"
-            aria-controls="navbarSup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="${titulo}">Colchones D' Encanto</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/style.csss">
+</head>
 
-          <!-- Contenido colapsable -->
-          <div class="collapse navbar-collapse" id="navbarSup">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link small" th:href="@{/FAQ}">Preguntas Frecuentes</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link small" th:href="@{/ubicanos}">Ubícanos</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link small text-primary" href="/login">
-                  <i class="bi bi-person-circle"></i> Intranet</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      <!-- Barra Principal -->
-      <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm">
-        <div class="container">
-          <!-- Logo -->
-          <a class="navbar-brand fw-bold" th:href="@{/}">
-            <img
-              src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/110ef33b-0246-49d3-bdda-72b3e0ee8b42/LogoEncanto_QCBIJL.png"
-              height="40 px"
-            />
-          </a>
-
-          <!-- Botón hamburguesa (móvil) -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarInf"
-            aria-controls="navbarInf"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <!-- Opciones -->
-          <div class="collapse navbar-collapse" id="navbarInf">
-            <ul class="navbar-nav ms-end">
-              <li class="nav-item">
-                <a
-                  class="nav-link text-dark"
-                  th:href="@{/productos}"
-                  >Productos</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link text-dark"
-                  th:href="@{/ofertas}"
-                  >Ofertas</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-dark" th:href="@{/nosotros}">Nosotros</a>
-              </li>
-            </ul>
-          </div>
-          <li class="nav-item">
-            <a class="btn btn-outline-warning ms-2" href="#">
-              <i class="bi bi-cart"></i>Carrito
-            </a>
-          </li>
-        </div>
-      </nav>
-    </header>
-
-    <!-- Carrusel -->
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img
-            src="https://picsum.photos/1200/400?random=1"
-            class="d-block w-100"
-            alt="Colchón 1"
-          />
-          <div
-            class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded"
-          >
-            <h5>Confort y calidad</h5>
-            <p>Los mejores colchones para tu descanso.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img
-            src="https://picsum.photos/1200/400?random=2"
-            class="d-block w-100"
-            alt="Colchón 2"
-          />
-          <div
-            class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded"
-          >
-            <h5>Diseños modernos</h5>
-            <p>Adaptados a cada necesidad.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img
-            src="https://picsum.photos/1200/400?random=3"
-            class="d-block w-100"
-            alt="Colchón 3"
-          />
-          <div
-            class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded"
-          >
-            <h5>Entrega rápida</h5>
-            <p>Envíos seguros a todo el país.</p>
-          </div>
-        </div>
-      </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExample"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExample"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    </div>
-
-    <!-- Productos destacados -->
-    <section class="container my-5">
-      <h2 class="text-center mb-4">Nuestros colchones destacados</h2>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card shadow-sm">
-            <img
-              src="https://picsum.photos/400/250?random=4"
-              class="card-img-top"
-              alt="Colchón 1"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Colchón Premium</h5>
-              <p class="card-text">
-                Comodidad inigualable para un descanso profundo.
-              </p>
-              <a href="#" class="btn btn-dark">Ver más</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card shadow-sm">
-            <img
-              src="https://picsum.photos/400/250?random=5"
-              class="card-img-top"
-              alt="Colchón 2"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Colchón Ortopédico</h5>
-              <p class="card-text">Diseñado para cuidar tu postura y salud.</p>
-              <a href="#" class="btn btn-dark">Ver más</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card shadow-sm">
-            <img
-              src="https://picsum.photos/400/250?random=6"
-              class="card-img-top"
-              alt="Colchón 3"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Colchón Económico</h5>
-              <p class="card-text">
-                La mejor relación calidad-precio del mercado.
-              </p>
-              <a href="#" class="btn btn-dark">Ver más</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="container my-5">
-      <div class="row align-items-center">
-        <!-- Imagen -->
-        <div class="col-md-6">
-          <img
-            src="https://picsum.photos/600/400?random=10"
-            class="img-fluid rounded shadow"
-            alt="Colchón Premium Top"
-          />
-        </div>
-        <!-- Descripción -->
-        <div class="col-md-6">
-          <h2 class="fw-bold">Colchón Supreme Deluxe</h2>
-          <p class="lead">
-            El colchón más exclusivo de nuestra fábrica, diseñado con materiales
-            de última generación para brindarte el descanso más profundo y
-            saludable.
-          </p>
-          <ul>
-            <li>🌙 Espuma viscoelástica premium</li>
-            <li>💨 Tecnología de ventilación 360°</li>
-            <li>🛏️ Garantía de 10 años</li>
+<body>
+  <header>
+    <!-- Barra Superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom py-1">
+      <div class="container d-flex justify-content-between">
+        <!-- Links lado derecho -->
+        <div class="collapse navbar-collapse" id="navbarSup">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link small text-light" th:href="@{/FAQ}">
+                <i class="bi bi-question-circle me-1"></i> Preguntas Frecuentes
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link small text-light" th:href="@{/ubicanos}">
+                <i class="bi bi-geo-alt me-1"></i> Ubícanos
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link small text-warning fw-bold" th:href="@{/intranet/login}">
+                <i class="bi bi-person-circle me-1"></i> Intranet
+              </a>
+            </li>
           </ul>
-          <a href="#" class="btn btn-dark">Ver detalles</a>
         </div>
       </div>
-    </section>
-    <section class="container my-5">
-      <h2 class="text-center mb-4">Descansa como mereces</h2>
-      <div id="carouselFrases" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img
-              src="https://picsum.photos/1200/400?random=20"
-              class="d-block w-100 rounded"
-              alt="Colchón 1"
-            />
-            <div class="carousel-caption bg-dark bg-opacity-50 rounded">
-              <h5>“Tu sueño, nuestra prioridad”</h5>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img
-              src="https://picsum.photos/1200/400?random=21"
-              class="d-block w-100 rounded"
-              alt="Colchón 2"
-            />
-            <div class="carousel-caption bg-dark bg-opacity-50 rounded">
-              <h5>“Colchones hechos para durar”</h5>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img
-              src="https://picsum.photos/1200/400?random=22"
-              class="d-block w-100 rounded"
-              alt="Colchón 3"
-            />
-            <div class="carousel-caption bg-dark bg-opacity-50 rounded">
-              <h5>“El descanso que siempre soñaste”</h5>
-            </div>
-          </div>
-        </div>
-        <!-- Controles -->
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselFrases"
-          data-bs-slide="prev"
-        >
-          <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselFrases"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon"></span>
-        </button>
-      </div>
-    </section>
-    <footer class="bg-dark text-white pt-5">
+    </nav>
+
+    <!-- Barra Principal -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
       <div class="container">
-        <div class="row">
-          <!-- Columna 1 -->
-          <div class="col-md-6 mb-3">
-            <h5 class="fw-bold">Atención al Cliente</h5>
-            <ul class="list-unstyled">
-              <li>
-                <a href="#" class="text-white text-decoration-none"
-                  >Preguntas Frecuentes</a
-                >
-              </li>
-              <li>
-                <a href="#" class="text-white text-decoration-none"
-                  >Contáctanos</a
-                >
-              </li>
-            </ul>
-          </div>
-          <!-- Columna 2 -->
-          <div class="col-md-6 mb-3">
-            <h5 class="fw-bold">Nuestra Empresa</h5>
-            <ul class="list-unstyled">
-              <li>
-                <a href="#" class="text-white text-decoration-none">Ubícanos</a>
-              </li>
-              <li>
-                <a href="#" class="text-white text-decoration-none">Nosotros</a>
-              </li>
-              <li>
-                <a href="#" class="text-white text-decoration-none"
-                  >Libro de Reclamos</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold text-dark" th:href="@{/}">
+          <img
+            src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/110ef33b-0246-49d3-bdda-72b3e0ee8b42/LogoEncanto_QCBIJL.png"
+            height="45" class="me-2" />
+        </a>
 
-        <!-- Redes sociales -->
-        <div class="text-center my-3">
-          <a href="#" class="text-white fs-4 me-3"
-            ><i class="bi bi-facebook"></i
-          ></a>
-          <a href="#" class="text-white fs-4 me-3"
-            ><i class="bi bi-instagram"></i
-          ></a>
-          <a href="#" class="text-white fs-4 me-3"
-            ><i class="bi bi-whatsapp"></i
-          ></a>
-          <a href="#" class="text-white fs-4"><i class="bi bi-youtube"></i></a>
-        </div>
+        <!-- Botón hamburguesa -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarInf"
+          aria-controls="navbarInf" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <!-- Derechos reservados -->
-        <div class="text-center border-top border-secondary pt-3">
-          <small
-            >&copy; 2025 ColchonesFactory - Todos los derechos reservados</small
-          >
+        <!-- Menú -->
+        <div class="collapse navbar-collapse" id="navbarInf">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link fw-semibold text-dark" th:href="@{/productos}">Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold text-dark" th:href="@{/ofertas}">Ofertas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold text-dark" th:href="@{/nosotros}">Nosotros</a>
+            </li>
+          </ul>
+
+          <!-- Carrito -->
+          <a class="btn btn-outline-warning rounded-pill ms-lg-3" href="#">
+            <i class="bi bi-cart me-1"></i> Carrito
+          </a>
         </div>
       </div>
-    </footer>
+    </nav>
+  </header>
 
-    <!-- Bootstrap Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-    />
+  <!-- Carrusel -->
+  <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/img/Carrucel1.png" class="d-block w-100" ; alt="Colchón 1" />
+      </div>
+      <div class="carousel-item">
+        <img src="/img/Carrucel3.png" class="d-block w-100" alt="Colchón 2" />
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+      </div>
+      <div class="carousel-item">
+        <img src="https://picsum.photos/1200/400?random=3" class="d-block w-100" alt="Colchón 3" />
+        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+          <h5>Entrega rápida</h5>
+          <p>Envíos seguros a todo el país.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+  <!-- Productos destacados -->
+  <section class="container my-5">
+    <h2 class="text-center mb-5 fw-bold">Nuestros colchones destacados</h2>
+    <div class="row g-4">
+      <!-- Producto 1 -->
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden">
+          <img src="https://picsum.photos/400/250?random=4" class="card-img-top img-fluid" alt="Colchón Premium">
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold">Colchón Dinastia</h5>
+            <p class="card-text text-muted">
+              La mejor relación calidad-precio del mercado.
+
+            </p>
+            <a th:href="@{/productos}" class="btn btn-dark px-4 rounded-pill">Ver más</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 2 -->
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden">
+          <img src="/img/sayra.png" class="card-img-top img-fluid" alt="Colchón Ortopédico">
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold">Colchón Sayra</h5>
+            <p class="card-text text-muted">
+              Diseñado para cuidar tu postura y salud.
+            </p>
+            <a th:href="@{/productos}" class="btn btn-dark px-4 rounded-pill">Ver más</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 3 -->
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden">
+          <img src="https://picsum.photos/400/250?random=6" class="card-img-top img-fluid" alt="Colchón Económico">
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold">Colchón Isabella Pillow Top</h5>
+            <p class="card-text text-muted">
+              Comodidad inigualable para un descanso profundo.
+            </p>
+            <a th:href="@{/productos}" class="btn btn-dark px-4 rounded-pill">Ver más</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Estilos extras -->
+
+
+  <section class="container my-5">
+    <div class="row align-items-center">
+      <!-- Imagen -->
+      <div class="col-md-6">
+        <img src="/img/ColchonTOP.png" class="img-fluid rounded shadow" alt="Colchón Supreme Deluxe" />
+      </div>
+
+      <!-- Descripción -->
+      <div class="col-md-6">
+        <h2 class="fw-bold">Colchón GOLD VITAL</h2>
+        <p class="lead">
+          El colchón más exclusivo de nuestra fábrica, diseñado con materiales
+          de última generación para brindarte el descanso más profundo y
+          saludable.
+        </p>
+        <ul>
+          <li>Espuma viscoelástica premium</li>
+          <li>Tecnología de ventilación 360°</li>
+          <li>Garantía de 10 años</li>
+        </ul>
+        <!-- Botón para abrir el modal -->
+        <button type="button" class="btn btn-dark fw-bold" data-bs-toggle="modal" data-bs-target="#colchonModal">
+          Ver detalles
+        </button>
+      </div>
+  </section>
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="colchonModal" tabindex="-1" aria-labelledby="colchonModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content shadow-lg border-0 rounded-4">
+
+        <!-- Encabezado -->
+        
+
+        <!-- Cuerpo -->
+        <div class="modal-body p-4">
+          <div class="row">
+
+            <!-- Imagen -->
+            <div class="col-md-6 mb-3">
+              <img src="/img/ColchonTOP.png" class="img-fluid rounded shadow-sm" alt="Colchón Supreme Deluxe">
+            </div>
+
+            <!-- Detalles -->
+            <div class="col-md-6">
+              <h6 class="fw-bold text-primary">Características del Colchón:</h6>
+              <ul class=" ps-3">
+                <li> Panel Pocket</li>
+                <li> Lámina Sisal</li>
+                <li> Soporte Perimetral E-50</li>
+                <li> Lámina de Espuma E-25</li>
+                <li> Lámina Visco Elástico E-70</li>
+                <li> Lámina de Espuma Prensada E-50</li>
+                <li> Tela Tejido en Punto</li>
+                <li> Pestaña Visco Elástico E-70</li>
+                <li> Malla Tejido en Piel de Potro</li>
+                <li> Acolchado Computarizado</li>
+              </ul>
+
+              <h6 class="mt-3 text-warning fw-bold">Garantía</h6>
+              <p>
+                La garantía se activa con la compra del producto, respalda errores de fabricación.
+                Cubre la durabilidad y la estructura interna.
+              </p>
+
+              <h6 class="mt-3 text-danger fw-bold">Exclusiones de Garantía</h6>
+              <p>
+                No cubre cortes, roturas, quemaduras o deformaciones producidas por usos ajenos al descanso,
+                ni manchas en la tela.
+              </p>
+
+              <h6 class="mt-3 text-success fw-bold">Recomendaciones</h6>
+              <ul class="ps-3">
+                <li> Usarlo sobre una tarima o superficie totalmente plana.</li>
+                <li> Retirar el plástico y ventilar el colchón antes de usarlo.</li>
+                <li> Voltear el colchón cada 3 meses de lado a lado.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-success fw-bold">
+            <i class="bi bi-cart-plus"></i> Agregar al Carrito
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!----CARUSEL DE FRASES---->
+  <section class="container my-5">
+    <h2 class="text-center mb-4">Descansa como mereces</h2>
+    <div id="carouselFrases" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active"><img src="https://picsum.photos/1200/400?random=20"
+            class="d-block w-100 rounded" alt="Colchón 1" />
+          <div class="carousel-caption bg-dark bg-opacity-50 rounded">
+            <h5>“Tu sueño,
+              nuestra prioridad”</h5>
+          </div>
+        </div>
+        <div class="carousel-item"><img src="https://picsum.photos/1200/400?random=21" class="d-block w-100 rounded"
+            alt="Colchón 2" />
+          <div class="carousel-caption bg-dark bg-opacity-50 rounded">
+            <h5>“Colchones hechos para durar”</h5>
+          </div>
+        </div>
+        <div class="carousel-item"><img src="https://picsum.photos/1200/400?random=22" class="d-block w-100 rounded"
+            alt="Colchón 3" />
+          <div class="carousel-caption bg-dark bg-opacity-50 rounded">
+            <h5>“El descanso que siempre soñaste”</h5>
+          </div>
+        </div>
+      </div>
+      <!-- Controles --><button class="carousel-control-prev" type="button" data-bs-target="#carouselFrases"
+        data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button><button
+        class="carousel-control-next" type="button" data-bs-target="#carouselFrases" data-bs-slide="next"><span
+          class="carousel-control-next-icon"></span></button>
+    </div>
+  </section>
+  <footer class="bg-dark text-white pt-5">
+    <div class="container">
+      <div class="row">
+        <!-- Columna 1 -->
+        <div class="col-md-3 mb-4">
+          <h5 class="fw-bold mb-3">Atención al Cliente</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white-50 text-decoration-none">Preguntas Frecuentes</a></li>
+            <li><a href="#" class="text-white-50 text-decoration-none">Contáctanos</a></li>
+            <li><a href="#" class="text-white-50 text-decoration-none">Libro de Reclamaciones</a></li>
+          </ul>
+        </div>
+        <!-- Columna 2 -->
+        <div class="col-md-3 mb-4">
+          <h5 class="fw-bold mb-3">Nuestra Empresa</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white-50 text-decoration-none">Ubícanos</a></li>
+            <li><a href="#" class="text-white-50 text-decoration-none">Nosotros</a></li>
+            <li><a href="#" class="text-white-50 text-decoration-none">Trabaja con Nosotros</a></li>
+          </ul>
+        </div>
+        <!-- Columna 4 -->
+        <div class="col-md-3 mb-4">
+          <h5 class="fw-bold mb-3">Suscríbete</h5>
+          <p class="text-white-50">Recibe nuestras ofertas y novedades directamente en tu correo.</p>
+          <form class="d-flex"><input type="email" class="form-control form-control-sm me-2"
+              placeholder="Tu correo" /><button class="btn btn-warning btn-sm">OK</button></form>
+        </div>
+      </div>
+      <!-- Redes sociales -->
+      <div class="text-center my-4"><a href="#" class="text-white fs-4 me-3 social-link"><i
+            class="bi bi-facebook"></i></a><a href="#" class="text-white fs-4 me-3 social-link"><i
+            class="bi bi-instagram"></i></a><a href="#" class="text-white fs-4 me-3 social-link"><i
+            class="bi bi-whatsapp"></i></a><a href="#" class="text-white fs-4 social-link"><i
+            class="bi bi-youtube"></i></a></div>
+      <!-- Derechos reservados -->
+      <div class="text-center border-top border-secondary pt-3"><small class="text-white-50">&copy;
+          2025 Colchones D'Encanto - Todos los derechos reservados</small>
+      </div>
+    </div>
+  </footer>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>
