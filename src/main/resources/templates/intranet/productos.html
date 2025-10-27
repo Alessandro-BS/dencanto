@@ -1,447 +1,343 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Intranet - Productos</title>
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css" />
-    
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="wrapper">
-      <!-- MENÚ LATERAL -->
-      <aside id="sidebar">
-        <div class="d-flex justify-content-between p-4">
-          <div class="sidebar-logo">
-            <a href="#">Colchones D'<br />Encanto</a>
-          </div>
-          <button class="toggle-btn border-0" type="button">
-            <i id="icon" class="bx bxs-chevrons-right"></i>
-          </button>
-        </div>
-        <ul class="sidebar-nav">
-          <!-- PERFIL (ADMIN/USUARIO)-->
-          <li class="sidebar-item">
-            <a href="/intranet/dashboard" class="sidebar-link">
-              <i class="bx bx-history"></i>
-              <span>Historial</span>
-            </a>
-          </li>
-          <!-- MENU PARA ADMIN -->
-           <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
-            <a href="/intranet/reportes" class="sidebar-link">
-              <i class="bx bxs-report"></i>
-              <span>Generar Reportes</span>
-            </a>
-          </li>
-          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
-            <a href="/intranet/productos" class="sidebar-link">
-              <i class="bx bxs-box"></i>
-              <span>Gestión de Productos</span>
-            </a>
-          </li>
-          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
-            <a href="/intranet/usuarios" class="sidebar-link">
-              <i class="bx bxs-user-account"></i>
-              <span>Gestión de Usuarios</span>
-            </a>
-          </li>
-          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
-            <a href="/intranet/cotizaciones" class="sidebar-link">
-              <i class="bx bxs-food-menu"></i>
-              <span>Visualizar Cotizaciones</span>
-            </a>
-          </li>
-          <!-- MENU PARA VENDEDORES -->
-          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
-            <a href="/intranet/revisarCotizaciones" class="sidebar-link">
-              <i class="bx bxs-file"></i>
-              <span>Revisar Cotizaciones</span>
-            </a>
-          </li>
-          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
-            <a href="/intranet/registrarVentas" class="sidebar-link">
-              <i class="bx bxs-cart"></i>
-              <span>Registrar Ventas</span>
-            </a>
-          </li>
-          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
-            <a href="/intranet/historialVentas" class="sidebar-link">
-              <i class="bx bxs-car"></i>
-              <span>Historial de Ventas</span>
-            </a>
-          </li>
-        </ul>
-        <div class="sidebar-footer">
-          <a href="/intranet/login" class="sidebar-link" onclick="confirmLogout()">
-            <i class="bx bx-log-out"></i>
-            <span>Cerrar Sesión</span>
-          </a>
-        </div>
-      </aside>
-
-      <div class="main">
-        <nav class="navbar navbar-expand px-4 py-3">
-          <div class="navbar-collapse collapse">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <span class="nav-link">
-                  <b></b>
-                  <span th:text="${rol}"></span>
-                </span>
-              </li>
-              <li class="nav-item-dropdown">
-                <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                  <img src="/img/account.png" class="avatar img-fluid" alt="" />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <main class="content px-3 py-4">
-          <div class="container-fluid">
-            <div class="mb-3">
-              <div class="d-flex justify-content-between align-items-center mb-4">
-                <h3 class="fw-bold fs-4 mb-0">Gestión de Productos</h3>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
-                  <i class="bx bx-plus"></i> Agregar Producto
+        <!-- MENÚ LATERAL -->
+        <aside id="sidebar">
+            <div class="d-flex justify-content-between p-4">
+                <div class="sidebar-logo">
+                    <a href="#">Colchones D'<br />Encanto</a>
+                </div>
+                <button class="toggle-btn border-0" type="button">
+                    <i id="icon" class="bx bxs-chevrons-right"></i>
                 </button>
-              </div>
-              
-              <!-- Filtros y búsqueda -->
-              <div class="row mb-4">
-                <!-- BUSCAR PRODUCTOS-->
-                <div class="col-md-6">
-                  <div class="search-container">
-                    <input type="text" class="form-control" placeholder="Buscar productos...">
-                    <i class="bx bx-search search-icon"></i>
-                  </div>
-                </div>
-                <!-- CATEGORIA-->
-                <div class="col-md-3">
-                  <select class="form-select">
-                    <option selected>Categoría: Todas</option>
-                    <option>Colchones</option>
-                    <option>Base Cama</option>
-                    <option>Almohadas</option>
-                    <option>Protectores</option>
-                  </select>
-                </div>
-                <!-- ESTADO-->
-                <div class="col-md-3">
-                  <select class="form-select">
-                    <option selected>Estado: Todos</option>
-                    <option>Disponible</option>
-                    <option>Agotado</option>
-                    <option>Descontinuado</option>
-                  </select>
-                </div>
-              </div>
-              
-              <!-- Tabla de productos -->
-              <div class="card shadow">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr class="highlight">
-                          <th scope="col">ID</th>
-                          <!-- OPCIONAL-->
-
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Categoría</th>
-                          <th scope="col">Precio</th>
-                          <th scope="col">Stock</th>
-                          <th scope="col">Estado</th>
-                          <th scope="col">Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- PRODUCTO 1-->
-                        <tr>
-                          <th scope="row">1</th>
-
-                          <td>Colchón Queen Size Memory Foam</td>
-                          <td>Colchones</td>
-                          <td>S/ 1,250.00</td>
-                          <td>15</td>
-                          <td>
-                            <span class="badge bg-success status-badge">Disponible</span>
-                          </td>
-                          <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editProductModal">
-                              <i class="bx bx-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal">
-                              <i class="bx bx-trash"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <!-- PRODUCTO 1-->
-                        <tr>
-                          <th scope="row">1</th>
-
-                          <td>Colchón Queen Size Memory Foam</td>
-                          <td>Colchones</td>
-                          <td>S/ 1,250.00</td>
-                          <td>6</td>
-                          <td>
-                            <span class="badge bg-success status-badge">Disponible</span>
-                          </td>
-                          <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editProductModal">
-                              <i class="bx bx-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal">
-                              <i class="bx bx-trash"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <!-- PRODUCTO 2 -->
-                        <tr>
-                          <th scope="row">3</th>
-
-                          <td>Almohada Viscoelástica Premium</td>
-                          <td>Almohadas</td>
-                          <td>S/ 120.00</td>
-                          <td>0</td>
-                          <td>
-                            <span class="badge bg-danger status-badge">Agotado</span>
-                          </td>
-                          <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editProductModal">
-                              <i class="bx bx-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal">
-                              <i class="bx bx-trash"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <!-- PRODUCTO 3 -->
-                        <tr>
-                          <th scope="row">2</th>
-
-                          <td>Base Cama Ajustable King Size</td>
-                          <td>Base Cama</td>
-                          <td>S/ 890.00</td>
-                          <td>-</td>
-                          <td>
-                            <span class="badge bg-warning status-badge">Descontinuado</span>
-                          </td>
-                          <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editProductModal">
-                              <i class="bx bx-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal">
-                              <i class="bx bx-trash"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        
-                        
-                        
-                      </tbody>
-                    </table>
-                  </div>
-                  
-                  <!-- Paginación -->
-                  <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center mt-4">
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
-                      </li>
-                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Siguiente</a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
             </div>
-          </div>
-        </main>
-        <footer class="footer">
-          <div class="container-fluid">
-            <div class="row text-body-secondary">
-              <div class="col-6 text-start">
-                <a href="#" class="text-body-secondary">
-                  <strong>Colchones D'Encanto</strong>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="/intranet/dashboard" class="sidebar-link">
+                        <i class="bx bx-history"></i>
+                        <span>Historial</span>
+                    </a>
+                </li>
+                <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+                    <a href="/intranet/reportes" class="sidebar-link">
+                        <i class="bx bxs-report"></i>
+                        <span>Generar Reportes</span>
+                    </a>
+                </li>
+                <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+                    <a href="/intranet/productos" class="sidebar-link">
+                        <i class="bx bxs-box"></i>
+                        <span>Gestión de Productos</span>
+                    </a>
+                </li>
+                <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+                    <a href="/intranet/usuarios" class="sidebar-link">
+                        <i class="bx bxs-user-account"></i>
+                        <span>Gestión de Usuarios</span>
+                    </a>
+                </li>
+                <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+                    <a href="/intranet/cotizaciones" class="sidebar-link">
+                        <i class="bx bxs-food-menu"></i>
+                        <span>Visualizar Cotizaciones</span>
+                    </a>
+                </li>
+                <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+                    <a href="/intranet/revisarCotizaciones" class="sidebar-link">
+                        <i class="bx bxs-file"></i>
+                        <span>Revisar Cotizaciones</span>
+                    </a>
+                </li>
+                <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+                    <a href="/intranet/registrarVentas" class="sidebar-link">
+                        <i class="bx bxs-cart"></i>
+                        <span>Registrar Ventas</span>
+                    </a>
+                </li>
+                <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+                    <a href="/intranet/historialVentas" class="sidebar-link">
+                        <i class="bx bxs-car"></i>
+                        <span>Historial de Ventas</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="/intranet/login" class="sidebar-link" onclick="return confirm('¿Está seguro de que desea cerrar sesión?')">
+                    <i class="bx bx-log-out"></i>
+                    <span>Cerrar Sesión</span>
                 </a>
-              </div>
             </div>
-          </div>
-        </footer>
-      </div>
+        </aside>
+
+        <div class="main">
+            <nav class="navbar navbar-expand px-4 py-3">
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <span class="nav-link">
+                                <b></b>
+                                <span th:text="${rol}"></span>
+                            </span>
+                        </li>
+                        <li class="nav-item-dropdown">
+                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                                <img src="/img/account.png" class="avatar img-fluid" alt="" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <main class="content px-3 py-4">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="fw-bold fs-4 mb-0">Gestión de Productos</h3>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                                <i class="bx bx-plus"></i> Agregar Producto
+                            </button>
+                        </div>
+                        
+                        <!-- Mensajes de éxito -->
+                        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                            <span th:text="${successMessage}"></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        
+                        <!-- Tabla de productos -->
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr class="highlight">
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Categoría</th>
+                                                <th scope="col">Precio</th>
+                                                <th scope="col">Stock</th>
+                                                <th scope="col">Estado</th>
+                                                <th scope="col">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Iterar sobre la lista de productos -->
+                                            <tr th:each="producto : ${productos}">
+                                                <th scope="row" th:text="${producto.id}"></th>
+                                                <td th:text="${producto.nombre}"></td>
+                                                <td th:text="${producto.categoria}"></td>
+                                                <td th:text="'S/ ' + ${#numbers.formatDecimal(producto.precio, 1, 2)}"></td>
+                                                <td th:text="${producto.stock}"></td>
+                                                <td>
+                                                    <span th:if="${producto.estado == 'Disponible'}" class="badge bg-success">Disponible</span>
+                                                    <span th:if="${producto.estado == 'Agotado'}" class="badge bg-danger">Agotado</span>
+                                                    <span th:if="${producto.estado == 'Descontinuado'}" class="badge bg-warning">Descontinuado</span>
+                                                    <span th:if="${producto.estado == 'No disponible'}" class="badge bg-secondary">No disponible</span>
+                                                </td>
+                                                <td class="action-buttons">
+                                                    <!-- Botón Editar con datos en atributos data- -->
+                                                    <button class="btn btn-sm btn-outline-primary edit-btn" 
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#editProductModal"
+                                                            th:data-id="${producto.id}"
+                                                            th:data-nombre="${producto.nombre}"
+                                                            th:data-categoria="${producto.categoria}"
+                                                            th:data-precio="${producto.precio}"
+                                                            th:data-stock="${producto.stock}"
+                                                            th:data-descripcion="${producto.descripcion}"
+                                                            th:data-estado="${producto.estado}">
+                                                        <i class="bx bx-edit"></i>
+                                                    </button>
+                                                    
+                                                    <!-- Botón Eliminar -->
+                                                    <a th:href="@{/intranet/productos/eliminar/{id}(id=${producto.id})}" 
+                                                       class="btn btn-sm btn-outline-danger"
+                                                       onclick="return confirm('¿Está seguro de eliminar este producto?')">
+                                                        <i class="bx bx-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <!-- Mensaje si no hay productos -->
+                                            <tr th:if="${#lists.isEmpty(productos)}">
+                                                <td colspan="7" class="text-center text-muted py-4">
+                                                    No hay productos registrados
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
 
     <!-- Modal para agregar producto -->
     <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="addProductModalLabel">Agregar Nuevo Producto</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="productName" class="form-label">Nombre del Producto</label>
-                  <input type="text" class="form-control" id="productName" required>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Agregar Nuevo Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="productCategory" class="form-label">Categoría</label>
-                  <select class="form-select" id="productCategory" required>
-                    <option value="" selected disabled>Seleccionar categoría</option>
-                    <option value="colchones">Colchones</option>
-                    <option value="base-cama">Base Cama</option>
-                    <option value="almohadas">Almohadas</option>
-                    <option value="protectores">Protectores</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="productPrice" class="form-label">Precio (S/)</label>
-                  <input type="number" class="form-control" id="productPrice" step="0.01" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="productStock" class="form-label">Stock</label>
-                  <input type="number" class="form-control" id="productStock" required>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="productDescription" class="form-label">Descripción</label>
-                <textarea class="form-control" id="productDescription" rows="3"></textarea>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Estado</label>
-                <div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="productStatus" id="statusActive" value="active" checked>
-                    <label class="form-check-label" for="statusActive">Disponible</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="productStatus" id="statusInactive" value="inactive">
-                    <label class="form-check-label" for="statusInactive">No disponible</label>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary">Guardar Producto</button>
-          </div>
+                <form th:action="@{/intranet/productos/agregar}" method="post" th:object="${producto}">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nombre" class="form-label">Nombre del Producto *</label>
+                                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="categoria" class="form-label">Categoría *</label>
+                                <select class="form-select" id="categoria" th:field="*{categoria}" required>
+                                    <option value="">Seleccionar categoría</option>
+                                    <option value="Colchones">Colchones</option>
+                                    <option value="Base Cama">Base Cama</option>
+                                    <option value="Almohadas">Almohadas</option>
+                                    <option value="Protectores">Protectores</option>
+                                </select>
+                                <div class="text-danger" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="precio" class="form-label">Precio (S/) *</label>
+                                <input type="number" class="form-control" id="precio" th:field="*{precio}" step="0.01" min="0" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="stock" class="form-label">Stock *</label>
+                                <input type="number" class="form-control" id="stock" th:field="*{stock}" min="0" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="estado" class="form-label">Estado *</label>
+                            <select class="form-select" id="estado" th:field="*{estado}" required>
+                                <option value="Disponible">Disponible</option>
+                                <option value="Agotado">Agotado</option>
+                                <option value="Descontinuado">Descontinuado</option>
+                                <option value="No disponible">No disponible</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Producto</button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- Modal para editar producto -->
     <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editProductModalLabel">Editar Producto</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="editProductName" class="form-label">Nombre del Producto</label>
-                  <input type="text" class="form-control" id="editProductName" value="" required>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel">Editar Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="editProductCategory" class="form-label">Categoría</label>
-                  <select class="form-select" id="editProductCategory" required>
-                    <option value="colchones" selected>Seleccionar</option>
-                    <option value="colchones">Colchones</option>
-                    <option value="base-cama">Base Cama</option>
-                    <option value="almohadas">Almohadas</option>
-                    <option value="protectores">Protectores</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="editProductPrice" class="form-label">Precio (S/)</label>
-                  <input type="number" class="form-control" id="editProductPrice" value="" step="0.01" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="editProductStock" class="form-label">Stock</label>
-                  <input type="number" class="form-control" id="editProductStock" value="" required>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="editProductDescription" class="form-label">Descripción</label>
-                <textarea class="form-control" id="editProductDescription" rows="3"></textarea>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Estado</label>
-                <div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="editProductStatus" id="editStatusActive" value="inactive" checked>
-                    <label class="form-check-label" for="editStatusActive">Disponible</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="editProductStatus" id="editStatusInactive" value="inactive">
-                    <label class="form-check-label" for="editStatusInactive">No disponible</label>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary">Guardar Cambios</button>
-          </div>
+                <form th:action="@{/intranet/productos/editar}" method="post" th:object="${producto}">
+                    <input type="hidden" th:field="*{id}" id="editProductId">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editProductName" class="form-label">Nombre del Producto *</label>
+                                <input type="text" class="form-control" id="editProductName" th:field="*{nombre}" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editProductCategory" class="form-label">Categoría *</label>
+                                <select class="form-select" id="editProductCategory" th:field="*{categoria}" required>
+                                    <option value="Colchones">Colchones</option>
+                                    <option value="Base Cama">Base Cama</option>
+                                    <option value="Almohadas">Almohadas</option>
+                                    <option value="Protectores">Protectores</option>
+                                </select>
+                                <div class="text-danger" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editProductPrice" class="form-label">Precio (S/) *</label>
+                                <input type="number" class="form-control" id="editProductPrice" th:field="*{precio}" step="0.01" min="0" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editProductStock" class="form-label">Stock *</label>
+                                <input type="number" class="form-control" id="editProductStock" th:field="*{stock}" min="0" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProductDescription" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="editProductDescription" th:field="*{descripcion}" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProductEstado" class="form-label">Estado *</label>
+                            <select class="form-select" id="editProductEstado" th:field="*{estado}" required>
+                                <option value="Disponible">Disponible</option>
+                                <option value="Agotado">Agotado</option>
+                                <option value="Descontinuado">Descontinuado</option>
+                                <option value="No disponible">No disponible</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
 
-    <!-- Modal para eliminar producto -->
-    <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="deleteProductModalLabel">Confirmar Eliminación</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>¿Está seguro de que desea eliminar el producto?</p>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Cargar datos en el modal de edición usando atributos data-
+        document.addEventListener('DOMContentLoaded', function() {
+            const editButtons = document.querySelectorAll('.edit-btn');
             
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger">Eliminar Producto</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-
-    <script src="/js/scriptProductos.js"></script>
-  </body>
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const nombre = this.getAttribute('data-nombre');
+                    const categoria = this.getAttribute('data-categoria');
+                    const precio = this.getAttribute('data-precio');
+                    const stock = this.getAttribute('data-stock');
+                    const descripcion = this.getAttribute('data-descripcion');
+                    const estado = this.getAttribute('data-estado');
+                    
+                    // Llenar el formulario de edición
+                    document.getElementById('editProductId').value = id;
+                    document.getElementById('editProductName').value = nombre || '';
+                    document.getElementById('editProductCategory').value = categoria || '';
+                    document.getElementById('editProductPrice').value = precio || '';
+                    document.getElementById('editProductStock').value = stock || '';
+                    document.getElementById('editProductDescription').value = descripcion || '';
+                    document.getElementById('editProductEstado').value = estado || 'Disponible';
+                });
+            });
+        });
+    </script>
+</body>
 </html>

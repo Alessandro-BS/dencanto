@@ -1,8 +1,5 @@
 package com.proyecto.dencanto.controller;
 
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -12,8 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Controller
 @RequestMapping("/intranet")
@@ -55,27 +51,9 @@ public class IntranetController {
         return "intranet/dashboard"; // templates/intranet/dashboard.html
     }
 
-    // Administrador
-    @GetMapping("/productos")
-    public String gestionProductos(Model model) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            InputStream inputStream = getClass().getResourceAsStream("/static/data/productos.json");
-            List<Map<String, Object>> productos = mapper.readValue(
-                    inputStream, new TypeReference<List<Map<String, Object>>>() {});
-            model.addAttribute("productos", productos);
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("productos", List.of()); // lista vacía si falla
-        }
-        return "intranet/productos"; // templates/intranet/productos.html
-    }
+   
 
-    @GetMapping("/usuarios")
-    public String gestionUsuarios() {
-        return "intranet/usuarios";
-    }
-
+  
     @GetMapping("/cotizaciones")
     public String gestionCotizaciones() {
         return "intranet/cotizaciones";

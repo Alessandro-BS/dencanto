@@ -1,551 +1,340 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Intranet - Usuarios</title>
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="/css/style.css" />
-  </head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-  <body>
-    <div class="wrapper">
-      <!-- MENÚ LATERAL -->
-      <aside id="sidebar">
-        <div class="d-flex justify-content-between p-4">
-          <div class="sidebar-logo">
-            <a href="#">Colchones D'<br />Encanto</a>
-          </div>
-          <button class="toggle-btn border-0" type="button">
-            <i id="icon" class="bx bxs-chevrons-right"></i>
-          </button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intranet - Usuarios</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <!-- MENÚ LATERAL -->
+    <aside id="sidebar">
+      <div class="d-flex justify-content-between p-4">
+        <div class="sidebar-logo">
+          <a href="#">Colchones D'<br />Encanto</a>
         </div>
-        <ul class="sidebar-nav">
-          <!-- PERFIL (ADMIN/USUARIO)-->
-          <li class="sidebar-item">
-            <a href="/intranet/dashboard" class="sidebar-link">
-              <i class="bx bx-history"></i>
-              <span>Historial</span>
-            </a>
-          </li>
-          <!-- MENU PARA ADMIN -->
-           <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
-            <a href="/intranet/reportes" class="sidebar-link">
-              <i class="bx bxs-report"></i>
-              <span>Generar Reportes</span>
-            </a>
-          </li>
-          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
-            <a href="/intranet/productos" class="sidebar-link">
-              <i class="bx bxs-box"></i>
-              <span>Gestión de Productos</span>
-            </a>
-          </li>
-          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
-            <a href="/intranet/usuarios" class="sidebar-link">
-              <i class="bx bxs-user-account"></i>
-              <span>Gestión de Usuarios</span>
-            </a>
-          </li>
-          <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
-            <a href="/intranet/cotizaciones" class="sidebar-link">
-              <i class="bx bxs-food-menu"></i>
-              <span>Visualizar Cotizaciones</span>
-            </a>
-          </li>
-          <!-- MENU PARA VENDEDORES -->
-          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
-            <a href="/intranet/revisarCotizaciones" class="sidebar-link">
-              <i class="bx bxs-file"></i>
-              <span>Revisar Cotizaciones</span>
-            </a>
-          </li>
-          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
-            <a href="/intranet/registrarVentas" class="sidebar-link">
-              <i class="bx bxs-cart"></i>
-              <span>Registrar Ventas</span>
-            </a>
-          </li>
-          <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
-            <a href="/intranet/historialVentas" class="sidebar-link">
-              <i class="bx bxs-car"></i>
-              <span>Historial de Ventas</span>
-            </a>
-          </li>
-        </ul>
-        <div class="sidebar-footer">
-          <a href="/intranet/login" class="sidebar-link" onclick="confirmLogout()">
-            <i class="bx bx-log-out"></i>
-            <span>Cerrar Sesión</span>
+        <button class="toggle-btn border-0" type="button">
+          <i id="icon" class="bx bxs-chevrons-right"></i>
+        </button>
+      </div>
+      <ul class="sidebar-nav">
+        <li class="sidebar-item">
+          <a href="/intranet/dashboard" class="sidebar-link">
+            <i class="bx bx-history"></i>
+            <span>Historial</span>
           </a>
-        </div>
-      </aside>
+        </li>
+        <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+          <a href="/intranet/reportes" class="sidebar-link">
+            <i class="bx bxs-report"></i>
+            <span>Generar Reportes</span>
+          </a>
+        </li>
+        <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+          <a href="/intranet/productos" class="sidebar-link">
+            <i class="bx bxs-box"></i>
+            <span>Gestión de Productos</span>
+          </a>
+        </li>
+        <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+          <a href="/intranet/usuarios" class="sidebar-link">
+            <i class="bx bxs-user-account"></i>
+            <span>Gestión de Usuarios</span>
+          </a>
+        </li>
+        <li th:if="${rol} == 'ADMIN'" class="sidebar-item">
+          <a href="/intranet/cotizaciones" class="sidebar-link">
+            <i class="bx bxs-food-menu"></i>
+            <span>Visualizar Cotizaciones</span>
+          </a>
+        </li>
+        <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+          <a href="/intranet/revisarCotizaciones" class="sidebar-link">
+            <i class="bx bxs-file"></i>
+            <span>Revisar Cotizaciones</span>
+          </a>
+        </li>
+        <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+          <a href="/intranet/registrarVentas" class="sidebar-link">
+            <i class="bx bxs-cart"></i>
+            <span>Registrar Ventas</span>
+          </a>
+        </li>
+        <li th:if="${rol} == 'VENDEDOR'" class="sidebar-item">
+          <a href="/intranet/historialVentas" class="sidebar-link">
+            <i class="bx bxs-car"></i>
+            <span>Historial de Ventas</span>
+          </a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">
+        <a href="/intranet/login" class="sidebar-link"
+          onclick="return confirm('¿Está seguro de que desea cerrar sesión?')">
+          <i class="bx bx-log-out"></i>
+          <span>Cerrar Sesión</span>
+        </a>
+      </div>
+    </aside>
 
-      <!-- CONTENIDO -->
-      <div class="main">
-        <!-- ROL -->
-        <nav class="navbar navbar-expand px-4 py-3">
-          <div class="navbar-collapse collapse">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <span class="nav-link">
-                  <b></b>
-                  <span th:text="${rol}"></span>
-                </span>
-              </li>
-              <li class="nav-item-dropdown">
-                <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                  <img src="/img/account.png" class="avatar img-fluid" alt="" />
-                </a>
-              </li>
-            </ul>
+    <!-- CONTENIDO -->
+    <div class="main">
+      <nav class="navbar navbar-expand px-4 py-3">
+        <div class="navbar-collapse collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <span class="nav-link">
+                <b></b>
+                <span th:text="${rol}"></span>
+              </span>
+            </li>
+            <li class="nav-item-dropdown">
+              <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                <img src="/img/account.png" class="avatar img-fluid" alt="" />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <main class="content px-3 py-4">
+        <div class="container-fluid">
+          <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h3 class="fw-bold fs-4 mb-0">Gestión de Usuarios</h3>
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                <i class="bx bx-user-plus"></i> Agregar Usuario
+              </button>
+            </div>
+
+            <!-- Mensajes de éxito -->
+            <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+              <span th:text="${successMessage}"></span>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            <!-- Tabla de usuarios -->
+            <div class="card shadow">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr class="highlight">
+                        <th scope="col">ID</th>
+                        <th scope="col">Avatar</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Nombre Completo</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Iterar sobre la lista de usuarios -->
+                      <tr th:each="usuario : ${usuarios}">
+                        <th scope="row" th:text="${usuario.id}"></th>
+                        <td>
+                          <img src="/img/account.png" class="user-avatar" alt="Usuario" width="40" height="40">
+                        </td>
+                        <td th:text="${usuario.nombreUsuario}"></td>
+                        <td th:text="${usuario.nombreCompleto}"></td>
+                        <td th:text="${usuario.correo}"></td>
+                        <td th:text="${usuario.telefono}"></td>
+                        <td>
+                          <span th:if="${usuario.rol.nombre == 'ADMIN'}"
+                            class="badge bg-danger role-badge">Administrador</span>
+                          <span th:if="${usuario.rol.nombre == 'VENDEDOR'}"
+                            class="badge bg-info role-badge">Vendedor</span>
+                          <span th:if="${usuario.rol.nombre == 'CLIENTE'}"
+                            class="badge bg-secondary role-badge">Cliente</span>
+                        </td>
+                        <td class="action-buttons">
+                          <!-- Botón Editar -->
+                          <!-- En la tabla, actualiza los botones edit-btn: -->
+                          <button class="btn btn-sm btn-outline-primary edit-btn" data-bs-toggle="modal"
+                            data-bs-target="#editUserModal" th:data-id="${usuario.id}"
+                            th:data-nombreusuario="${usuario.nombreUsuario}"
+                            th:data-nombrecompleto="${usuario.nombreCompleto}" th:data-correo="${usuario.correo}"
+                            th:data-telefono="${usuario.telefono}" th:data-rolid="${usuario.rol.id}">
+                            <!-- Aquí envía el ID del rol -->
+                            <i class="bx bx-edit"></i>
+                          </button>
+
+                          <!-- Botón Resetear Contraseña -->
+                          <a th:href="@{/intranet/usuarios/reset-password/{id}(id=${usuario.id})}"
+                            class="btn btn-sm btn-outline-warning"
+                            onclick="return confirm('¿Está seguro de resetear la contraseña de este usuario?')">
+                            <i class="bx bx-refresh"></i>
+                          </a>
+
+                          <!-- Botón Eliminar -->
+                          <a th:href="@{/intranet/usuarios/eliminar/{id}(id=${usuario.id})}"
+                            class="btn btn-sm btn-outline-danger"
+                            onclick="return confirm('¿Está seguro de eliminar este usuario?')">
+                            <i class="bx bx-trash"></i>
+                          </a>
+                        </td>
+                      </tr>
+                      <!-- Mensaje si no hay usuarios -->
+                      <tr th:if="${#lists.isEmpty(usuarios)}">
+                        <td colspan="8" class="text-center text-muted py-4">
+                          No hay usuarios registrados
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
-        </nav>
-        <main class="content px-3 py-4">
-          <div class="container-fluid">
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal para agregar usuario -->
+  <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addUserModalLabel">Agregar Nuevo Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/intranet/usuarios/agregar}" method="post" th:object="${usuario}">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="nombreUsuario" class="form-label">Nombre de Usuario *</label>
+                <input type="text" class="form-control" id="nombreUsuario" th:field="*{nombreUsuario}" required>
+                <div class="text-danger" th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}">
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="nombreCompleto" class="form-label">Nombre Completo *</label>
+                <input type="text" class="form-control" id="nombreCompleto" th:field="*{nombreCompleto}" required>
+                <div class="text-danger" th:if="${#fields.hasErrors('nombreCompleto')}" th:errors="*{nombreCompleto}">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="correo" class="form-label">Email *</label>
+                <input type="email" class="form-control" id="correo" th:field="*{correo}" required>
+                <div class="text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="telefono" th:field="*{telefono}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="contrasenaHash" class="form-label">Contraseña *</label>
+                <input type="password" class="form-control" id="contrasenaHash" th:field="*{contrasenaHash}" required>
+                <div class="text-danger" th:if="${#fields.hasErrors('contrasenaHash')}" th:errors="*{contrasenaHash}">
+                </div>
+              </div>
+              <select class="form-select" id="rolId" name="rolId" required>
+                <option value="">Seleccionar rol</option>
+                <option th:each="rolItem : ${roles}" th:value="${rolItem.id}" th:text="${rolItem.nombre}">
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Crear Usuario</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para editar usuario -->
+  <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editUserModalLabel">Editar Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/intranet/usuarios/editar}" method="post" th:object="${usuario}">
+          <input type="hidden" th:field="*{id}" id="editUserId">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="editNombreUsuario" class="form-label">Nombre de Usuario *</label>
+                <input type="text" class="form-control" id="editNombreUsuario" th:field="*{nombreUsuario}" required>
+                <div class="text-danger" th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}">
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="editNombreCompleto" class="form-label">Nombre Completo *</label>
+                <input type="text" class="form-control" id="editNombreCompleto" th:field="*{nombreCompleto}" required>
+                <div class="text-danger" th:if="${#fields.hasErrors('nombreCompleto')}" th:errors="*{nombreCompleto}">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="editCorreo" class="form-label">Email *</label>
+                <input type="email" class="form-control" id="editCorreo" th:field="*{correo}" required>
+                <div class="text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="editTelefono" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="editTelefono" th:field="*{telefono}">
+              </div>
+            </div>
             <div class="mb-3">
-              <div class="d-flex justify-content-between align-items-center mb-4">
-                <h3 class="fw-bold fs-4 mb-0">Gestión de Usuarios</h3>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                  <i class="bx bx-user-plus"></i> Agregar Usuario
-                </button>
-              </div>
-              
-              <!-- Tarjetas de estadísticas -->
-              <div class="row mb-4">
-                <div class="col-12 col-md-3">
-                  <div class="card shadow stats-card">
-                    <div class="card-body py-4">
-                      <h6 class="mb-2 fw-bold">Total Usuarios</h6>
-                      <p class="fw-bold mb-2 fs-3 text-primary">24</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-3">
-                  <div class="card shadow stats-card">
-                    <div class="card-body py-4">
-                      <h6 class="mb-2 fw-bold">Administradores</h6>
-                      <p class="fw-bold mb-2 fs-3 text-info">3</p>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-3">
-                  <div class="card shadow stats-card">
-                    <div class="card-body py-4">
-                      <h6 class="mb-2 fw-bold">Vendedores Activos</h6>
-                      <p class="fw-bold mb-2 fs-3 text-success">18</p>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-3">
-                  <div class="card shadow stats-card">
-                    <div class="card-body py-4">
-                      <h6 class="mb-2 fw-bold">Usuarios Inactivos</h6>
-                      <p class="fw-bold mb-2 fs-3 text-warning">3</p>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Filtros y búsqueda -->
-              <div class="row mb-4">
-                <div class="col-md-6">
-                  <div class="search-container">
-                    <input type="text" class="form-control" placeholder="Buscar usuarios...">
-                    <i class="bx bx-search search-icon"></i>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <select class="form-select">
-                    <option selected>Rol: Todos</option>
-                    <option>Administrador</option>
-                    <option>Vendedor</option>
-                  </select>
-                </div>
-                <div class="col-md-3">
-                  <select class="form-select">
-                    <option selected>Estado: Todos</option>
-                    <option>Activo</option>
-                    <option>Inactivo</option>
-                  </select>
-                </div>
-              </div>
-              
-              <!-- Tabla de usuarios -->
-              <div class="card shadow">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr class="highlight">
-                          <th scope="col">ID</th>
-                          <th scope="col">Avatar</th>
-                          <th scope="col">Nombre Completo</th>
-                          <th scope="col">Email</th>
-                          <th scope="col">Teléfono</th>
-                          <th scope="col">Rol</th>
-                          <th scope="col">Estado</th>
-                          <th scope="col">Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>
-                            <img src="/img/admin.jpg" class="user-avatar" alt="Usuario" width="40" height="40">
-                          </td>
-                          <td>Fabrizio Alessandro Bustamante Soria</td>
-                          <td>alessandro.bustamante@colchonesencanto.com</td>
-                          <td>+51 978 455 147</td>
-                          <td>
-                            <span class="badge bg-danger role-badge">Administrador</span>
-                          </td>
-                          <td>
-                            <span class="badge bg-success status-badge">Activo</span>
-                          </td>
-
-                          <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">
-                              <i class="bx bx-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
-                              <i class="bx bx-refresh"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
-                              <i class="bx bx-trash"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>
-                            <img src="/img/account.png" class="user-avatar" alt="Usuario" width="40" height="40">
-                          </td>
-                          <td>Shayuri Kiara García Ortega</td>
-                          <td>shayuri.garcia@colchonesencanto.com</td>
-                          <td>+51 974 514 228</td>
-                          <td>
-                            <span class="badge bg-info role-badge">Usuario</span>
-                          </td>
-                          <td>
-                            <span class="badge bg-success status-badge">Activo</span>
-                          </td>
-
-                          <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">
-                              <i class="bx bx-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
-                              <i class="bx bx-refresh"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
-                              <i class="bx bx-trash"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>
-                            <img src="/img/account.png" class="user-avatar" alt="Usuario" width="40" height="40">
-                          </td>
-                          <td>Walter Isaac Mantari Licapa</td>
-                          <td>walter.mantari@colchonesencanto.com</td>
-                          <td>+51 944 511 272</td>
-                          <td>
-                            <span class="badge bg-info role-badge">Usuario</span>
-                          </td>
-                          <td>
-                            <span class="badge bg-success status-badge">Activo</span>
-                          </td>
-
-                          <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">
-                              <i class="bx bx-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
-                              <i class="bx bx-refresh"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
-                              <i class="bx bx-trash"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">4</th>
-                          <td>
-                            <img src="/img/account.png" class="user-avatar" alt="Usuario" width="40" height="40">
-                          </td>
-                          <td>Juan Daniel Ore Ramos</td>
-                          <td>juan.ore@colchonesencanto.com</td>
-                          <td>+51 985 644 278</td>
-                          <td>
-                            <span class="badge bg-info role-badge">Usuario</span>
-                          </td>
-                          <td>
-                            <span class="badge bg-success status-badge">Activo</span>
-                          </td>
-
-                          <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">
-                              <i class="bx bx-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
-                              <i class="bx bx-refresh"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
-                              <i class="bx bx-trash"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        
-                        <tr>
-                          <th scope="row">5</th>
-                          <td>
-                            <img src="/img/account.png" class="user-avatar" alt="Usuario" width="40" height="40">
-                          </td>
-                          <td>Marcela Natalie Rodriguez Munaylla</td>
-                          <td>marcela.rodriguez@colchonesencanto.com</td>
-                          <td>+51 986 478 330</td>
-                          <td>
-                            <span class="badge bg-info role-badge">Usuario</span>
-                          </td>
-                          <td>
-                            <span class="badge bg-warning status-badge">Inactivo</span>
-                          </td>
-
-                          <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">
-                              <i class="bx bx-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
-                              <i class="bx bx-refresh"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
-                              <i class="bx bx-trash"></i>
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  
-                  <!-- Paginación -->
-                  <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center mt-4">
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
-                      </li>
-                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Siguiente</a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
+              <label for="editRol" class="form-label">Rol *</label>
+              <select class="form-select" id="editRol" th:field="*{rol.id}" required>
+                <option th:each="rolItem : ${roles}" th:value="${rolItem.id}" th:text="${rolItem.nombre}">
+                </option>
+              </select>
+              <div class="text-danger" th:if="${#fields.hasErrors('rol')}" th:errors="*{rol}"></div>
             </div>
           </div>
-        </main>
-        <footer class="footer">
-          <div class="container-fluid">
-            <div class="row text-body-secondary">
-              <div class="col-6 text-start">
-                <a href="#" class="text-body-secondary">
-                  <strong>Colchones D'Encanto</strong>
-                </a>
-              </div>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </div>
-
-    <!-- Modal para agregar usuario -->
-    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="addUserModalLabel">Agregar Nuevo Usuario</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="userFirstName" class="form-label">Nombres</label>
-                  <input type="text" class="form-control" id="userFirstName" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="userLastName" class="form-label">Apellidos</label>
-                  <input type="text" class="form-control" id="userLastName" required>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="userEmail" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="userEmail" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="userPhone" class="form-label">Teléfono</label>
-                  <input type="tel" class="form-control" id="userPhone">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="userRole" class="form-label">Rol</label>
-                  <select class="form-select" id="userRole" required>
-                    <option value="" selected disabled>Seleccionar rol</option>
-                    
-                    <option value="vendedor">Vendedor</option>
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="userStatus" class="form-label">Estado</label>
-                  <select class="form-select" id="userStatus" required>
-                    <option value="" selected disabled>Seleccionar estado</option>
-                    <option value="active">Activo</option>
-                    
-                  </select>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="userAvatar" class="form-label">Foto de Perfil</label>
-                <input class="form-control" type="file" id="userAvatar">
-              </div>
-              <div class="mb-3">
-                <label for="userPassword" class="form-label">Contraseña Temporal</label>
-                <input type="password" class="form-control" id="" required>
-                
-              </div>
-            </form>
-          </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary">Crear Usuario</button>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <!-- Modal para editar usuario -->
-    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editUserModalLabel">Editar Usuario</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="editUserFirstName" class="form-label">Nombres</label>
-                  <input type="text" class="form-control" id="editUserFirstName" value="" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="editUserLastName" class="form-label">Apellidos</label>
-                  <input type="text" class="form-control" id="editUserLastName" value="" required>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="editUserEmail" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="editUserEmail" value="" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="editUserPhone" class="form-label">Teléfono</label>
-                  <input type="tel" class="form-control" id="editUserPhone" value="">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="editUserRole" class="form-label">Rol</label>
-                  <select class="form-select" id="editUserRole" required>
-                    <option value="vendedor" selected>Vendedor</option>
-                    
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="editUserStatus" class="form-label">Estado</label>
-                  <select class="form-select" id="editUserStatus" required>
-                    <option value="active" selected>Activo</option>
-                    <option value="inactive">Inactivo</option>
-                  </select>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="editUserAvatar" class="form-label">Foto de Perfil</label>
-                <input class="form-control" type="file" id="editUserAvatar">
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary">Guardar Cambios</button>
-          </div>
-        </div>
-      </div>
-    </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Modal para resetear contraseña -->
+  <script>
+    // En la función que carga datos en el modal de edición:
+    document.addEventListener('DOMContentLoaded', function () {
+      const editButtons = document.querySelectorAll('.edit-btn');
 
-    <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="resetPasswordModalLabel">Resetear Contraseña</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>¿Está seguro de que desea resetear la contraseña de <strong>"Fabrizio Alessandro Bustamante Soria"</strong>?</p>
-            <p class="text-info">Se generará una nueva contraseña temporal y se enviará al email del usuario.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-warning">Resetear Contraseña</button>
-          </div>
-        </div>
-      </div>
-    </div>
+      editButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const id = this.getAttribute('data-id');
+          const nombreUsuario = this.getAttribute('data-nombreusuario');
+          const nombreCompleto = this.getAttribute('data-nombrecompleto');
+          const correo = this.getAttribute('data-correo');
+          const telefono = this.getAttribute('data-telefono');
+          const rolId = this.getAttribute('data-rolid');
 
-    <!-- Modal para eliminar usuario -->
-    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="deleteUserModalLabel">Confirmar Eliminación</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>¿Está seguro de que desea eliminar al usuario?</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger">Eliminar Usuario</button>
-          </div>
-        </div>
-      </div>
-    </div>
+          // Llenar el formulario de edición
+          document.getElementById('editUserId').value = id;
+          document.getElementById('editNombreUsuario').value = nombreUsuario || '';
+          document.getElementById('editNombreCompleto').value = nombreCompleto || '';
+          document.getElementById('editCorreo').value = correo || '';
+          document.getElementById('editTelefono').value = telefono || '';
+          document.getElementById('editRol').value = rolId || '';
+        });
+      });
+    });
+  </script>
+</body>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-    <script src="/js/scriptUsuarios.js"></script>
-  </body>
 </html>
