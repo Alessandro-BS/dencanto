@@ -9,11 +9,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.proyecto.dencanto.Repository.VentaRepository;
+
 
 
 @Controller
 @RequestMapping("/intranet")
 public class IntranetController {
+
+    // Modificaciones avance 3:
+    // Muestre todas las ventas registradas en la tabla ventas.
+    // Liste sus detalles (productos, cantidades, precios) desde detalle_venta.
+    // Permita ver el detalle de cada venta en el modal.
+    private final VentaRepository ventaRepository;
+    public IntranetController(VentaRepository ventaRepository) {
+        this.ventaRepository = ventaRepository;
+    }
+    @GetMapping("/intranet/historialVentas")
+    public String mostrarHistorialVentas(Model model) {
+        model.addAttribute("ventas", ventaRepository.findAll());
+        return "intranet/historialVentas";
+    }
+
+
 
     // Página del login
     @GetMapping("/login")
@@ -83,5 +101,7 @@ public class IntranetController {
     public String gestionVentas() {
         return "intranet/ventas";
     }
+
+
     
 }

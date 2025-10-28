@@ -1,11 +1,21 @@
 package com.proyecto.dencanto.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+
+import com.proyecto.dencanto.Repository.ProductoRepository;
+
 @Controller
 public class Homecontroller {
+
+    @Autowired
+    private ProductoRepository productoRepository;
+
+    
+
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("titulo", "Inicio - Colchones D' Encanto");
@@ -15,6 +25,8 @@ public class Homecontroller {
     @GetMapping("/productos")
     public String mostrarProductos(Model model) {
         model.addAttribute("titulo", "Productos - Fábrica de Colchones");
+        model.addAttribute("productos", productoRepository.findAll());
+        
         return "productos";
     }
 

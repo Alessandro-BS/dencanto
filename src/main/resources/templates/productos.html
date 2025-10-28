@@ -12,224 +12,222 @@
 </head>
 
 <body>
-    <header>
-        <!-- Barra Superior -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom py-1">
-            <div class="container d-flex justify-content-between">
-                <div class="collapse navbar-collapse" id="navbarSup">
-                    <ul class="navbar-nav ms-auto align-items-center">
-                        <li class="nav-item">
-                            <a class="nav-link small text-light" th:href="@{/FAQ}">
-                                <i class="bi bi-question-circle me-1"></i> Preguntas Frecuentes
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link small text-light" th:href="@{/ubicanos}">
-                                <i class="bi bi-geo-alt me-1"></i> Ubícanos
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link small text-warning fw-bold" th:href="@{/intranet/login}">
-                                <i class="bi bi-person-circle me-1"></i> Intranet
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+<header>
+    <!-- Barra Superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom py-1">
+        <div class="container d-flex justify-content-between">
+            <div class="collapse navbar-collapse" id="navbarSup">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link small text-light" th:href="@{/FAQ}">
+                            <i class="bi bi-question-circle me-1"></i> Preguntas Frecuentes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link small text-light" th:href="@{/ubicanos}">
+                            <i class="bi bi-geo-alt me-1"></i> Ubícanos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link small text-warning fw-bold" th:href="@{/intranet/login}">
+                            <i class="bi bi-person-circle me-1"></i> Intranet
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- Barra Principal -->
-        <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
-            <div class="container">
-                <a class="navbar-brand fw-bold text-dark" th:href="@{/}">
-                    <img src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/110ef33b-0246-49d3-bdda-72b3e0ee8b42/LogoEncanto_QCBIJL.png"
-                        height="45" class="me-2" />
-                </a>
+    <!-- Barra Principal -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-dark" th:href="@{/}">
+                <img src="https://utp-prd-upload-file-storage.s3.amazonaws.com/pao/content/110ef33b-0246-49d3-bdda-72b3e0ee8b42/LogoEncanto_QCBIJL.png"
+                     height="45" class="me-2" />
+            </a>
 
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarInf" aria-controls="navbarInf" aria-expanded="false"
                     aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarInf">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link fw-semibold text-dark" th:href="@{/productos}">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-semibold text-dark" th:href="@{/ofertas}">Ofertas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-semibold text-dark" th:href="@{/nosotros}">Nosotros</a>
-                        </li>
-                    </ul>
+            <div class="collapse navbar-collapse" id="navbarInf">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold text-dark" th:href="@{/productos}">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold text-dark" th:href="@{/ofertas}">Ofertas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold text-dark" th:href="@{/nosotros}">Nosotros</a>
+                    </li>
+                </ul>
 
-                    <a class="btn btn-outline-warning rounded-pill ms-lg-3" href="#">
-                        <i class="bi bi-cart me-1"></i> Carrito
-                    </a>
-                </div>
+                <a class="btn btn-outline-warning rounded-pill ms-lg-3" href="/carrito/ver">
+                    <i class="bi bi-cart me-1"></i> Carrito
+                </a>
             </div>
-        </nav>
-    </header>
-
-    <!-- Encabezado -->
-    <section class="py-4 text-center bg-light">
-        <div class="container">
-            <h1 class="fw-bold">Nuestros Productos</h1>
-            <p class="lead">Elige el colchón ideal para tu descanso</p>
         </div>
-    </section>
+    </nav>
+</header>
 
-    <!-- Contenido -->
-    <section class="container my-5">
-        <div class="row">
-            <!-- Sidebar filtros (versión anterior, simple) -->
-            <aside class="col-md-3 mb-4">
-                <h5 class="fw-bold mb-3">Filtrar por</h5>
-                <form action="#" method="GET">
-                    <div class="mb-3">
-                        <label class="form-label">Categoría</label>
-                        <select class="form-select" name="categoria" id="categoria">
-                            <option value="0">Todos</option>
-                            <th:block th:each="categoria : ${categorias}">
-                                <option th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
-                            </th:block>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Precio máximo</label>
-                        <input type="range" class="form-range" min="100" max="5000" step="100" name="precioMaximo">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Tamaño</label>
-                        <select class="form-select" name="tamano">
-                            <option value="0">Todos</option>
-                            <option>1 plaza</option>
-                            <option>1.5 plazas</option>
-                            <option>2 plazas</option>
-                            <option>Queen</option>
-                            <option>King</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Modelo</label>
-                        <select class="form-select" name="modelo">
-                            <option value="0">Todos</option>
-                            <option>Premium</option>
-                            <option>Ortopédico</option>
-                            <option>Viscoelástico</option>
-                            <option>Clásico</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Aplicar Filtros</button>
-                </form>
-            </aside>
+<!-- Encabezado -->
+<section class="py-4 text-center bg-light">
+    <div class="container">
+        <h1 class="fw-bold">Nuestros Productos</h1>
+        <p class="lead">Elige el colchón ideal para tu descanso</p>
+    </div>
+</section>
 
-            <!-- Productos -->
-            <div class="col-md-9">
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <!-- Productos dinámicos -->
-                    <div class="col" th:each="producto : ${productos}">
-                        <div class="card h-100 shadow-sm border-0 rounded-3 product-card">
-                            <img th:src="@{${producto.imagen}}" class="card-img-top p-2 rounded-3"
-                                th:alt="${producto.nombre}">
-                            <div class="card-body text-center">
-                                <h5 class="card-title" th:text="${producto.nombre}"></h5>
-                                <p class="fw-bold text-success fs-5" th:text="${producto.precio}"></p>
-                                <button class="btn btn-dark w-100 fw-bold" data-bs-toggle="modal"
+<!-- Contenido -->
+<section class="container my-5">
+    <div class="row">
+        <!-- Sidebar filtros -->
+        <aside class="col-md-3 mb-4">
+            <h5 class="fw-bold mb-3">Filtrar por</h5>
+            <form action="#" method="GET">
+                <div class="mb-3">
+                    <label class="form-label">Categoría</label>
+                    <select class="form-select" name="categoria" id="categoria">
+                        <option value="0">Todos</option>
+                        <th:block th:each="categoria : ${categorias}">
+                            <option th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Precio máximo</label>
+                    <input type="range" class="form-range" min="100" max="5000" step="100" name="precioMaximo">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Tamaño</label>
+                    <select class="form-select" name="tamano">
+                        <option value="0">Todos</option>
+                        <option>1 plaza</option>
+                        <option>1.5 plazas</option>
+                        <option>2 plazas</option>
+                        <option>Queen</option>
+                        <option>King</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Modelo</label>
+                    <select class="form-select" name="modelo">
+                        <option value="0">Todos</option>
+                        <option>Premium</option>
+                        <option>Ortopédico</option>
+                        <option>Viscoelástico</option>
+                        <option>Clásico</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Aplicar Filtros</button>
+            </form>
+        </aside>
+
+        <!-- Productos -->
+        <div class="col-md-9">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- Productos dinámicos -->
+                <div class="col" th:each="producto : ${productos}">
+                    <div class="card h-100 shadow-sm border-0 rounded-3 product-card">
+                        <img src="/img/cama3.jpeg" class="card-img-top p-2 rounded-3"
+                             th:alt="${producto.nombre}">
+                        <div class="card-body text-center">
+                            <h5 class="card-title" th:text="${producto.nombre}"></h5>
+                            <p class="fw-bold text-success fs-5" th:text="'S/ ' + ${producto.precio}"></p>
+                            <button class="btn btn-dark w-100 fw-bold" data-bs-toggle="modal"
                                     th:data-bs-target="'#modalProducto' + ${producto.id}">
-                                    Ver detalles
-                                </button>
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Modal de cada producto -->
+                    <div class="modal fade" th:id="'modalProducto' + ${producto.id}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content shadow-lg border-0 rounded-4">
+                                <div class="modal-header bg-dark text-white">
+                                    <h5 class="modal-title" th:text="${producto.nombre}"></h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body row p-4">
+                                    <div class="col-md-6">
+                                        <img src="/img/cama3.jpeg" class="img-fluid rounded shadow-sm"
+                                             th:alt="${producto.nombre}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p th:text="${producto.descripcion}"></p>
+                                        <ul class="small">
+                                            <!--<li th:text="'🌙 ' + ${producto.modelo}"></li>-->
+                                            <!--<li th:text="'🛏️ Tamaño: ' + ${producto.tamano}"></li>-->
+                                        </ul>
+                                        <hr>
+                                        <p class="fw-bold text-success fs-5" th:text="'S/ ' + ${producto.precio}"></p>
+
+                                        <!-- FORMULARIO PARA AGREGAR AL CARRITO -->
+                                        <form th:action="@{/carrito/agregar}" method="post">
+    <input type="hidden" name="productoId" th:value="${producto.id}" />
+    <input type="number" name="cantidad" value="1" min="1" />
+    <button type="submit">Agregar al carrito</button>
+</form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal Producto -->
-    <div class="modal fade" id="modalProducto" th:id="'modalProducto' + ${producto.id}" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content shadow-lg border-0 rounded-4">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title" th:text="${producto.nombre}"></h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body row p-4">
-                    <div class="col-md-6">
-                        <img th:src="@{${producto.imagen}}" class="img-fluid rounded shadow-sm"
-                            th:alt="${producto.nombre}">
-                    </div>
-                    <div class="col-md-6">
-                        <p th:text="${producto.descripcion}"></p>
-                        <ul class="small">
-                            <li th:text="'🌙 ' + ${producto.modelo}"></li>
-                            <li th:text="'🛏️ Tamaño: ' + ${producto.tamano}"></li>
-                            <li th:text="'💨 ' + ${producto.detallesVentilacion}"></li>
-                            <li th:text="'🦠 ' + ${producto.proteccionAntiacaros}"></li>
-                        </ul>
-                        <hr>
-                        <h6 class="fw-bold">Garantía</h6>
-                        <p class="small" th:text="${producto.garantia}"></p>
-                        <h6 class="fw-bold">Recomendaciones</h6>
-                        <p class="small" th:text="${producto.recomendaciones}"></p>
-                        <p class="fw-bold text-success fs-5" th:text="${producto.precio}"></p>
-                        <button class="btn btn-success w-100 fw-bold"><i class="bi bi-cart-plus"></i> Agregar al
-                            carrito</button>
-                    </div>
-                </div>
+                </div> <!-- fin de each producto -->
             </div>
         </div>
     </div>
+</section>
 
-    <footer class="bg-dark text-white pt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 mb-4">
-                    <h5 class="fw-bold mb-3">Atención al Cliente</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white-50 text-decoration-none">Preguntas Frecuentes</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Contáctanos</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Libro de Reclamaciones</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <h5 class="fw-bold mb-3">Nuestra Empresa</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white-50 text-decoration-none">Ubícanos</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Nosotros</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Trabaja con Nosotros</a></li>
-                    </ul>
-                </div>
-
-
-                <div class="col-md-3 mb-4">
-                    <h5 class="fw-bold mb-3">Suscríbete</h5>
-                    <p class="text-white-50">Recibe nuestras ofertas y novedades directamente en tu correo.</p>
-                    <form class="d-flex">
-                        <input type="email" class="form-control form-control-sm me-2" placeholder="Tu correo" />
-                        <button class="btn btn-warning btn-sm">OK</button>
-                    </form>
-                </div>
+<footer class="bg-dark text-white pt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <h5 class="fw-bold mb-3">Atención al Cliente</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white-50 text-decoration-none">Preguntas Frecuentes</a></li>
+                    <li><a href="#" class="text-white-50 text-decoration-none">Contáctanos</a></li>
+                    <li><a href="#" class="text-white-50 text-decoration-none">Libro de Reclamaciones</a></li>
+                </ul>
             </div>
 
-            <div class="text-center my-4">
-                <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-whatsapp"></i></a>
-                <a href="#" class="text-white fs-4 social-link"><i class="bi bi-youtube"></i></a>
+            <div class="col-md-3 mb-4">
+                <h5 class="fw-bold mb-3">Nuestra Empresa</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white-50 text-decoration-none">Ubícanos</a></li>
+                    <li><a href="#" class="text-white-50 text-decoration-none">Nosotros</a></li>
+                    <li><a href="#" class="text-white-50 text-decoration-none">Trabaja con Nosotros</a></li>
+                </ul>
             </div>
 
-            <div class="text-center border-top border-secondary pt-3">
-                <small class="text-white-50">&copy; 2025 Colchones D'Encanto - Todos los derechos reservados</small>
+            <div class="col-md-3 mb-4">
+                <h5 class="fw-bold mb-3">Suscríbete</h5>
+                <p class="text-white-50">Recibe nuestras ofertas y novedades directamente en tu correo.</p>
+                <form class="d-flex">
+                    <input type="email" class="form-control form-control-sm me-2" placeholder="Tu correo" />
+                    <button class="btn btn-warning btn-sm">OK</button>
+                </form>
             </div>
         </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <div class="text-center my-4">
+            <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="text-white fs-4 me-3 social-link"><i class="bi bi-whatsapp"></i></a>
+            <a href="#" class="text-white fs-4 social-link"><i class="bi bi-youtube"></i></a>
+        </div>
+
+        <div class="text-center border-top border-secondary pt-3">
+            <small class="text-white-50">&copy; 2025 Colchones D'Encanto - Todos los derechos reservados</small>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scriptProductos.js"></script>
 </body>
-
 </html>
