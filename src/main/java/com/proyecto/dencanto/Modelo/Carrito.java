@@ -2,6 +2,7 @@ package com.proyecto.dencanto.Modelo;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -41,5 +42,6 @@ public class Carrito {
     private LocalDateTime fechaActualizacion;
 
     @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetalleCarrito> items;
+    @Builder.Default
+    private List<DetalleCarrito> items = new ArrayList<>();
 }

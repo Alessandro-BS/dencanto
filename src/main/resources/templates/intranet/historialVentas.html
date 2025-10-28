@@ -177,26 +177,26 @@
               <div class="row mb-4">
                 <div class="col-12 col-md-3">
                   <div class="card kpi-card stats-card">
-                    <div class="kpi-value text-primary">S/ 18,250.00</div>
+                    <div class="kpi-value text-primary" th:text="${'S/ ' + #numbers.formatDecimal(montoTotalVentas, 1, 2)}">S/ 0.00</div>
                     <div class="kpi-label">Ventas Totales</div>
                   </div>
                 </div>
                 <div class="col-12 col-md-3">
                   <div class="card kpi-card stats-card">
-                    <div class="kpi-value text-success">12</div>
+                    <div class="kpi-value text-success" th:text="${cantidadVentas}">0</div>
                     <div class="kpi-label">Ventas Realizadas</div>
                   </div>
                 </div>
                 <div class="col-12 col-md-3">
                   <div class="card kpi-card stats-card">
-                    <div class="kpi-value text-info">S/ 1,520.83</div>
+                    <div class="kpi-value text-info" th:text="${'S/ ' + #numbers.formatDecimal(promedioVenta, 1, 2)}">S/ 0.00</div>
                     <div class="kpi-label">Promedio por Venta</div>
                   </div>
                 </div>
                 <div class="col-12 col-md-3">
                   <div class="card kpi-card stats-card">
-                    <div class="kpi-value text-warning">S/ 1,825.00</div>
-                    <div class="kpi-label">Comisiones Estimadas</div>
+                    <div class="kpi-value text-warning" th:text="${'S/ ' + #numbers.formatDecimal(comisionEstimada, 1, 2)}">S/ 0.00</div>
+                    <div class="kpi-label">Comisiones Estimadas (10%)</div>
                   </div>
                 </div>
               </div>
@@ -252,255 +252,51 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <!-- Venta 1 -->
-                        <tr class="sale-item">
-                          <th scope="row">
-                            <div class="fw-bold">V-2025-00125</div>
-                          </th>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div>
-                                <div class="fw-bold">Carlos López</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div>
-                              <span class="badge bg-primary product-badge"
-                                >Colchón King Size</span
-                              >
-                              <span class="badge bg-info product-badge"
-                                >Base Cama</span
-                              >
-                            </div>
-                          </td>
-
-                          <td>
-                            <span class="fw-bold"
-                              >S/ 304.00</span
-                            >
-                          </td>
-                          <td>
-                            <span class="badge bg-success status-badge">
-                              <i class="bx bx-money"></i> Efectivo
-                            </span>
-                          </td>
-                          <td>
-                            <span class="badge bg-success status-badge"
-                              >Completada</span
-                            >
-                          </td>
-                          <td>
-                            <div class="fw-bold">15/01/2025</div>
-                          </td>
-                          <td>
-                            <button
-                              class="btn btn-sm btn-outline-primary"
-                              data-bs-toggle="modal"
-                              data-bs-target="#saleDetailModal"
-                            >
-                              <i class="bx bx-show"></i>
-                            </button>
+                        <tr th:if="${#lists.isEmpty(ventas)}">
+                          <td colspan="8" class="text-center text-muted py-5">
+                            <i class="bx bx-info-circle fs-3 d-block mb-2"></i>
+                            Aún no se registran ventas confirmadas.
                           </td>
                         </tr>
-
-                        <!-- Venta 2 -->
-                        <tr class="sale-item">
+                        <tr th:each="venta : ${ventas}" class="sale-item">
                           <th scope="row">
-                            <div class="fw-bold">V-2025-00118</div>
+                            <div class="fw-bold" th:text="${'VENT-' + venta.id}"></div>
                           </th>
                           <td>
                             <div class="d-flex align-items-center">
                               <div>
-                                <div class="fw-bold">Ana Martínez</div>
+                                <div class="fw-bold" th:text="${venta.usuario != null and venta.usuario.nombreCompleto != null} ? venta.usuario.nombreCompleto : 'Cliente Web'"></div>
+                                <div class="text-muted small" th:if="${venta.usuario != null and venta.usuario.correo != null}" th:text="${venta.usuario.correo}"></div>
                               </div>
                             </div>
                           </td>
                           <td>
-                            <div>
-                              <span class="badge bg-warning product-badge"
-                                >Almohadas (x4)</span
-                              >
-                            </div>
-                          </td>
-                          <td>
-                            <div class="fw-bold">S/ 480.00</div>
-                          </td>
-
-                          <td>
-                            <span class="badge bg-primary status-badge">
-                              <i class="bx bx-credit-card"></i> Tarjeta
-                            </span>
-                          </td>
-                          <td>
-                            <span class="badge bg-success status-badge"
-                              >Completada</span
-                            >
-                          </td>
-                          <td>
-                            <div class="fw-bold">12/01/2025</div>
-                          </td>
-                          <td>
-                            <button
-                              class="btn btn-sm btn-outline-primary"
-                              data-bs-toggle="modal"
-                              data-bs-target="#saleDetailModal"
-                            >
-                              <i class="bx bx-show"></i>
-                            </button>
-                          </td>
-                        </tr>
-
-                        <!-- Venta 3 -->
-                        <tr class="sale-item">
-                          <th scope="row">
-                            <div class="fw-bold">V-2025-00105</div>
-                          </th>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div>
-                                <div class="fw-bold">Laura Mendoza</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div>
+                            <div class="d-flex flex-wrap gap-1">
                               <span class="badge bg-primary product-badge"
-                                >Colchón Queen</span
-                              >
-                              <span class="badge bg-info product-badge"
-                                >Base Ajustable</span
-                              >
-                              <span class="badge bg-warning product-badge"
-                                >Almohadas (x2)</span
-                              >
+                                th:each="detalle : ${venta.detalles}"
+                                th:text="${detalle.producto != null ? detalle.producto.nombre : 'Producto'} + ' (x' + detalle.cantidad + ')'">
+                              </span>
                             </div>
                           </td>
                           <td>
-                            <div class="fw-bold">S/ 3,200.00</div>
+                            <span class="fw-bold" th:text="${venta.total != null} ? 'S/ ' + #numbers.formatDecimal(venta.total, 1, 2) : 'S/ 0.00'"></span>
                           </td>
-
                           <td>
-                            <span class="badge bg-info status-badge">
-                              <i class="bx bx-transfer"></i> Transferencia
+                            <span class="badge bg-secondary status-badge">
+                              <i class="bx bx-credit-card"></i> No registrado
                             </span>
                           </td>
                           <td>
-                            <span class="badge bg-warning status-badge"
-                              >Pendiente entrega</span
-                            >
+                            <span class="badge status-badge" th:classappend="${venta.estado == 'COMPLETADO'} ? ' bg-success' : ' bg-warning'" th:text="${venta.estado}"></span>
                           </td>
                           <td>
-                            <div class="fw-bold">10/01/2025</div>
+                            <div class="fw-bold" th:text="${venta.fechaCreacion != null} ? #temporals.format(venta.fechaCreacion, 'dd/MM/yyyy HH:mm') : '-' "></div>
                           </td>
                           <td>
                             <button
                               class="btn btn-sm btn-outline-primary"
                               data-bs-toggle="modal"
-                              data-bs-target="#saleDetailModal"
-                            >
-                              <i class="bx bx-show"></i>
-                            </button>
-                          </td>
-                        </tr>
-
-                        <!-- Venta 4 -->
-                        <tr class="sale-item">
-                          <th scope="row">
-                            <div class="fw-bold">V-2025-00098</div>
-                          </th>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div>
-                                <div class="fw-bold">Roberto Silva</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div>
-                              <span class="badge bg-primary product-badge"
-                                >Colchón Twin</span
-                              >
-                              <span class="badge bg-success product-badge"
-                                >Protector</span
-                              >
-                            </div>
-                          </td>
-                          <td>
-                            <div class="fw-bold">S/ 950.00</div>
-                          </td>
-
-                          <td>
-                            <span class="badge bg-warning status-badge">
-                              <i class="bx bx-mobile-alt"></i> Yape
-                            </span>
-                          </td>
-                          <td>
-                            <span class="badge bg-success status-badge"
-                              >Completada</span
-                            >
-                          </td>
-                          <td>
-                            <div class="fw-bold">08/01/2025</div>
-                          </td>
-                          <td>
-                            <button
-                              class="btn btn-sm btn-outline-primary"
-                              data-bs-toggle="modal"
-                              data-bs-target="#saleDetailModal"
-                            >
-                              <i class="bx bx-show"></i>
-                            </button>
-                          </td>
-                        </tr>
-
-                        <!-- Venta 5 -->
-                        <tr class="sale-item">
-                          <th scope="row">
-                            <div class="fw-bold">V-2025-00087</div>
-                          </th>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div>
-                                <div class="fw-bold">Miguel Ángel Rojas</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div>
-                              <span class="badge bg-primary product-badge"
-                                >Colchón Queen</span
-                              >
-                              <span class="badge bg-info product-badge"
-                                >Base Cama</span
-                              >
-                              <span class="badge bg-warning product-badge"
-                                >Almohadas (x2)</span
-                              >
-                            </div>
-                          </td>
-                          <td>
-                            <div class="fw-bold">S/ 2,850.00</div>
-                          </td>
-
-                          <td>
-                            <span class="badge bg-success status-badge">
-                              <i class="bx bx-money"></i> Efectivo
-                            </span>
-                          </td>
-                          <td>
-                            <span class="badge bg-success status-badge"
-                              >Completada</span
-                            >
-                          </td>
-                          <td>
-                            <div class="fw-bold">05/01/2025</div>
-                          </td>
-                          <td>
-                            <button
-                              class="btn btn-sm btn-outline-primary"
-                              data-bs-toggle="modal"
-                              data-bs-target="#saleDetailModal"
+                              th:data-bs-target="${'#saleDetailModal' + venta.id}"
                             >
                               <i class="bx bx-show"></i>
                             </button>
@@ -556,54 +352,47 @@
     </div>
 
     <!-- Modal de detalle de venta -->
-    <div
-      class="modal fade"
-      id="saleDetailModal"
-      tabindex="-1"
-      aria-labelledby="saleDetailModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
+    <div th:each="venta : ${ventas}" class="modal fade" th:id="${'saleDetailModal' + venta.id}" tabindex="-1" th:aria-labelledby="${'saleDetailModalLabel' + venta.id}" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="saleDetailModalLabel">
-              Detalle de Venta - V-2024-00125
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <h5 class="modal-title" th:id="${'saleDetailModalLabel' + venta.id}" th:text="${'Detalle de Venta - VENT-' + venta.id}"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div class="row mb-4">
+            <div class="row mb-3">
               <div class="col-md-6">
-                <h6>Información del Cliente</h6>
-                <p>
-                  <strong>Nombre:</strong> Carlos López<br />
-                  <strong>Email:</strong> carlos.lopez@email.com<br />
-                  <strong>Teléfono:</strong> +51 987 654 321<br />
-                  <strong>DNI:</strong> 76543210<br />
-                  <strong>Dirección:</strong> Av. Javier Prado 123, San Isidro
+                <h6 class="fw-bold">Información del cliente</h6>
+                <p class="mb-1">
+                  <strong>Nombre:</strong>
+                  <span th:text="${venta.usuario != null and venta.usuario.nombreCompleto != null} ? venta.usuario.nombreCompleto : 'Cliente Web'"></span>
+                </p>
+                <p class="mb-1" th:if="${venta.usuario != null and venta.usuario.correo != null}">
+                  <strong>Email:</strong>
+                  <span th:text="${venta.usuario.correo}"></span>
+                </p>
+                <p class="mb-1" th:if="${venta.usuario != null and venta.usuario.telefono != null}">
+                  <strong>Teléfono:</strong>
+                  <span th:text="${venta.usuario.telefono}"></span>
                 </p>
               </div>
               <div class="col-md-6">
-                <h6>Información de la Venta</h6>
-                <p>
-                  <strong>Fecha:</strong> 15/01/2024<br />
-                  <strong>Vendedor:</strong> Fabrizio Bustamante<br />
+                <h6 class="fw-bold">Información de la venta</h6>
+                <p class="mb-1">
+                  <strong>Fecha:</strong>
+                  <span th:text="${venta.fechaCreacion != null} ? #temporals.format(venta.fechaCreacion, 'dd/MM/yyyy HH:mm') : '-' "></span>
+                </p>
+                <p class="mb-1">
                   <strong>Estado:</strong>
-                  <span class="badge bg-success">Completada</span><br />
-                  <strong>Método Pago:</strong>
-                  <span class="badge bg-success">Efectivo</span><br />
-                  <strong>Origen:</strong>
-                  <span class="badge bg-info">Desde cotización COT-008</span>
+                  <span class="badge bg-success" th:classappend="${venta.estado == 'COMPLETADO'} ? '' : ' bg-warning'" th:text="${venta.estado}"></span>
+                </p>
+                <p class="mb-1">
+                  <strong>Total:</strong>
+                  <span th:text="${venta.total != null} ? 'S/ ' + #numbers.formatDecimal(venta.total, 1, 2) : 'S/ 0.00'"></span>
                 </p>
               </div>
             </div>
-
-            <h6>Productos Vendidos</h6>
+            <h6 class="fw-bold">Productos vendidos</h6>
             <div class="table-responsive">
               <table class="table table-bordered">
                 <thead>
@@ -615,67 +404,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Colchón King Size Memory Foam Premium</td>
-                    <td>1</td>
-                    <td>S/ 2,150.00</td>
-                    <td>S/ 2,150.00</td>
+                  <tr th:if="${#lists.isEmpty(venta.detalles)}">
+                    <td colspan="4" class="text-center text-muted">No hay detalles registrados.</td>
                   </tr>
-                  <tr>
-                    <td>Base Cama King Size Ajustable</td>
-                    <td>1</td>
-                    <td>S/ 890.00</td>
-                    <td>S/ 890.00</td>
+                  <tr th:each="detalle : ${venta.detalles}">
+                    <td th:text="${detalle.producto != null ? detalle.producto.nombre : 'Producto'}"></td>
+                    <td th:text="${detalle.cantidad}"></td>
+                    <td th:text="${detalle.precioUnitario != null} ? 'S/ ' + #numbers.formatDecimal(detalle.precioUnitario, 1, 2) : 'S/ 0.00'"></td>
+                    <td th:text="${detalle.precioUnitario != null} ? 'S/ ' + #numbers.formatDecimal(detalle.precioUnitario.multiply(T(java.math.BigDecimal).valueOf(detalle.cantidad)), 1, 2) : 'S/ 0.00'"></td>
                   </tr>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="3" class="text-end">
-                      <strong>Subtotal:</strong>
-                    </td>
-                    <td><strong>S/ 3,040.00</strong></td>
-                  </tr>
-                  <tr>
-                    <td colspan="3" class="text-end">
-                      <strong>IGV (18%):</strong>
-                    </td>
-                    <td><strong>S/ 547.20</strong></td>
-                  </tr>
-                  <tr>
-                    <td colspan="3" class="text-end">
-                      <strong>Total:</strong>
-                    </td>
-                    <td><strong class="text-success">S/ 3,587.20</strong></td>
-                  </tr>
-                </tfoot>
               </table>
             </div>
-
-            <div class="row mt-4">
-              <div class="col-md-6">
-                <h6>Información de Entrega</h6>
-                <div class="bg-light rounded p-3">
-                  <p>
-                    <strong>Fecha de Entrega:</strong> 16/01/2024<br />
-                    <strong>Estado:</strong>
-                    <span class="badge bg-success">Entregado</span><br />
-                    <strong>Dirección Entrega:</strong> Av. Javier Prado 123,
-                    San Isidro<br />
-                    <strong>Notas:</strong> Cliente satisfecho, producto
-                    entregado en perfecto estado
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cerrar
-            </button>
           </div>
         </div>
       </div>

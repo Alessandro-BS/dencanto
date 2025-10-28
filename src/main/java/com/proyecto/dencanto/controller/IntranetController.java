@@ -1,6 +1,11 @@
 package com.proyecto.dencanto.controller;
 
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.List;
+import java.util.Objects;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.proyecto.dencanto.Modelo.Venta;
 import com.proyecto.dencanto.Repository.VentaRepository;
 
 
@@ -25,14 +31,6 @@ public class IntranetController {
     public IntranetController(VentaRepository ventaRepository) {
         this.ventaRepository = ventaRepository;
     }
-    @GetMapping("/intranet/historialVentas")
-    public String mostrarHistorialVentas(Model model) {
-        model.addAttribute("ventas", ventaRepository.findAll());
-        return "intranet/historialVentas";
-    }
-
-
-
     // Página del login
     @GetMapping("/login")
     public String login() {
@@ -93,7 +91,24 @@ public class IntranetController {
    
 
     @GetMapping("/historialVentas")
-    public String gestionHistorialVentas() {
+    public String gestionHistorialVentas(Model model) {
+        List<Venta> ventas = ventaRepository.findAllByOrderByFechaCreacionDesc();
+        BigDecimal montoTotal = ventas.stream()
+                .map(Venta::getTotal)
+                .filter(Objects::nonNull)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .setScale(2, RoundingMode.HALF_UP);
+        int cantidadVentas = ventas.size();
+        BigDecimal promedio = cantidadVentas > 0
+                ? montoTotal.divide(BigDecimal.valueOf(cantidadVentas), 2, RoundingMode.HALF_UP)
+                : BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+        BigDecimal comision = montoTotal.multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_UP);
+
+        model.addAttribute("ventas", ventas);
+        model.addAttribute("montoTotalVentas", montoTotal);
+        model.addAttribute("cantidadVentas", cantidadVentas);
+        model.addAttribute("promedioVenta", promedio);
+        model.addAttribute("comisionEstimada", comision);
         return "intranet/historialVentas";
     }
 

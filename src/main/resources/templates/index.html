@@ -12,6 +12,16 @@
 </head>
 
 <body>
+  <div class="container mt-3" style="max-width: 960px;" th:if="${compraExitosa} or ${compraCancelada}">
+    <div th:if="${compraExitosa}" class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="bi bi-check-circle-fill me-2"></i> ¡Tu compra se registró con éxito! Gracias por confiar en nosotros.
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    <div th:if="${compraCancelada}" class="alert alert-warning alert-dismissible fade show" role="alert">
+      <i class="bi bi-info-circle-fill me-2"></i> La compra fue cancelada. Puedes seguir explorando nuestros productos cuando quieras.
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </div>
   <header>
     <!-- Barra Superior -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom py-1">

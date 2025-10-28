@@ -1,6 +1,9 @@
 package com.proyecto.dencanto.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
@@ -44,15 +47,19 @@ public class CarritoService {
     }
 
     public Carrito obtenerCarritoActivoParaUsuario(Usuario usuario) {
-        return carritoRepo.findByUsuarioAndEstado(usuario, "ACTIVO")
+        Carrito carrito = carritoRepo.findByUsuarioAndEstado(usuario, "ACTIVO")
                 .orElseGet(() -> {
                     Carrito c = Carrito.builder()
                             .usuario(usuario)
                             .estado("ACTIVO")
                             .total(BigDecimal.ZERO)
+                            .fechaCreacion(LocalDateTime.now())
+                            .fechaActualizacion(LocalDateTime.now())
                             .build();
                     return carritoRepo.save(c);
                 });
+        asegurarListaItems(carrito);
+        return carrito;
     }
 
     public Carrito agregarProducto(Usuario usuario, Integer productoId, int cantidad) {
@@ -60,6 +67,7 @@ public class CarritoService {
             .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
 
     Carrito carrito = obtenerCarritoActivoParaUsuario(usuario);
+    asegurarListaItems(carrito);
 
     // Buscar si ya existe item del mismo producto
     DetalleCarrito existente = carrito.getItems() == null ? null :
@@ -89,6 +97,7 @@ public class CarritoService {
     public Carrito actualizarCantidad(Usuario usuario, Integer detalleId, int cantidad) {
         DetalleCarrito detalle = detalleRepo.findById(detalleId)
                 .orElseThrow(() -> new IllegalArgumentException("Detalle no encontrado"));
+        validarPropietario(detalle.getCarrito(), usuario);
         if (cantidad <= 0) {
             detalle.getCarrito().getItems().remove(detalle);
             detalleRepo.delete(detalle);
@@ -101,12 +110,50 @@ public class CarritoService {
         return carritoRepo.save(c);
     }
 
+    public Carrito eliminarDetalle(Usuario usuario, Integer detalleId) {
+        DetalleCarrito detalle = detalleRepo.findById(detalleId)
+                .orElseThrow(() -> new IllegalArgumentException("Detalle no encontrado"));
+        Carrito carrito = detalle.getCarrito();
+        validarPropietario(carrito, usuario);
+        carrito.getItems().remove(detalle);
+        detalleRepo.delete(detalle);
+        recalcularTotal(carrito);
+        return carritoRepo.save(carrito);
+    }
+
+    public void cancelarCarrito(Usuario usuario) {
+        Carrito carrito = obtenerCarritoActivoParaUsuario(usuario);
+        if (!carrito.getItems().isEmpty()) {
+            detalleRepo.deleteAll(carrito.getItems());
+            carrito.getItems().clear();
+        }
+        carrito.setEstado("CANCELADO");
+        carrito.setTotal(BigDecimal.ZERO);
+        carrito.setFechaActualizacion(LocalDateTime.now());
+        carritoRepo.save(carrito);
+    }
+
+    private void asegurarListaItems(Carrito carrito) {
+        if (carrito.getItems() == null) {
+            carrito.setItems(new ArrayList<>());
+        }
+    }
+
+    private void validarPropietario(Carrito carrito, Usuario usuario) {
+        if (carrito == null || carrito.getUsuario() == null || usuario == null
+                || !carrito.getUsuario().getId().equals(usuario.getId())
+                || !"ACTIVO".equalsIgnoreCase(carrito.getEstado())) {
+            throw new IllegalStateException("No tiene acceso a este carrito");
+        }
+    }
+
     private void recalcularTotal(Carrito carrito) {
         BigDecimal total = carrito.getItems() == null ? BigDecimal.ZERO :
                 carrito.getItems().stream()
                     .map(it -> it.getPrecioUnitario().multiply(BigDecimal.valueOf(it.getCantidad())))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
         carrito.setTotal(total);
+        carrito.setFechaActualizacion(LocalDateTime.now());
     }
 
     public void confirmarCompra(Usuario usuario) {
@@ -120,6 +167,8 @@ public class CarritoService {
         venta.setUsuario(usuario);
         venta.setTotal(carrito.getTotal());
         venta.setEstado("COMPLETADO");
+        venta.setFechaCreacion(LocalDateTime.now());
+        venta.setFechaActualizacion(LocalDateTime.now());
         venta = ventaRepo.save(venta);
 
         // crear detalle_venta por cada detalle_carrito
@@ -141,6 +190,15 @@ public class CarritoService {
 
         // archivar carrito
         carrito.setEstado("COMPRADO");
+        carrito.setFechaActualizacion(LocalDateTime.now());
         carritoRepo.save(carrito);
+    }
+
+    public BigDecimal calcularSubtotal(Carrito carrito) {
+        return carrito.getTotal() == null ? BigDecimal.ZERO : carrito.getTotal();
+    }
+
+    public BigDecimal calcularImpuesto(Carrito carrito) {
+        return calcularSubtotal(carrito).multiply(BigDecimal.valueOf(0.18)).setScale(2, RoundingMode.HALF_UP);
     }
 }
